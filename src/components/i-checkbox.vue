@@ -14,7 +14,7 @@
         :checked="value"
         @input="onInput"
       />
-      <ic-checklist class="i-checkbox-icon" />
+      <ic-check class="i-checkbox-icon" />
     </span>
 
     <slot>
@@ -24,12 +24,12 @@
 </template>
 
 <script>
-import IcChecklist from '@/icons/ic-checklist.vue';
+import IcCheck from '@/icons/ic-check.vue';
 
 export default {
   name: 'ICheckbox',
   components: {
-    IcChecklist,
+    IcCheck,
   },
   props: {
     value: Boolean,

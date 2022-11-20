@@ -1,5 +1,6 @@
 /* vendors */
 @import "./vendors/tailwind";
+@import "./vendors/flag-icons";
 
 /* app */
 @import "./app/base";

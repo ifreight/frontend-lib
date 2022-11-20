@@ -76,9 +76,5 @@ module.exports = {
       '9xl': ['var(--size-9xl)'],
     },
   },
-  plugins: [
-    require('@tailwindcss/typography'),
-    require('@tailwindcss/line-clamp'),
-    require('@tailwindcss/aspect-ratio'),
-  ],
+  plugins: [],
 };

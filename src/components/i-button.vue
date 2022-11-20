@@ -108,7 +108,7 @@ export default {
 }
 
 .i-button-text {
-  @apply flex justify-center items-center p-0 border-0 text-yellow-700 font-medium;
+  @apply flex justify-center items-center p-0 border-0 text-yellow-700 font-medium bg-transparent;
 
   &.disabled {
     @apply text-gray-400 pointer-events-none;
