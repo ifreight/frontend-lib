@@ -37,8 +37,7 @@
         :placeholder="placeholder"
         :disabled="disabled"
         :read-only="isInputReadOnly"
-        :invalid="invalid"
-        :error-message="errorMessage"
+        :invalid="invalid || !!errorMessage"
         :dark="dark"
         :borderless="borderless"
         :size="size"
@@ -61,27 +60,34 @@
           </slot>
         </template>
       </i-input>
+
+      <i-dropdown :is-visible="isVisible">
+        <template #header>
+          <slot name="dropdownHeader" />
+        </template>
+
+        <i-dropdown-options
+          :options="dropdownOptions"
+          :option-key="optionKey"
+          :option-value="optionValue"
+          :current-value="selectedOptionValue"
+          :query="query"
+          :filterable="filterable"
+          :remote="remote"
+          :remote-text="remoteText"
+          :no-data-text="noDataText"
+          :loading="isLoading"
+          @selectedValue="handleSelected"
+        />
+      </i-dropdown>
     </div>
 
-    <i-dropdown :is-visible="isVisible">
-      <template #header>
-        <slot name="dropdownHeader" />
-      </template>
-
-      <i-dropdown-options
-        :options="dropdownOptions"
-        :option-key="optionKey"
-        :option-value="optionValue"
-        :current-value="selectedOptionValue"
-        :query="query"
-        :filterable="filterable"
-        :remote="remote"
-        :remote-text="remoteText"
-        :no-data-text="noDataText"
-        :loading="isLoading"
-        @selectedValue="handleSelected"
-      />
-    </i-dropdown>
+    <div
+      v-if="!!errorMessage"
+      class="i-input-error"
+    >
+      {{ errorMessage }}
+    </div>
   </div>
 </template>
 
@@ -398,7 +404,12 @@ export default {
 .i-select {
   &.inside {
     position: relative;
+
+    .i-select-container {
+      position: relative;
+    }
   }
+
   .i-select-slot-selected {
     border: 1px solid var(--gray-400);
     border-radius: 10px;
@@ -420,9 +431,17 @@ export default {
       border: none;
     }
   }
+
   .i-select-arrow-container {
     cursor: pointer;
     padding: 4px;
+  }
+
+  .i-input-error {
+    padding-top: 8px;
+    font-size: var(--size-xs);
+    line-height: var(--size-sm);
+    color: var(--red-400);
   }
 }
 </style>

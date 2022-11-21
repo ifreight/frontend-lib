@@ -39,7 +39,6 @@ export default {
   },
   data() {
     return {
-      offsetHeight: 0,
       openDirection: 'below',
     };
   },
@@ -50,9 +49,8 @@ export default {
           top: '-7px',
         };
       }
-
       return {
-        bottom: `${this.offsetHeight - 7}px`,
+        top: '-9px',
       };
     },
   },
@@ -67,11 +65,6 @@ export default {
         }
       }
     },
-  },
-  mounted() {
-    if (this.$refs.reference) {
-      this.offsetHeight = this.$refs.reference.offsetHeight;
-    }
   },
 };
 </script>
@@ -89,7 +82,6 @@ export default {
 
   .i-dropdown-arrow {
     position: absolute;
-    top: 100%;
     width: 100%;
 
     span {
@@ -119,8 +111,12 @@ export default {
   }
 
   &.below {
-    .i-dropdown-arrow span {
-      border-bottom-color: var(--white);
+    .i-dropdown-arrow {
+      top: 100%;
+
+      span {
+        border-bottom-color: var(--white);
+      }
     }
 
     .i-dropdown-box {
@@ -129,8 +125,12 @@ export default {
   }
 
   &.above {
-    .i-dropdown-arrow span {
-      border-top-color: var(--white);
+    .i-dropdown-arrow {
+      bottom: 100%;
+
+      span {
+        border-top-color: var(--white);
+      }
     }
 
     .i-dropdown-box {

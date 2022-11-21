@@ -61,6 +61,7 @@
         label="Select"
         class="flex-1"
         :options="selectStaticOptions"
+        error-message="Field required"
       />
 
       <i-select
