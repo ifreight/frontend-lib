@@ -23,6 +23,7 @@ module.exports = defineConfig({
         'vue-popperjs': 'vue-popperjs',
         'vue-imask': 'vue-imask',
         dayjs: 'dayjs',
+        'lodash/debounce': 'lodash/debounce',
       });
     }
   },
