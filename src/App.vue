@@ -12,7 +12,7 @@
             :currentPage="pagination.currentPage"
             :total="pagination.total"
             :pageSize="10"
-            :limitVisiblePage="pagination.limit"
+            :pagerCount="pagination.limit"
           />
         </div>
         <div>

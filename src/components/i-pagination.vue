@@ -5,7 +5,7 @@
   >
     <template v-if="showAngle">
       <button
-        class="mr-[20px] angle"
+        class="angle angles-left"
         :class="{ 'disabled': disableLeftAngle }"
         :disabled="disableLeftAngle"
         @click="clickLeftAngles"
@@ -13,7 +13,7 @@
         <ic-angles-left />
       </button>
       <button
-        class="mr-[7px] angle"
+        class="angle angle-left"
         :class="{ 'disabled': disableLeftAngle }"
         :disabled="disableLeftAngle"
         @click="clickLeftAngle"
@@ -71,7 +71,7 @@
     </div>
     <template v-if="showAngle">
       <button
-        class="ml-[7px] angle"
+        class="angle angle-right"
         :class="{ 'disabled': disableRightAngle }"
         :disabled="disableRightAngle"
         @click="clickRightAngle"
@@ -79,7 +79,7 @@
         <ic-angle-right />
       </button>
       <button
-        class="ml-[20px] angle"
+        class="angle angles-right"
         :class="{ 'disabled': disableRightAngle }"
         :disabled="disableRightAngle"
         @click="clickRightAngles"
@@ -111,7 +111,7 @@ export default {
       type: Number,
       default: 10,
     },
-    limitVisiblePage: {
+    pagerCount: {
       type: Number,
       default: 7,
     },
@@ -147,24 +147,24 @@ export default {
       return this.totalPages > 1 ? this.totalPages : null;
     },
     upperLimit() {
-      return Math.floor(this.limitVisiblePage / 2);
+      return Math.floor(this.pagerCount / 2);
     },
     isShowFirstInterval() {
-      if (this.totalPages <= this.limitVisiblePage) {
+      if (this.totalPages <= this.pagerCount) {
         return false;
       }
-      return this.activePage - (this.limitVisiblePage - this.upperLimit) >= 1;
+      return this.activePage - (this.pagerCount - this.upperLimit) >= 1;
     },
     isHideLastInterval() {
-      if (this.totalPages <= this.limitVisiblePage) {
+      if (this.totalPages <= this.pagerCount) {
         return true;
       }
       return this.activePage + this.upperLimit >= this.totalPages;
     },
     startLoopNumber() {
       let start = 2; // dynamic variable
-      const middleNumber = this.limitVisiblePage - start; // the number of pages that appear in the middle section
-      if (this.totalPages > middleNumber && this.totalPages > this.limitVisiblePage) {
+      const middleNumber = this.pagerCount - start; // the number of pages that appear in the middle section
+      if (this.totalPages > middleNumber && this.totalPages > this.pagerCount) {
         if (this.isShowFirstInterval) {
           start = this.activePage - (this.upperLimit - 1);
         }
@@ -175,7 +175,7 @@ export default {
       return start;
     },
     limitLoop() {
-      return this.limitVisiblePage > this.totalPages ? this.totalPages - 2 : this.limitVisiblePage - 2;
+      return this.pagerCount > this.totalPages ? this.totalPages - 2 : this.pagerCount - 2;
     },
     middlePage() {
       const midPage = [];
@@ -252,6 +252,22 @@ export default {
   .angle {
     cursor: pointer;
     color: var(--yellow-700);
+
+    &.angle-left {
+      margin-right: 7px;
+    }
+
+    &.angle-right {
+      margin-left: 7px;
+    }
+
+    &.angles-left {
+      margin-right: 20px;
+    }
+
+    &.angles-right {
+      margin-left: 20px;
+    }
 
     &.disabled {
       cursor: default;
