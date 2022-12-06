@@ -20,10 +20,9 @@ export default {
       return;
     }
 
-    store.countryList = Promise.resolve(arrayOrPromise)
-      .then((result) => {
-        store.countryList = result;
-      });
+    store.countryList = Promise.resolve(arrayOrPromise).then((result) => {
+      store.countryList = result;
+    });
   },
   async getCountryList() {
     if (Array.isArray(store.countryList)) {

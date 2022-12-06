@@ -75,9 +75,9 @@ export default {
     position: absolute;
     top: 0;
     left: 0;
+    z-index: -1;
     width: 100%;
     height: 100%;
-    z-index: -1;
   }
 
   .i-dropdown-arrow {
@@ -94,14 +94,14 @@ export default {
 
   .i-dropdown-box {
     position: absolute;
-    z-index: 2;
     left: 0;
-    background-color: var(--white);
+    z-index: 2;
     width: 100%;
     padding: 20px;
-    box-shadow: 0 0 20px rgb(0 0 0 / 25%);
-    border-radius: 10px;
     overflow: hidden;
+    background-color: var(--white);
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgb(0 0 0 / 25%);
 
     .i-dropdown-header {
       padding: 4px 0 12px;

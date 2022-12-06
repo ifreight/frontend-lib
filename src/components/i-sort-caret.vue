@@ -67,13 +67,13 @@ export default {
 <style>
 .i-sort-caret {
   display: inline-block;
-  vertical-align: middle;
-  text-align: center;
-  border-radius: 50%;
-  cursor: pointer;
   width: 16px;
   height: 16px;
   padding: 2px 0;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  border-radius: 50%;
 
   &:hover {
     background-color: var(--gray-200);
@@ -83,12 +83,13 @@ export default {
     width: 0;
     height: 0;
     margin: 0 auto;
-    border-left: 4px solid transparent;
     border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
 
     &.up {
       border-bottom: 5px solid var(--gray-400);
     }
+
     &.down {
       margin-top: 2px;
       border-top: 5px solid var(--gray-400);

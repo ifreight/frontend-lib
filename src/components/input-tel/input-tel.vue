@@ -191,10 +191,7 @@ export default {
               break;
             }
 
-            if (
-              value.charAt(dialCodeEndIndex)
-              === this.activeCountry.phoneCode.charAt(dialCodeCheckIndex)
-            ) {
+            if (value.charAt(dialCodeEndIndex) === this.activeCountry.phoneCode.charAt(dialCodeCheckIndex)) {
               dialCodeCheckIndex += 1;
             }
           }
@@ -208,11 +205,7 @@ export default {
     parseModelValue(value) {
       let parsedValue = value;
 
-      if (
-        parsedValue
-        && parsedValue[0] !== '+'
-        && this.activeCountry
-      ) {
+      if (parsedValue && parsedValue[0] !== '+' && this.activeCountry) {
         parsedValue = `${this.activeCountry.phoneCode}${value}`;
       }
       return parsedValue;

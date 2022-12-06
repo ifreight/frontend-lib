@@ -1,24 +1,29 @@
 <template>
   <svg
-    width="9"
-    height="15"
-    viewBox="0 0 9 15"
+    width="21"
+    height="21"
+    viewBox="0 0 21 21"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    :class="`ic-angle-${direction}`"
+    :class="`ic-angle-circle-${direction}`"
   >
+    <circle
+      cx="10.9141"
+      cy="10.875"
+      r="10"
+      fill="currentColor"
+    />
     <path
-      d="M1 0.498047L8 7.49805L1 14.498"
-      stroke="currentColor"
-      stroke-width="1.2"
-      stroke-linejoin="round"
+      d="M8.50781 6.06152L13.3212 10.8749L8.50781 15.6883"
+      stroke="white"
+      stroke-width="2"
     />
   </svg>
 </template>
 
 <script>
 export default {
-  name: 'IcAngle',
+  name: 'IcAngleCircle',
   props: {
     direction: {
       type: String,
@@ -32,7 +37,7 @@ export default {
 </script>
 
 <style>
-.ic-angle {
+.ic-angle-circle {
   &-left {
     transform: rotateZ(180deg);
   }

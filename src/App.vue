@@ -12,9 +12,7 @@
       Test
     </i-box>
 
-    <i-button>
-      Test
-    </i-button>
+    <i-button> Test </i-button>
 
     <div class="p-5">
       <i-checkbox label="toggle" />
@@ -28,28 +26,24 @@
       <i-popover
         dark
         tooltip
-        showClose
+        show-close
         placement="right"
       >
         <template #reference>
           <ic-info-circle class="inline text-gray-400" />
         </template>
         <span>
-          Country ID is a number used to list down<br>
+          Country ID is a number used to list down<br />
           registered countries all over iFreight's database.
         </span>
       </i-popover>
 
-      <i-popover
-        trigger="click"
-      >
+      <i-popover trigger="click">
         <template #reference>
           <ic-filter class="inline" />
         </template>
 
-        <div class="w-[205px] px-5 py-6">
-          Test
-        </div>
+        <div class="w-[205px] px-5 py-6">Test</div>
       </i-popover>
     </div>
 
@@ -61,6 +55,7 @@
         label="Select"
         class="flex-1"
         :options="selectStaticOptions"
+        clearable
         error-message="Field required"
       />
 
@@ -73,6 +68,7 @@
         filterable
         class="flex-1"
         :options="selectStaticOptions"
+        clearable
       />
 
       <i-select
@@ -85,6 +81,7 @@
         class="flex-1"
         remote
         :remote-method="selectRemoteMethod"
+        clearable
       />
     </div>
 
@@ -95,6 +92,7 @@
         name="text"
         label="Input Text"
         class="flex-1"
+        clearable
         :maxlength="3"
       />
 
@@ -103,7 +101,7 @@
         input-id="textPlaceholder"
         name="textPlaceholder"
         label="Input Text Placeholder"
-        placeholder="e.g. placeholder"
+        placeholder-value="e.g. text placeholder"
         class="flex-1"
         error-message="Field required"
       >
@@ -120,6 +118,11 @@
         input-id="textFilled"
         name="textFilled"
         label="Input Text Filled"
+        mask="number"
+        :mask-options="{
+          min: -100,
+          max: 100,
+        }"
         class="flex-1"
       >
         <template #prepend>
@@ -146,7 +149,6 @@
         input-id="textNumber"
         name="textNumber"
         label="Input Number"
-        placeholder="123"
         mask="number"
         class="flex-1"
         :maxlength="3"
@@ -156,14 +158,15 @@
           <i-popover
             dark
             tooltip
-            showClose
+            show-close
             placement="top"
+            class="inline-block"
           >
             <template #reference>
               <ic-info-circle class="inline" />
             </template>
             <span>
-              Country ID is a number used to list down<br>
+              Country ID is a number used to list down<br />
               registered countries all over iFreight's database.
             </span>
           </i-popover>
@@ -181,7 +184,7 @@
       />
     </div>
 
-    <div class="py-5 w-[536px]">
+    <div class="py-5 flex gap-2">
       <i-dual-input :filled="!!searchString">
         <template #first-input>
           <i-select
@@ -193,6 +196,7 @@
             :options="searchTypeOptions"
             option-value="label"
             borderless
+            clearable
           />
         </template>
         <template #second-input>
@@ -209,6 +213,51 @@
               <IcMagnifyingGlass class="text-gray-400" />
             </template>
           </i-input>
+        </template>
+      </i-dual-input>
+
+      <i-dual-input
+        :filled="!!origin || !!destination"
+        class="w-[539px]"
+      >
+        <template #first-input>
+          <i-select
+            v-model="origin"
+            input-id="origin"
+            name="origin"
+            label="Origin"
+            placeholder-value="All origin ports"
+            :options="searchTypeOptions"
+            option-value="label"
+            borderless
+            clearable
+            class="flex-1"
+          >
+            <template #prepend>
+              <ic-location />
+            </template>
+          </i-select>
+        </template>
+        <template #icon>
+          <ic-arrow-circle />
+        </template>
+        <template #second-input>
+          <i-select
+            v-model="destination"
+            input-id="destination"
+            name="destination"
+            label="Destination"
+            placeholder-value="All destination ports"
+            :options="searchTypeOptions"
+            option-value="label"
+            borderless
+            clearable
+            class="flex-1"
+          >
+            <template #prepend>
+              <ic-location />
+            </template>
+          </i-select>
         </template>
       </i-dual-input>
     </div>
@@ -241,6 +290,10 @@
         Test Header
       </i-dialog>
     </div>
+
+    <div class="py-5 flex w-[315px]">
+      <i-datepicker v-model="date" />
+    </div>
   </div>
 </template>
 
@@ -248,6 +301,7 @@
 import IBox from './components/i-box.vue';
 import IButton from './components/i-button.vue';
 import ICheckbox from './components/i-checkbox.vue';
+import IDatepicker from './components/i-datepicker.vue';
 import IDialog from './components/i-dialog.vue';
 import IDualInput from './components/i-dual-input.vue';
 import ISortCaret from './components/i-sort-caret.vue';
@@ -256,19 +310,24 @@ import IInput from './components/i-input.vue';
 import IPopover from './components/i-popover.vue';
 import ISelect from './components/i-select.vue';
 
+import IcArrowCircle from './icons/ic-arrow-circle.vue';
 import IcFilter from './icons/ic-filter.vue';
 import IcInfoCircle from './icons/ic-info-circle.vue';
+import IcLocation from './icons/ic-location.vue';
 import IcMagnifyingGlass from './icons/ic-magnifying-glass.vue';
 
 export default {
   name: 'App',
   components: {
+    IcArrowCircle,
     IcFilter,
     IcInfoCircle,
+    IcLocation,
     IcMagnifyingGlass,
     IBox,
     IButton,
     ICheckbox,
+    IDatepicker,
     IDialog,
     IDualInput,
     ISortCaret,
@@ -283,7 +342,7 @@ export default {
       phone: '+6281234567890',
       text: '',
       textPlaceholder: '',
-      textFilled: 'Filled',
+      textFilled: 50,
       textNpwp: '',
       textNumber: null,
       textDecimal: null,
@@ -304,8 +363,11 @@ export default {
         },
       ],
       searchString: null,
+      origin: null,
+      destination: null,
       showDialog: false,
       showDialogHeader: false,
+      date: undefined,
     };
   },
   methods: {
@@ -337,5 +399,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

@@ -5,7 +5,7 @@
       :class="classes"
     >
       <div
-        v-show="$slots.prepend"
+        v-if="$slots.prepend"
         class="prepend-container"
       >
         <slot name="prepend" />
@@ -23,19 +23,19 @@
         </template>
 
         <component
-          ref="inputRef"
           v-bind="maskAttributes"
           :is="inputComponent"
           :id="inputId"
+          ref="inputRef"
           :name="name"
           :value="displayModelValue"
           :type="type"
-          :placeholder="placeholder"
+          :placeholder="placeholder || placeholderValue"
           :disabled="disabled"
           :readonly="readOnly"
           :autocomplete="autoComplete"
           :maxlength="maxlength"
-          class="input"
+          :class="inputClasses"
           @input="onInput"
           @keyup="$emit('keyup', $event)"
           @change="onChange"
@@ -43,8 +43,20 @@
           @blur="onBlur"
         />
       </i-input-label>
+
       <div
-        v-show="$slots.append"
+        v-if="clearable"
+        v-show="filled"
+        class="append-container"
+      >
+        <ic-times-circle
+          class="icon-clear"
+          @click.native="onClear"
+        />
+      </div>
+      <div
+        v-else
+        v-show="!!$slots.append"
         class="append-container"
       >
         <slot name="append" />
@@ -64,11 +76,14 @@
 import dayjs from 'dayjs';
 import 'dayjs/locale/id';
 import { IMaskComponent } from 'vue-imask';
+import IcTimesCircle from '@/icons/ic-times-circle.vue';
+
 import IInputLabel from './i-input-label.vue';
 
 export default {
   name: 'IInput',
   components: {
+    IcTimesCircle,
     IInputLabel,
     ImaskInput: IMaskComponent,
   },
@@ -98,6 +113,10 @@ export default {
       default: false,
     },
     placeholder: {
+      type: String,
+      default: '',
+    },
+    placeholderValue: {
       type: String,
       default: '',
     },
@@ -132,6 +151,10 @@ export default {
         return ['number', 'decimal', 'npwp'].includes(value);
       },
     },
+    maskOptions: {
+      type: Object,
+      default: () => null,
+    },
     size: {
       type: String,
       default: 'base',
@@ -143,6 +166,7 @@ export default {
       type: Number,
       default: null,
     },
+    clearable: Boolean,
   },
   computed: {
     inputComponent() {
@@ -156,21 +180,24 @@ export default {
         dark: this.dark,
         disabled: this.disabled,
         invalid: this.invalid || !!this.errorMessage,
-        append: !!this.$slots.append,
         prepend: !!this.$slots.prepend,
+        append: !!this.$slots.append || this.clearable,
         filled: this.filled,
         borderless: this.borderless,
         sm: this.size === 'sm',
       };
     },
     isLabelActive() {
-      return this.filled || !!this.placeholder;
+      return this.filled || !!this.placeholder || !!this.placeholderValue;
     },
     displayModelValue() {
       if (this.value && this.value instanceof Date) {
         return dayjs(this.value).locale(this.dateLocale).format(this.dateFormat);
       }
       if (typeof this.value === 'number') {
+        if (Object.is(this.value, -0)) {
+          return '-0';
+        }
         return this.value.toString();
       }
 
@@ -187,6 +214,7 @@ export default {
             scale: 0,
             unmask: true,
             lazy: true,
+            ...this.maskOptions,
           };
         case 'decimal':
           return {
@@ -197,15 +225,23 @@ export default {
             scale: 2,
             unmask: true,
             lazy: true,
+            ...this.maskOptions,
           };
         case 'npwp':
           return {
             mask: '00.000.000.0-000-000',
             lazy: true,
+            ...this.maskOptions,
           };
         default:
-          return null;
+          return this.maskOptions;
       }
+    },
+    inputClasses() {
+      return {
+        input: true,
+        'placeholder-value': this.placeholderValue,
+      };
     },
   },
   watch: {
@@ -226,7 +262,7 @@ export default {
         switch (this.mask) {
           case 'number':
           case 'decimal':
-            inputValue = (inputValue != null && inputValue !== '') ? Number(inputValue) : undefined;
+            inputValue = inputValue != null && inputValue !== '' ? Number(inputValue) : undefined;
             break;
           default:
             break;
@@ -253,6 +289,14 @@ export default {
         this.$refs.inputRef.focus();
       }
     },
+    onClear() {
+      let clearedValue = '';
+      if (this.value == null || typeof this.value === 'number') {
+        clearedValue = undefined;
+      }
+      this.$emit('input', clearedValue);
+      this.$emit('clear');
+    },
   },
 };
 </script>
@@ -260,28 +304,28 @@ export default {
 <style>
 .i-input {
   .i-input-container {
+    height: 68px;
+    padding-right: 16px;
+    padding-left: 16px;
+    color: var(--gray-900);
+    background-color: var(--white);
     border: 1px solid var(--gray-400);
     border-radius: 10px;
-    padding-left: 16px;
-    padding-right: 8px;
-    height: 68px;
-    background-color: var(--white);
-    color: var(--gray-900);
 
     &.sm {
       height: 60px;
     }
 
     .input {
-      border: none;
-      padding: 0;
       width: 100%;
-      color: var(--gray-900);
+      height: 100%;
+      padding: 0;
+      padding-top: 16px;
       font-size: 16px;
       line-height: 16px;
+      color: var(--gray-900);
       text-overflow: ellipsis;
-      height: 100%;
-      padding-top: 16px;
+      border: none;
 
       &:focus-visible,
       &:focus {
@@ -293,29 +337,29 @@ export default {
         opacity: 1; /* Firefox */
       }
 
-      &:input-placeholder {
-        /* Internet Explorer 10-11 */
-        color: var(--gray-400);
-      }
+      &.placeholder-value {
+        &::placeholder {
+          color: var(--gray-900);
+        }
 
-      &::input-placeholder {
-        /* Microsoft Edge */
-        color: var(--gray-400);
+        &:focus::placeholder {
+          opacity: 0;
+        }
       }
 
       &:disabled {
-        background-color: transparent;
         color: var(--gray-400);
+        background-color: transparent;
       }
 
       &::-webkit-outer-spin-button,
       &::-webkit-inner-spin-button {
-        -webkit-appearance: none;
+        appearance: none;
         margin: 0;
       }
 
-      &[type="number"] {
-        -moz-appearance: textfield;
+      &[type='number'] {
+        appearance: textfield;
       }
     }
 
@@ -336,7 +380,11 @@ export default {
 
     &.append .append-container {
       margin-left: 12px;
-      margin-right: 8px;
+
+      .icon-clear {
+        color: var(--gray-400);
+        cursor: pointer;
+      }
     }
 
     &:focus-within {
@@ -346,6 +394,7 @@ export default {
     &.disabled {
       background-color: var(--gray-50);
     }
+
     &.filled:not(.disabled) {
       border-color: var(--gray-900);
     }
@@ -361,20 +410,20 @@ export default {
     }
 
     &.dark {
-      border-color: var(--white);
-      background-color: var(--gray-900);
       color: var(--white);
+      background-color: var(--gray-900);
+      border-color: var(--white);
 
       .input {
-        background-color: var(--gray-900);
         color: var(--white);
+        background-color: var(--gray-900);
       }
     }
 
     &.borderless {
-      border: none;
-
       height: 66px;
+      padding: 0;
+      border: none;
 
       &.sm {
         height: 58px;
