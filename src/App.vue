@@ -4,7 +4,49 @@
     class="p-5"
   >
     <span>Frontend Lib</span>
-
+    <div class="my-5">
+      <div class="mb-3">Pagination</div>
+      <div class="flex gap-3 mb-5">
+        <div>
+          <i-pagination
+            :current-page="pagination.currentPage"
+            :total="pagination.total"
+            :page-size="10"
+            :pager-count="pagination.limit"
+          />
+        </div>
+        <div>
+          <i-pagination
+            :current-page="1"
+            :total="30"
+            :page-size="10"
+          />
+        </div>
+        <div>
+          <i-pagination
+            :current-page="1"
+            :total="5"
+            :page-size="10"
+          />
+        </div>
+        <div>
+          <i-pagination
+            :current-page="1"
+            :total="80"
+            :page-size="10"
+          />
+        </div>
+      </div>
+      <div class="pb-5">
+        <div>:showAngle="false"</div>
+        <i-pagination
+          :current-page="1"
+          :total="100"
+          :page-size="10"
+          :show-angle="false"
+        />
+      </div>
+    </div>
     <i-box
       label="Test Box"
       class="p-5"
@@ -309,6 +351,7 @@ import IInputTel from './components/i-input-tel.vue';
 import IInput from './components/i-input.vue';
 import IPopover from './components/i-popover.vue';
 import ISelect from './components/i-select.vue';
+import IPagination from './components/i-pagination.vue';
 
 import IcArrowCircle from './icons/ic-arrow-circle.vue';
 import IcFilter from './icons/ic-filter.vue';
@@ -335,6 +378,7 @@ export default {
     IInput,
     IPopover,
     ISelect,
+    IPagination,
   },
   data() {
     return {
@@ -368,6 +412,12 @@ export default {
       showDialog: false,
       showDialogHeader: false,
       date: undefined,
+      currentPage: 1,
+      pagination: {
+        limit: 7,
+        currentPage: 1,
+        total: 1000,
+      },
     };
   },
   methods: {
