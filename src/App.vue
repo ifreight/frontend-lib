@@ -4,7 +4,49 @@
     class="p-5"
   >
     <span>Frontend Lib</span>
-
+    <div class="my-5">
+      <div class="mb-3">Pagination</div>
+      <div class="flex gap-3 mb-5">
+        <div>
+          <i-pagination
+            :currentPage="pagination.currentPage"
+            :total="pagination.total"
+            :pageSize="10"
+            :pagerCount="pagination.limit"
+          />
+        </div>
+        <div>
+          <i-pagination
+            :currentPage="1"
+            :total="30"
+            :pageSize="10"
+          />
+        </div>
+        <div>
+          <i-pagination
+            :currentPage="1"
+            :total="5"
+            :pageSize="10"
+          />
+        </div>
+        <div>
+          <i-pagination
+            :currentPage="1"
+            :total="80"
+            :pageSize="10"
+          />
+        </div>
+      </div>
+      <div class="pb-5">
+        <div>:showAngle="false"</div>
+        <i-pagination
+          :currentPage="1"
+          :total="100"
+          :pageSize="10"
+          :showAngle="false"
+        />
+      </div>
+    </div>
     <i-box
       label="Test Box"
       class="p-5"
@@ -40,9 +82,7 @@
         </span>
       </i-popover>
 
-      <i-popover
-        trigger="click"
-      >
+      <i-popover trigger="click">
         <template #reference>
           <ic-filter class="inline" />
         </template>
@@ -255,6 +295,7 @@ import IInputTel from './components/i-input-tel.vue';
 import IInput from './components/i-input.vue';
 import IPopover from './components/i-popover.vue';
 import ISelect from './components/i-select.vue';
+import IPagination from './components/i-pagination.vue';
 
 import IcFilter from './icons/ic-filter.vue';
 import IcInfoCircle from './icons/ic-info-circle.vue';
@@ -276,6 +317,7 @@ export default {
     IInput,
     IPopover,
     ISelect,
+    IPagination,
   },
   data() {
     return {
@@ -306,6 +348,12 @@ export default {
       searchString: null,
       showDialog: false,
       showDialogHeader: false,
+      currentPage: 1,
+      pagination: {
+        limit: 7,
+        currentPage: 1,
+        total: 1000,
+      },
     };
   },
   methods: {
