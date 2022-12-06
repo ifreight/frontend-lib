@@ -6,7 +6,7 @@
     <template v-if="showAngle">
       <button
         class="angle angles-left"
-        :class="{ 'disabled': disableLeftAngle }"
+        :class="{ disabled: disableLeftAngle }"
         :disabled="disableLeftAngle"
         @click="clickLeftAngles"
       >
@@ -14,7 +14,7 @@
       </button>
       <button
         class="angle angle-left"
-        :class="{ 'disabled': disableLeftAngle }"
+        :class="{ disabled: disableLeftAngle }"
         :disabled="disableLeftAngle"
         @click="clickLeftAngle"
       >
@@ -23,10 +23,11 @@
     </template>
     <div
       class="number"
-      :class="[ numberClass ,
+      :class="[
+        numberClass,
         {
-          'active': activePage === 1,
-        }
+          active: activePage === 1,
+        },
       ]"
       @click="changePage(1)"
     >
@@ -42,10 +43,11 @@
       v-for="page in middlePage"
       :key="page"
       class="number"
-      :class="[ numberClass ,
+      :class="[
+        numberClass,
         {
-          'active': activePage === page,
-        }
+          active: activePage === page,
+        },
       ]"
       @click="changePage(page)"
     >
@@ -60,10 +62,11 @@
     <div
       v-if="lastPage"
       class="number"
-      :class="[ numberClass ,
+      :class="[
+        numberClass,
         {
-           'active': activePage === lastPage,
-        }
+          active: activePage === lastPage,
+        },
       ]"
       @click="changePage(lastPage)"
     >
@@ -72,7 +75,7 @@
     <template v-if="showAngle">
       <button
         class="angle angle-right"
-        :class="{ 'disabled': disableRightAngle }"
+        :class="{ disabled: disableRightAngle }"
         :disabled="disableRightAngle"
         @click="clickRightAngle"
       >
@@ -80,7 +83,7 @@
       </button>
       <button
         class="angle angles-right"
-        :class="{ 'disabled': disableRightAngle }"
+        :class="{ disabled: disableRightAngle }"
         :disabled="disableRightAngle"
         @click="clickRightAngles"
       >
@@ -98,6 +101,12 @@ import IcAnglesRight from '@/icons/ic-angles-right.vue';
 
 export default {
   name: 'IPagination',
+  components: {
+    IcAngleLeft,
+    IcAngleRight,
+    IcAnglesLeft,
+    IcAnglesRight,
+  },
   props: {
     total: {
       type: Number,
@@ -127,12 +136,6 @@ export default {
       type: Boolean,
       default: true,
     },
-  },
-  components: {
-    IcAngleLeft,
-    IcAngleRight,
-    IcAnglesLeft,
-    IcAnglesRight,
   },
   data() {
     return {
@@ -195,9 +198,6 @@ export default {
       return this.activePage === this.lastPage;
     },
   },
-  created() {
-    this.activePage = this.currentPage;
-  },
   watch: {
     activePage: {
       handler(val) {
@@ -205,6 +205,9 @@ export default {
         this.$emit('currentChange', val);
       },
     },
+  },
+  created() {
+    this.activePage = this.currentPage;
   },
   methods: {
     changePage(val) {

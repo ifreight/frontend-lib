@@ -79,14 +79,14 @@ export default {
   }
 
   &.badge::before {
-    content: "";
     position: absolute;
-    right: -2px;
     top: -2px;
+    right: -2px;
     width: 8px;
     height: 8px;
-    border-radius: 4px;
+    content: '';
     background-color: var(--red-400);
+    border-radius: 4px;
   }
 
   &:hover,

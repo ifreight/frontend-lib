@@ -41,15 +41,16 @@ export default {
 
   .i-box-label {
     position: absolute;
-    max-width: 70%;
     top: -12px;
-    padding: 3px 8px 4px 8px;
+    max-width: 70%;
+    padding: 3px 8px 4px;
 
     @apply truncate font-bold text-3xs rounded-b;
 
     &.primary {
       @apply bg-yellow-300 text-gray-900;
     }
+
     &.dark {
       @apply bg-gray-900 text-white;
     }

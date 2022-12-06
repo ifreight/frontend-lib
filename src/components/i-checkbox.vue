@@ -73,7 +73,7 @@ export default {
       @apply opacity-0 text-white;
     }
 
-    input[type="checkbox"] {
+    input[type='checkbox'] {
       @apply hidden;
 
       &:checked {
@@ -83,27 +83,28 @@ export default {
       }
     }
 
-    &:before {
-      content: '';
+    &::before {
       position: absolute;
+      z-index: -1;
       width: 16px;
       height: 16px;
-      border-radius: 50%;
+      content: '';
       background-color: transparent;
+      border-radius: 50%;
+      box-shadow: 0 0 0 8px rgb(0 0 0 / 60%);
       opacity: 0;
-      z-index: -1;
-      box-shadow: 0px 0px 0px 8px rgba(0, 0, 0, .6);
     }
   }
 
   &.checked .i-checkbox-input {
     @apply bg-gray-900;
   }
+
   &.invalid .i-checkbox-input {
     @apply border-red-400;
   }
 
-  &:hover .i-checkbox-input:before {
+  &:hover .i-checkbox-input::before {
     opacity: 0.2;
   }
 }

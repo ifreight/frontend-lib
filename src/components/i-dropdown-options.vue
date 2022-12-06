@@ -28,9 +28,7 @@
       v-else
       class="i-dropdown-options-placeholder"
     >
-      <template v-if="loading">
-        Loading
-      </template>
+      <template v-if="loading"> Loading </template>
       <template v-else-if="remote">
         {{ query ? noDataText : remoteText }}
       </template>
@@ -106,7 +104,7 @@ export default {
       }
       let query = q;
       if (query == null) {
-        query = this.query;
+        ({ query } = this);
       }
 
       // mask all word characters in city name
@@ -147,15 +145,15 @@ export default {
 
 <style>
 .i-dropdown-options {
+  max-height: 264px;
+  padding: 0;
+  margin: 0;
   overflow: scroll;
   overflow-x: hidden;
   overflow-y: overlay;
-  max-height: 264px;
+  list-style: none;
   scrollbar-width: thin;
   scrollbar-color: var(--gray-120) transparent;
-  list-style: none;
-  margin: 0;
-  padding: 0;
 
   &::-webkit-scrollbar {
     width: 6px;
@@ -167,21 +165,21 @@ export default {
 
   &::-webkit-scrollbar-thumb {
     background-color: var(--gray-120);
-    border-radius: 20px;
     border: none;
+    border-radius: 20px;
   }
 
   li {
     padding: 16px 32px;
-    border-radius: 10px;
-    color: var(--gray-900);
     font-size: 14px;
     line-height: 16px;
+    color: var(--gray-900);
     cursor: pointer;
+    border-radius: 10px;
 
     &.selected {
-      background-color: var(--gray-70);
       font-weight: 600;
+      background-color: var(--gray-70);
     }
 
     &:hover {
@@ -191,8 +189,8 @@ export default {
 }
 
 .i-dropdown-options-placeholder {
-  color: var(--gray-400);
   font-size: 16px;
   line-height: 16px;
+  color: var(--gray-400);
 }
 </style>

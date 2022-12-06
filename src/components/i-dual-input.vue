@@ -52,14 +52,16 @@ export default {
 <style>
 .i-dual-input {
   position: relative;
+  display: flex;
+  align-content: flex-start;
+  align-items: center;
+  width: auto;
+  height: 68px;
+  padding-right: 16px;
+  padding-left: 16px;
+  background-color: var(--white);
   border: 1px solid var(--gray-400);
   border-radius: 10px;
-  display: flex;
-  align-items: center;
-  align-content: flex-start;
-  width: auto;
-  background-color: var(--white);
-  height: 68px;
 
   &.sm {
     height: 60px;
@@ -76,8 +78,8 @@ export default {
 
   &.dark,
   &.dark.disabled {
-    border-color: var(--white);
     background-color: var(--gray-900);
+    border-color: var(--white);
   }
 
   &.invalid,
@@ -88,22 +90,21 @@ export default {
 
   .divider {
     position: relative;
-    width: 32px;
+    padding-right: 16px;
+    padding-left: 16px;
 
     .vl {
       position: absolute;
       top: 50%;
       left: 50%;
-      transform: translateY(-50%) translateX(-50%);
       height: 52px;
       border-left: 1px solid var(--gray-400);
+      transform: translateY(-50%) translateX(-50%);
     }
 
     .icon {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translateY(-50%) translateX(-50%);
+      position: relative;
+      z-index: 1;
     }
   }
 }

@@ -49,28 +49,27 @@ export default {
 <style>
 .i-input-label {
   position: relative;
-  width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  width: 100%;
+  height: 100%;
 
   .i-input-label-text {
-    font-weight: normal;
-    cursor: text;
-    font-size: 16px;
-    color: var(--gray-400);
-    transform-origin: top left;
-    transform: translate(0, 0) scale(1);
-    transition: all 0.1s ease-in-out;
-    width: 100%;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    z-index: 1;
     position: absolute;
+    z-index: 1;
+    width: 100%;
     margin: 0;
-    display: flex;
-    align-items: center;
+    overflow: hidden;
+    font-size: 16px;
+    font-weight: normal;
+    color: var(--gray-400);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: text;
+    transition: all 0.1s ease-in-out;
+    transform: translate(0, 0) scale(1);
+    transform-origin: top left;
 
     &.dark {
       color: var(--gray-400);
@@ -79,17 +78,20 @@ export default {
     &.invalid {
       color: var(--red-400);
     }
+
+    > * {
+      vertical-align: middle;
+    }
   }
 
   &:focus-within .i-input-label-text:not(.disabled),
-  .i-input-label-text.active
-  {
-    transform: translate(0, -10px) scale(1);
+  .i-input-label-text.active {
     font-size: 12px;
+    transform: translate(0, -10px) scale(1);
 
     svg {
-      height: 8px;
       max-width: 10px;
+      height: 8px;
     }
   }
 

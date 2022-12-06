@@ -114,8 +114,7 @@ export default {
   },
   computed: {
     activeCountry() {
-      return this.countryList
-        .find((country) => country.countryCode === this.countryCode);
+      return this.countryList.find((country) => country.countryCode === this.countryCode);
     },
     activeCountryFlagClass() {
       if (!this.activeCountry) {

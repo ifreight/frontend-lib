@@ -1,18 +1,18 @@
 html,
 body {
-  background: var(--white) !important;
-  margin: 0;
-  padding: 0;
-  height: 100%;
   width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
   color: var(--gray-900);
+  background: var(--white) !important;
 }
 
 body {
   position: relative;
+  font-size: 16px;
   font-style: normal;
   font-weight: 400;
-  font-size: 16px;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizelegibility;
@@ -48,4 +48,6 @@ input:focus-visible {
   outline: none;
 }
 
-*[style*="display: none"] { display: none !important }
+*[style*='display: none'] {
+  display: none !important;
+}

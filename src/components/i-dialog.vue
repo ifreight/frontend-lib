@@ -10,8 +10,8 @@
       @click.self="handleClose"
     >
       <div
-        role="dialog"
         :key="key"
+        role="dialog"
         aria-modal="true"
         aria-labelledby="dialog"
         :class="['i-dialog', { 'show-header': showHeader }]"
@@ -149,6 +149,7 @@ export default {
   0% {
     opacity: 0;
   }
+
   100% {
     opacity: 1;
   }
@@ -157,16 +158,18 @@ export default {
   0% {
     opacity: 1;
   }
+
   100% {
     opacity: 0;
   }
 }
 
 .i-dialog-fade-enter-active {
-  animation: i-dialog-fade-in .3s;
+  animation: i-dialog-fade-in 0.3s;
 }
+
 .i-dialog-fade-leave-active {
-  animation: i-dialog-fade-out .3s;
+  animation: i-dialog-fade-out 0.3s;
 }
 
 .i-dialog-wrapper {
@@ -175,9 +178,9 @@ export default {
   right: 0;
   bottom: 0;
   left: 0;
-  overflow: auto;
-  margin: 0;
   z-index: 10;
+  margin: 0;
+  overflow: auto;
   background-color: rgb(0 0 0 / 50%);
 
   .i-dialog {
@@ -202,6 +205,7 @@ export default {
     &-close {
       @apply absolute top-7 right-7 bg-transparent;
     }
+
     &.show-header .i-dialog-close {
       @apply text-white;
     }

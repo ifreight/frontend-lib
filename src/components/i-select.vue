@@ -6,7 +6,7 @@
   >
     <div
       class="i-select-container"
-      :class="isVisible ? 'visible': ''"
+      :class="isVisible ? 'visible' : ''"
     >
       <template v-if="$scopedSlots.selected && Object.keys(selectedOption).length > 0">
         <i-input-label
@@ -35,14 +35,17 @@
         :input-id="inputId"
         :name="name"
         :placeholder="placeholder"
+        :placeholder-value="placeholderValue"
         :disabled="disabled"
         :read-only="isInputReadOnly"
         :invalid="invalid || !!errorMessage"
         :dark="dark"
         :borderless="borderless"
         :size="size"
+        :clearable="clearable"
         @keyup="onInputKeyup"
         @focus="showDropdown"
+        @clear="onClear"
       >
         <template #prepend>
           <slot name="prepend" />
@@ -135,6 +138,10 @@ export default {
       type: String,
       default: '',
     },
+    placeholderValue: {
+      type: String,
+      default: '',
+    },
     options: {
       type: Array,
       default: () => [],
@@ -179,6 +186,7 @@ export default {
         return ['sm', 'base'].includes(value);
       },
     },
+    clearable: Boolean,
   },
   data() {
     return {
@@ -206,16 +214,18 @@ export default {
             name: option,
           }));
         } else {
-          options = this.options;
+          ({ options } = this);
         }
       }
 
       if (!options.length && this.selectedOption) {
         if (typeof this.selectedOption !== 'object') {
-          options = [{
-            id: this.selectedOption,
-            name: this.selectedOption,
-          }];
+          options = [
+            {
+              id: this.selectedOption,
+              name: this.selectedOption,
+            },
+          ];
         } else {
           options = [this.selectedOption];
         }
@@ -250,10 +260,7 @@ export default {
   },
   watch: {
     valueOption(value) {
-      if (
-        (!value && this.selectedOptionValue)
-        || (value && this.selectedOptionValue !== value[this.optionKey])
-      ) {
+      if ((!value && this.selectedOptionValue) || (value && this.selectedOptionValue !== value[this.optionKey])) {
         this.selectedOption = value;
       }
     },
@@ -270,8 +277,7 @@ export default {
             this.remoteLoading = true;
             this.handleQuery(value);
           } else {
-            const newSelectedOption = this.dropdownOptions
-              .find((item) => item[this.optionKey] === this.value);
+            const newSelectedOption = this.dropdownOptions.find((item) => item[this.optionKey] === this.value);
 
             this.updateSelectedOption(newSelectedOption);
           }
@@ -283,8 +289,7 @@ export default {
       immediate: true,
       handler() {
         if (this.inputValue && this.selectedOptionValue !== this.inputValue) {
-          this.updateSelectedOption(this.dropdownOptions
-            .find((item) => item[this.optionKey] === this.inputValue));
+          this.updateSelectedOption(this.dropdownOptions.find((item) => item[this.optionKey] === this.inputValue));
         }
       },
     },
@@ -396,6 +401,11 @@ export default {
         this.hideDropdown();
       }
     },
+    onClear() {
+      this.resetInputValue();
+      this.hideDropdown();
+      this.$emit('clear');
+    },
   },
 };
 </script>
@@ -411,20 +421,20 @@ export default {
   }
 
   .i-select-slot-selected {
+    height: 68px;
+    padding-right: 16px;
+    padding-left: 16px;
     border: 1px solid var(--gray-400);
     border-radius: 10px;
-    padding-left: 16px;
-    padding-right: 16px;
-    height: 68px;
 
     &.sm {
       height: 60px;
     }
 
     &.dark {
-      border-color: var(--white);
-      background-color: var(--gray-900);
       color: var(--white);
+      background-color: var(--gray-900);
+      border-color: var(--white);
     }
 
     &.borderless {
@@ -433,8 +443,8 @@ export default {
   }
 
   .i-select-arrow-container {
-    cursor: pointer;
     padding: 4px;
+    cursor: pointer;
   }
 
   .i-input-error {

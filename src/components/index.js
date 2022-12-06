@@ -3,6 +3,7 @@ export { default as InputTel } from './input-tel';
 export { default as IBox } from './i-box.vue';
 export { default as IButton } from './i-button.vue';
 export { default as ICheckbox } from './i-checkbox.vue';
+export { default as IDatepicker } from './i-datepicker.vue';
 export { default as IDialog } from './i-dialog.vue';
 export { default as IDropdown } from './i-dropdown.vue';
 export { default as IDropdownOptions } from './i-dropdown-options.vue';

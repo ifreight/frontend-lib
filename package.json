@@ -1,53 +1,92 @@
 {
   "name": "frontend-lib",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "build:lib": "vue-cli-service build --target lib --name frontend-lib src/main-lib.js",
-    "lint": "vue-cli-service lint"
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint --ext .vue,.js,.jsx,.ts,.tsx ./ --max-warnings 0 --cache --cache-location node_modules/.cache/eslint/",
+    "lint:fix": "eslint --ext .vue,.js,jsx,.ts,.tsx ./ --max-warnings 0 --cache --cache-location node_modules/.cache/eslint/ --fix",
+    "stylelint": "stylelint src/**/*.{html,vue,css,scss,less} --cache --cache-location node_modules/.cache/stylelint/",
+    "stylelint:fix": "stylelint src/**/*.{html,vue,css,scss,less} --cache --cache-location node_modules/.cache/stylelint/ --fix",
+    "prepare": "husky install"
   },
   "files": [
     "dist"
   ],
-  "main": "./dist/frontend-lib.umd.min.js",
+  "main": "./dist/frontend-lib.umd.js",
+  "module": "./dist/frontend-lib.mjs",
+  "exports": {
+    ".": {
+      "import": "./dist/frontend-lib.mjs",
+      "require": "./dist/frontend-lib.umd.js"
+    },
+    "./style.css": "./dist/style.css"
+  },
   "dependencies": {
     "dayjs": "^1.11.6",
     "libphonenumber-js": "^1.10.14",
-    "lodash": "^4.17.21",
     "vue": "^2.6.14",
     "vue-imask": "^5.2.1",
     "vue-popperjs": "^2.3.0"
   },
   "devDependencies": {
-    "core-js": "~3.23.3",
-    "@babel/core": "^7.12.16",
-    "@babel/eslint-parser": "^7.12.16",
-    "@vue/cli-plugin-babel": "~5.0.0",
-    "@vue/cli-plugin-eslint": "~5.0.0",
-    "@vue/cli-service": "~5.0.0",
-    "@vue/eslint-config-airbnb": "^6.0.0",
-    "copy-webpack-plugin": "^11.0.0",
-    "eslint": "^7.32.0",
-    "eslint-plugin-import": "^2.25.3",
-    "eslint-plugin-vue": "^8.0.3",
-    "eslint-plugin-vuejs-accessibility": "^1.1.0",
+    "@vitejs/plugin-vue2": "^2.0.1",
+    "autoprefixer": "^10.4.13",
+    "eslint": "^8.27.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-define-config": "^1.12.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-unused-imports": "^2.0.0",
+    "eslint-plugin-vue": "^9.7.0",
     "flag-icons": "^6.6.6",
+    "husky": "^8.0.2",
+    "lint-staged": "^13.0.3",
+    "lodash": "^4.17.21",
+    "postcss": "^8.4.14",
     "postcss-custom-properties": "^12.1.10",
+    "postcss-html": "^1.5.0",
     "postcss-import": "^15.0.0",
-    "postcss-nested": "^6.0.0",
-    "style-resources-loader": "^1.5.0",
+    "prettier": "^2.7.1",
+    "serve-static": "^1.15.0",
+    "stylelint": "^14.15.0",
+    "stylelint-config-html": "^1.1.0",
+    "stylelint-config-prettier": "^9.0.4",
+    "stylelint-config-recess-order": "^3.0.0",
+    "stylelint-config-standard": "^29.0.0",
+    "stylelint-order": "^5.0.0",
     "tailwindcss": "^3.2.1",
-    "vue-cli-plugin-webpack-bundle-analyzer": "^4.0.0",
-    "vue-template-compiler": "~2.6.14"
+    "vite": "^3.2.4",
+    "vue-eslint-parser": "^9.1.0"
   },
   "peerDependencies": {
     "dayjs": "^1.11.6",
     "libphonenumber-js": "^1.10.14",
-    "lodash": "^4.17.21",
     "vue": "^2.6.14",
     "vue-imask": "^5.2.1",
     "vue-popperjs": "^2.3.0"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "*.vue": [
+      "prettier --write",
+      "eslint --fix",
+      "stylelint --fix"
+    ],
+    "*.{html,css}": [
+      "prettier --write",
+      "stylelint --fix"
+    ],
+    "package.json": [
+      "prettier --write"
+    ],
+    "*.md": [
+      "prettier --write"
+    ]
   }
 }
