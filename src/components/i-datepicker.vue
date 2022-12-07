@@ -2,7 +2,15 @@
   <div class="i-datepicker">
     <div class="i-datepicker--header">
       <button
-        class="i-datepicker--btn-chevron mr-3"
+        class="i-datepicker--btn-chevron left"
+        :class="{ disabled: disabledPreviousMonth }"
+        :disabled="disabledPreviousMonth"
+        @click="clickPreviousMultipleMonth"
+      >
+        <ic-angles-circle direction="left" />
+      </button>
+      <button
+        class="i-datepicker--btn-chevron left"
         :class="{ disabled: disabledPreviousMonth }"
         :disabled="disabledPreviousMonth"
         @click="clickPreviousMonth"
@@ -13,84 +21,74 @@
         {{ activeMonthYear }}
       </div>
       <button
-        class="i-datepicker--btn-chevron ml-3"
+        class="i-datepicker--btn-chevron right"
         :class="{ disabled: disabledNextMonth }"
         :disabled="disabledNextMonth"
         @click="clickNextMonth"
       >
         <ic-angle-circle />
       </button>
+      <button
+        class="i-datepicker--btn-chevron right"
+        :class="{ disabled: disabledNextMonth }"
+        :disabled="disabledNextMonth"
+        @click="clickNextMultipleMonth"
+      >
+        <ic-angles-circle />
+      </button>
     </div>
     <div class="i-datepicker--body">
-      <div class="relative">
-        <div class="flex flex-nowrap py-2">
-          <div
-            v-for="day in listDays"
-            :key="day"
-            class="each-date flex justify-center"
-          >
-            <div class="leading-relaxed uppercase text-gray-400 text-[10px]">
-              {{ day }}
-            </div>
-          </div>
+      <div class="i-datepicker--list-day-wrapper">
+        <div
+          v-for="day in listDays"
+          :key="day"
+          class="list-day"
+        >
+          {{ day }}
+        </div>
+      </div>
+      <div
+        ref="refCurrentPick"
+        class="i-datepicker--date-list"
+      >
+        <div
+          v-for="date in previousPicker"
+          :key="`${date.date()}${date.month()}${date.year()}-previous`"
+          class="each-date previous-date disabled"
+          :data-tailwind-datepicker="date.date()"
+        >
+          {{ date.date() }}
         </div>
         <div
-          ref="refCurrentPick"
-          class="flex flex-wrap relative"
+          v-for="date in currentPicker"
+          :key="`${date.date.date()}${date.date.month()}${date.date.year()}-current`"
+          class="each-date"
         >
-          <div
-            v-for="date in previousPicker"
-            :key="`${date.date()}${date.month()}${date.year()}-previous`"
-            class="each-date flex justify-center my-1 cursor-not-allowed"
+          <button
+            class="i-datepicker-pick"
+            :class="{
+              selected: isSelectedDate(date.date),
+              multiple: pickLimit > 1 || pickLimit === 'any',
+              disabled: date.isDisabled,
+            }"
+            :disabled="date.isDisabled"
+            @click="clickDate(date.date)"
           >
+            <span>{{ date.date.date() }}</span>
             <div
-              class="h-8 w-8 flex justify-center items-center"
-              :data-tailwind-datepicker="date.date()"
+              v-if="isSelectedDate(date.date) && (pickLimit > 1 || pickLimit === 'any')"
+              class="multiple-check-pick-marker"
             >
-              <div class="text-xs opacity-75 text-gray-400 font-medium">
-                {{ date.date() }}
-              </div>
+              <ic-check-circle />
             </div>
-          </div>
-          <div
-            v-for="date in currentPicker"
-            :key="`${date.date.date()}${date.date.month()}${date.date.year()}-current`"
-            class="each-date relative group flex justify-center items-center my-1 cursor-pointer"
-          >
-            <div class="relative">
-              <button
-                class="i-datepicker-pick h-8 w-8 flex justify-center items-center"
-                :class="{
-                  selected: isSelectedDate(date.date),
-                  multiple: pickLimit > 1 || pickLimit === 'any',
-                  disabled: date.isDisabled,
-                }"
-                :disabled="date.isDisabled"
-                @click="clickDate(date.date)"
-              >
-                <div class="flex justify-center items-center">
-                  <span>{{ date.date.date() }}</span>
-                </div>
-                <div
-                  v-if="isSelectedDate(date.date) && (pickLimit > 1 || pickLimit === 'any')"
-                  class="multiple-check-pick-marker"
-                >
-                  <ic-check />
-                </div>
-              </button>
-            </div>
-          </div>
-          <div
-            v-for="date in nextPicker"
-            :key="`${date.date()}${date.month()}${date.year()}-next`"
-            class="each-date flex justify-center my-1 cursor-not-allowed"
-          >
-            <div class="h-8 w-8 flex justify-center items-center">
-              <div class="text-xs opacity-75 text-gray-400 font-medium">
-                {{ date.date() }}
-              </div>
-            </div>
-          </div>
+          </button>
+        </div>
+        <div
+          v-for="date in nextPicker"
+          :key="`${date.date()}${date.month()}${date.year()}-next`"
+          class="each-date next-date disabled"
+        >
+          {{ date.date() }}
         </div>
       </div>
     </div>
@@ -100,14 +98,16 @@
 <script>
 import dayjs from 'dayjs';
 
-import IcCheck from '@/icons/ic-check.vue';
+import IcCheckCircle from '@/icons/ic-check-circle.vue';
 import IcAngleCircle from '@/icons/ic-angle-circle.vue';
+import IcAnglesCircle from '@/icons/ic-angles-circle.vue';
 
 export default {
   name: 'IDatepicker',
   components: {
-    IcCheck,
+    IcCheckCircle,
     IcAngleCircle,
+    IcAnglesCircle,
   },
   props: {
     value: {
@@ -280,6 +280,36 @@ export default {
     clickNextMonth() {
       this.activeDate = dayjs(this.activeDate.toString()).add(1, 'month').toDate();
     },
+    checkPrevMonth(i) {
+      const latestDateOfMonth = dayjs(this.activeDate.toString()).subtract(i, 'month').endOf('month').toDate();
+      return this.checkDateDisabled(latestDateOfMonth);
+    },
+    checkNextMonth(i) {
+      const firstDateOfMonth = dayjs(this.activeDate.toString()).add(i, 'month').startOf('month').toDate();
+      return this.checkDateDisabled(firstDateOfMonth);
+    },
+    async clickPreviousMultipleMonth() {
+      let maxMove = 12;
+      for (maxMove; maxMove > 0; maxMove -= 1) {
+        // eslint-disable-next-line no-await-in-loop
+        const res = await this.checkPrevMonth(maxMove);
+        if (!res) {
+          break;
+        }
+      }
+      this.activeDate = dayjs(this.activeDate.toString()).subtract(maxMove, 'month').toDate();
+    },
+    async clickNextMultipleMonth() {
+      let maxMove = 12;
+      for (maxMove; maxMove > 0; maxMove -= 1) {
+        // eslint-disable-next-line no-await-in-loop
+        const res = await this.checkNextMonth(maxMove);
+        if (!res) {
+          break;
+        }
+      }
+      this.activeDate = dayjs(this.activeDate.toString()).add(maxMove, 'month').toDate();
+    },
   },
 };
 </script>
@@ -289,7 +319,26 @@ export default {
   padding: 4px;
 
   .each-date {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 14.2857%;
+    height: 32px;
+    margin: 4px 0;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+
+    &.disabled {
+      cursor: not-allowed;
+    }
+
+    &.next-date,
+    &.previous-date {
+      font-weight: 500;
+      color: var(--gray-400);
+      opacity: 0.75;
+    }
   }
 
   &--header {
@@ -299,28 +348,77 @@ export default {
     margin-bottom: 8px;
   }
 
+  &--body {
+    position: relative;
+  }
+
   &--btn-chevron {
-    @apply text-gray-400 cursor-pointer;
+    color: var(--gray-400);
+    cursor: pointer;
+
+    &.left {
+      margin-right: 12px;
+    }
+
+    &.right {
+      margin-left: 12px;
+    }
 
     &.disabled {
-      @apply text-gray-200 cursor-not-allowed;
+      color: var(--gray-200);
+      cursor: not-allowed;
     }
   }
 
+  &--list-day-wrapper {
+    display: flex;
+    flex-wrap: nowrap !important;
+    padding: 8px 0;
+
+    .list-day {
+      display: flex;
+      justify-content: center;
+      width: 14.2857%;
+      margin: 4px 0;
+      font-size: 10px;
+      line-height: 1.625;
+      color: var(--gray-400);
+      text-transform: uppercase !important;
+    }
+  }
+
+  &--date-list {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap !important;
+  }
+
   .i-datepicker-pick {
-    @apply text-gray-900 text-xs font-medium;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    color: var(--gray-900);
 
     &.selected {
-      @apply bg-yellow-300 rounded font-semibold;
+      font-weight: 600;
+      background-color: var(--yellow-300);
+      border-radius: 4px;
     }
 
     &.disabled {
-      @apply text-gray-400 cursor-not-allowed;
+      color: var(--gray-400);
+      cursor: not-allowed;
     }
   }
 
   .multiple-check-pick-marker {
-    @apply absolute -right-1 -bottom-1;
+    position: absolute;
+    right: -4px;
+    bottom: -4px;
+    color: var(--gray-900);
   }
 }
 </style>
