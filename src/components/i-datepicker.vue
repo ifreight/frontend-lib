@@ -2,7 +2,7 @@
   <div class="i-datepicker">
     <div class="i-datepicker--header">
       <button
-        class="i-datepicker--btn-chevron left"
+        class="i-datepicker--header--nav-btn"
         :class="{ disabled: disabledPreviousMonth }"
         :disabled="disabledPreviousMonth"
         @click="clickPreviousMultipleMonth"
@@ -10,7 +10,7 @@
         <ic-angles-circle direction="left" />
       </button>
       <button
-        class="i-datepicker--btn-chevron left"
+        class="i-datepicker--header--nav-btn"
         :class="{ disabled: disabledPreviousMonth }"
         :disabled="disabledPreviousMonth"
         @click="clickPreviousMonth"
@@ -21,7 +21,7 @@
         {{ activeMonthYear }}
       </div>
       <button
-        class="i-datepicker--btn-chevron right"
+        class="i-datepicker--header--nav-btn"
         :class="{ disabled: disabledNextMonth }"
         :disabled="disabledNextMonth"
         @click="clickNextMonth"
@@ -29,7 +29,7 @@
         <ic-angle-circle />
       </button>
       <button
-        class="i-datepicker--btn-chevron right"
+        class="i-datepicker--header--nav-btn"
         :class="{ disabled: disabledNextMonth }"
         :disabled="disabledNextMonth"
         @click="clickNextMultipleMonth"
@@ -346,28 +346,32 @@ export default {
     align-items: center;
     justify-content: center;
     margin-bottom: 8px;
+
+    > * {
+      margin: 0 6px;
+    }
+
+    &--nav-btn {
+      color: var(--gray-400);
+      cursor: pointer;
+
+      &:first-child {
+        margin-left: 0;
+      }
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      &.disabled {
+        color: var(--gray-200);
+        cursor: not-allowed;
+      }
+    }
   }
 
   &--body {
     position: relative;
-  }
-
-  &--btn-chevron {
-    color: var(--gray-400);
-    cursor: pointer;
-
-    &.left {
-      margin-right: 12px;
-    }
-
-    &.right {
-      margin-left: 12px;
-    }
-
-    &.disabled {
-      color: var(--gray-200);
-      cursor: not-allowed;
-    }
   }
 
   &--list-day-wrapper {
