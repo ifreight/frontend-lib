@@ -47,6 +47,20 @@
         />
       </div>
     </div>
+
+    <div class="py-5 flex gap-2">
+      <i-progress
+        :current-step="1"
+        :max-step="4"
+      />
+      <i-progress
+        ref="autoProgress"
+        height="10px"
+        border
+        auto
+      />
+    </div>
+
     <i-box
       label="Test Box"
       class="p-5"
@@ -367,6 +381,7 @@ import IInput from './components/i-input.vue';
 import IPopover from './components/i-popover.vue';
 import ISelect from './components/i-select.vue';
 import IPagination from './components/i-pagination.vue';
+import IProgress from './components/i-progress.vue';
 
 import IcArrowCircle from './icons/ic-arrow-circle.vue';
 import IcFilter from './icons/ic-filter.vue';
@@ -394,6 +409,7 @@ export default {
     IPopover,
     ISelect,
     IPagination,
+    IProgress,
   },
   data() {
     return {
@@ -435,6 +451,11 @@ export default {
         total: 1000,
       },
     };
+  },
+  mounted() {
+    setTimeout(() => {
+      this.$refs.autoProgress.finishAutoProgress();
+    }, 1000);
   },
   methods: {
     disabledDate(date) {
