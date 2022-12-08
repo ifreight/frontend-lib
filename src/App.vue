@@ -346,8 +346,24 @@
         Test Header
       </i-dialog>
     </div>
-    <div class="py-5 flex w-[315px]">
-      <i-datepicker v-model="date" />
+    <div class="flex">
+      <div class="py-5 flex w-[315px]">
+        <i-datepicker v-model="date" />
+      </div>
+      <div class="py-5 flex w-[315px]">
+        <i-datepicker
+          v-model="dateMultiple"
+          :disabled-date="disabledDate"
+          :pick-limit="3"
+        />
+      </div>
+      <div class="py-5 flex w-[315px]">
+        <i-datepicker
+          v-model="dateMultiple"
+          :disabled-date="disabledDateNext"
+          :pick-limit="3"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -427,6 +443,7 @@ export default {
       showDialog: false,
       showDialogHeader: false,
       date: undefined,
+      dateMultiple: [],
       currentPage: 1,
       pagination: {
         limit: 7,
@@ -441,6 +458,12 @@ export default {
     }, 1000);
   },
   methods: {
+    disabledDate(date) {
+      return new Date() < date;
+    },
+    disabledDateNext(date) {
+      return new Date() > date;
+    },
     selectRemoteMethod() {
       return new Promise((resolve) => {
         setTimeout(() => {
