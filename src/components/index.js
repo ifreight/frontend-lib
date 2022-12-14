@@ -11,6 +11,7 @@ export { default as IDualInput } from './i-dual-input.vue';
 export { default as IInputLabel } from './i-input-label.vue';
 export { default as IInputTel } from './i-input-tel.vue';
 export { default as IInput } from './i-input.vue';
+export { default as IPagination } from './i-pagination.vue';
 export { default as IPopover } from './i-popover.vue';
 export { default as IProgress } from './i-progress.vue';
 export { default as ISelect } from './i-select.vue';
