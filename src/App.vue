@@ -38,12 +38,12 @@
         </div>
       </div>
       <div class="pb-5">
-        <div>:showAngle="false"</div>
+        <div>show-data-count</div>
         <i-pagination
           :current-page="1"
-          :total="100"
+          :total="95"
           :page-size="10"
-          :show-angle="false"
+          show-data-count
         />
       </div>
     </div>
