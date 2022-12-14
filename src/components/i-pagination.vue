@@ -230,9 +230,14 @@ export default {
         this.$emit('currentChange', val);
       },
     },
-  },
-  created() {
-    this.activePage = this.currentPage;
+    currentPage: {
+      immediate: true,
+      handler(val) {
+        if (this.activePage !== val) {
+          this.activePage = val;
+        }
+      },
+    },
   },
   methods: {
     changePage(val) {

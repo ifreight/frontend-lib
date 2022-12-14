@@ -1435,10 +1435,13 @@ const en = {
       handler(t) {
         this.$emit("update:currentPage", t), this.$emit("currentChange", t);
       }
+    },
+    currentPage: {
+      immediate: !0,
+      handler(t) {
+        this.activePage !== t && (this.activePage = t);
+      }
     }
-  },
-  created() {
-    this.activePage = this.currentPage;
   },
   methods: {
     changePage(t) {
