@@ -399,7 +399,7 @@ var Ie = function() {
   null
 );
 const Be = Pe.exports;
-const Ae = {
+const Te = {
   name: "IDatepicker",
   components: {
     IcCheckCircle: $e,
@@ -558,7 +558,7 @@ const Ae = {
     }
   }
 };
-var Te = function() {
+var Ae = function() {
   var e = this, n = e._self._c;
   return n("div", { staticClass: "i-datepicker" }, [n("div", { staticClass: "i-datepicker--header" }, [n("button", { staticClass: "i-datepicker--header--nav-btn", class: { disabled: e.disabledPreviousMonth }, attrs: { disabled: e.disabledPreviousMonth }, on: { click: e.clickPreviousMultipleMonth } }, [n("ic-angles-circle", { attrs: { direction: "left" } })], 1), n("button", { staticClass: "i-datepicker--header--nav-btn", class: { disabled: e.disabledPreviousMonth }, attrs: { disabled: e.disabledPreviousMonth }, on: { click: e.clickPreviousMonth } }, [n("ic-angle-circle", { attrs: { direction: "left" } })], 1), n("div", [e._v(" " + e._s(e.activeMonthYear) + " ")]), n("button", { staticClass: "i-datepicker--header--nav-btn", class: { disabled: e.disabledNextMonth }, attrs: { disabled: e.disabledNextMonth }, on: { click: e.clickNextMonth } }, [n("ic-angle-circle")], 1), n("button", { staticClass: "i-datepicker--header--nav-btn", class: { disabled: e.disabledNextMonth }, attrs: { disabled: e.disabledNextMonth }, on: { click: e.clickNextMultipleMonth } }, [n("ic-angles-circle")], 1)]), n("div", { staticClass: "i-datepicker--body" }, [n("div", { staticClass: "i-datepicker--list-day-wrapper" }, e._l(e.listDays, function(i) {
     return n("div", { key: i, staticClass: "list-day" }, [e._v(" " + e._s(i) + " ")]);
@@ -576,8 +576,8 @@ var Te = function() {
     return n("div", { key: `${i.date()}${i.month()}${i.year()}-next`, staticClass: "each-date next-date disabled" }, [e._v(" " + e._s(i.date()) + " ")]);
   })], 2)])]);
 }, He = [], Re = /* @__PURE__ */ s(
-  Ae,
   Te,
+  Ae,
   He,
   !1,
   null,
@@ -1285,13 +1285,13 @@ var Vt = function() {
   null
 );
 const Pt = Ot.exports, Bt = {};
-var At = function() {
+var Tt = function() {
   var e = this, n = e._self._c;
   return n("svg", { attrs: { width: "9", height: "14", viewBox: "0 0 9 14", fill: "none", xmlns: "http://www.w3.org/2000/svg" } }, [n("path", { attrs: { d: "M6.7832 12.2998L1.7832 7.2998L6.7832 2.2998", stroke: "currentColor", "stroke-width": "2", "stroke-linecap": "square", "stroke-linejoin": "round" } })]);
-}, Tt = [], Ht = /* @__PURE__ */ s(
+}, At = [], Ht = /* @__PURE__ */ s(
   Bt,
-  At,
   Tt,
+  At,
   !1,
   null,
   null,
@@ -1374,9 +1374,13 @@ const en = {
       type: String,
       default: ""
     },
-    showAngle: {
+    showNavigation: {
       type: Boolean,
       default: !0
+    },
+    showDataCount: {
+      type: Boolean,
+      default: !1
     }
   },
   data() {
@@ -1419,6 +1423,11 @@ const en = {
     },
     disableRightAngle() {
       return this.lastPage ? this.activePage === this.lastPage : !0;
+    },
+    paginationDataCount() {
+      const t = (this.activePage - 1) * this.pageSize + 1;
+      let e = 0;
+      return this.activePage >= this.lastPage ? e = this.total : e = this.activePage * this.pageSize, `${t}-${e}`;
     }
   },
   watch: {
@@ -1451,7 +1460,7 @@ const en = {
 };
 var tn = function() {
   var e = this, n = e._self._c;
-  return n("div", { staticClass: "i-pagination", class: e.wrapperClass }, [e.showAngle ? [n("button", { staticClass: "angle angles-left", class: { disabled: e.disableLeftAngle }, attrs: { disabled: e.disableLeftAngle }, on: { click: e.clickLeftAngles } }, [n("ic-angles-left")], 1), n("button", { staticClass: "angle angle-left", class: { disabled: e.disableLeftAngle }, attrs: { disabled: e.disableLeftAngle }, on: { click: e.clickLeftAngle } }, [n("ic-angle-left")], 1)] : e._e(), n("div", { staticClass: "number", class: [
+  return n("div", { staticClass: "i-pagination", class: e.wrapperClass }, [e.showDataCount ? n("div", { staticClass: "i-pagination-data-count" }, [e._v(" " + e._s(e.paginationDataCount) + " of " + e._s(e.total) + " ")]) : e._e(), n("div", { staticClass: "i-pagination-container" }, [e.showNavigation ? [n("button", { staticClass: "angle angles-left", class: { disabled: e.disableLeftAngle }, attrs: { disabled: e.disableLeftAngle }, on: { click: e.clickLeftAngles } }, [n("ic-angles-left")], 1), n("button", { staticClass: "angle angle-left", class: { disabled: e.disableLeftAngle }, attrs: { disabled: e.disableLeftAngle }, on: { click: e.clickLeftAngle } }, [n("ic-angle-left")], 1)] : e._e(), n("div", { staticClass: "number", class: [
     e.numberClass,
     {
       active: e.activePage === 1
@@ -1474,7 +1483,7 @@ var tn = function() {
     }
   ], on: { click: function(i) {
     return e.changePage(e.lastPage);
-  } } }, [e._v(" " + e._s(e.lastPage) + " ")]) : e._e(), e.showAngle ? [n("button", { staticClass: "angle angle-right", class: { disabled: e.disableRightAngle }, attrs: { disabled: e.disableRightAngle }, on: { click: e.clickRightAngle } }, [n("ic-angle-right")], 1), n("button", { staticClass: "angle angles-right", class: { disabled: e.disableRightAngle }, attrs: { disabled: e.disableRightAngle }, on: { click: e.clickRightAngles } }, [n("ic-angles-right")], 1)] : e._e()], 2);
+  } } }, [e._v(" " + e._s(e.lastPage) + " ")]) : e._e(), e.showNavigation ? [n("button", { staticClass: "angle angle-right", class: { disabled: e.disableRightAngle }, attrs: { disabled: e.disableRightAngle }, on: { click: e.clickRightAngle } }, [n("ic-angle-right")], 1), n("button", { staticClass: "angle angles-right", class: { disabled: e.disableRightAngle }, attrs: { disabled: e.disableRightAngle }, on: { click: e.clickRightAngles } }, [n("ic-angles-right")], 1)] : e._e()], 2)]);
 }, nn = [], sn = /* @__PURE__ */ s(
   en,
   tn,
@@ -1658,9 +1667,9 @@ function Pn(t) {
   var a = On.call(t);
   return i && (e ? t[y] = n : delete t[y]), a;
 }
-var Bn = Pn, An = Object.prototype, Tn = An.toString;
+var Bn = Pn, Tn = Object.prototype, An = Tn.toString;
 function Hn(t) {
-  return Tn.call(t);
+  return An.call(t);
 }
 var Rn = Hn, O = z, Fn = Bn, jn = Rn, Nn = "[object Null]", Zn = "[object Undefined]", P = O ? O.toStringTag : void 0;
 function qn(t) {
@@ -1674,12 +1683,12 @@ var En = zn, Kn = Yn, Gn = En, Wn = "[object Symbol]";
 function Jn(t) {
   return typeof t == "symbol" || Gn(t) && Kn(t) == Wn;
 }
-var Qn = Jn, Un = Mn, B = q, Xn = Qn, A = 0 / 0, ei = /^[-+]0x[0-9a-f]+$/i, ti = /^0b[01]+$/i, ni = /^0o[0-7]+$/i, ii = parseInt;
+var Qn = Jn, Un = Mn, B = q, Xn = Qn, T = 0 / 0, ei = /^[-+]0x[0-9a-f]+$/i, ti = /^0b[01]+$/i, ni = /^0o[0-7]+$/i, ii = parseInt;
 function si(t) {
   if (typeof t == "number")
     return t;
   if (Xn(t))
-    return A;
+    return T;
   if (B(t)) {
     var e = typeof t.valueOf == "function" ? t.valueOf() : t;
     t = B(e) ? e + "" : e;
@@ -1688,14 +1697,14 @@ function si(t) {
     return t === 0 ? t : +t;
   t = Un(t);
   var n = ti.test(t);
-  return n || ni.test(t) ? ii(t.slice(2), n ? 2 : 8) : ei.test(t) ? A : +t;
+  return n || ni.test(t) ? ii(t.slice(2), n ? 2 : 8) : ei.test(t) ? T : +t;
 }
-var ri = si, ai = q, x = bn, T = ri, oi = "Expected a function", li = Math.max, ci = Math.min;
+var ri = si, ai = q, x = bn, A = ri, oi = "Expected a function", li = Math.max, ci = Math.min;
 function ui(t, e, n) {
   var i, a, p, l, d, o, u = 0, _ = !1, h = !1, f = !0;
   if (typeof t != "function")
     throw new TypeError(oi);
-  e = T(e) || 0, ai(n) && (_ = !!n.leading, h = "maxWait" in n, p = h ? li(T(n.maxWait) || 0, e) : p, f = "trailing" in n ? !!n.trailing : f);
+  e = A(e) || 0, ai(n) && (_ = !!n.leading, h = "maxWait" in n, p = h ? li(A(n.maxWait) || 0, e) : p, f = "trailing" in n ? !!n.trailing : f);
   function m(c) {
     var v = i, g = a;
     return i = a = void 0, u = c, l = t.apply(g, v), l;
@@ -2090,7 +2099,7 @@ const gs = Ii.exports, Oi = {};
 var Pi = function() {
   var e = this, n = e._self._c;
   return n("svg", { attrs: { width: "17", height: "20", viewBox: "0 0 17 20", fill: "none", xmlns: "http://www.w3.org/2000/svg" } }, [n("path", { attrs: { d: "M15.5 8.36828C15.5 12.3038 10.1199 19.25 8.50001 19.25C6.59668 19.25 1.5 12.3038 1.5 8.36828C1.5 6.4804 2.23751 4.66983 3.55026 3.3349C4.86302 1.99996 6.64349 1.25 8.50001 1.25C10.3565 1.25 12.137 1.99996 13.4497 3.3349C14.7625 4.66983 15.5 6.4804 15.5 8.36828V8.36828Z", stroke: "currentColor", "stroke-width": "1.5", "stroke-linecap": "round", "stroke-linejoin": "round" } }), n("path", { attrs: { d: "M8.50015 11.1598C9.74988 11.1598 10.763 10.1295 10.763 8.85869C10.763 7.58784 9.74988 6.55762 8.50015 6.55762C7.25041 6.55762 6.2373 7.58784 6.2373 8.85869C6.2373 10.1295 7.25041 11.1598 8.50015 11.1598Z", stroke: "currentColor", "stroke-width": "1.5", "stroke-linecap": "round", "stroke-linejoin": "round" } })]);
-}, Bi = [], Ai = /* @__PURE__ */ s(
+}, Bi = [], Ti = /* @__PURE__ */ s(
   Oi,
   Pi,
   Bi,
@@ -2100,14 +2109,14 @@ var Pi = function() {
   null,
   null
 );
-const ys = Ai.exports, Ti = {
+const ys = Ti.exports, Ai = {
   name: "IcFilter"
 };
 var Hi = function() {
   var e = this, n = e._self._c;
   return n("svg", { attrs: { width: "12", height: "12", viewBox: "0 0 12 12", fill: "none", xmlns: "http://www.w3.org/2000/svg" } }, [n("line", { attrs: { x1: "9", y1: "1.68182", x2: "12", y2: "1.68182", stroke: "currentColor" } }), n("line", { attrs: { y1: "1.68182", x2: "7", y2: "1.68182", stroke: "currentColor" } }), n("line", { attrs: { y1: "6.04547", x2: "3", y2: "6.04547", stroke: "currentColor" } }), n("line", { attrs: { x1: "5", y1: "6.04547", x2: "12", y2: "6.04547", stroke: "currentColor" } }), n("line", { attrs: { x1: "7", y1: "10.4091", x2: "12", y2: "10.4091", stroke: "currentColor" } }), n("line", { attrs: { y1: "10.4091", x2: "5", y2: "10.4091", stroke: "currentColor" } }), n("line", { attrs: { x1: "7.5", y1: "2.18557e-08", x2: "7.5", y2: "3.27273", stroke: "currentColor" } }), n("line", { attrs: { x1: "5.5", y1: "8.72729", x2: "5.5", y2: "12", stroke: "currentColor" } }), n("line", { attrs: { x1: "3.5", y1: "4.36365", x2: "3.5", y2: "7.63637", stroke: "currentColor" } })]);
 }, Ri = [], Fi = /* @__PURE__ */ s(
-  Ti,
+  Ai,
   Hi,
   Ri,
   !1,
