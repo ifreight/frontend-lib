@@ -3,93 +3,102 @@
     class="i-pagination"
     :class="wrapperClass"
   >
-    <template v-if="showAngle">
-      <button
-        class="angle angles-left"
-        :class="{ disabled: disableLeftAngle }"
-        :disabled="disableLeftAngle"
-        @click="clickLeftAngles"
+    <div
+      v-if="showDataCount"
+      class="i-pagination-data-count"
+    >
+      {{ paginationDataCount }} of {{ total }}
+    </div>
+
+    <div class="i-pagination-container">
+      <template v-if="showNavigation">
+        <button
+          class="angle angles-left"
+          :class="{ disabled: disableLeftAngle }"
+          :disabled="disableLeftAngle"
+          @click="clickLeftAngles"
+        >
+          <ic-angles-left />
+        </button>
+        <button
+          class="angle angle-left"
+          :class="{ disabled: disableLeftAngle }"
+          :disabled="disableLeftAngle"
+          @click="clickLeftAngle"
+        >
+          <ic-angle-left />
+        </button>
+      </template>
+      <div
+        class="number"
+        :class="[
+          numberClass,
+          {
+            active: activePage === 1,
+          },
+        ]"
+        @click="changePage(1)"
       >
-        <ic-angles-left />
-      </button>
-      <button
-        class="angle angle-left"
-        :class="{ disabled: disableLeftAngle }"
-        :disabled="disableLeftAngle"
-        @click="clickLeftAngle"
+        1
+      </div>
+      <div
+        v-if="isShowFirstInterval"
+        class="interval"
       >
-        <ic-angle-left />
-      </button>
-    </template>
-    <div
-      class="number"
-      :class="[
-        numberClass,
-        {
-          active: activePage === 1,
-        },
-      ]"
-      @click="changePage(1)"
-    >
-      1
-    </div>
-    <div
-      v-if="isShowFirstInterval"
-      class="interval"
-    >
-      ...
-    </div>
-    <div
-      v-for="page in middlePage"
-      :key="page"
-      class="number"
-      :class="[
-        numberClass,
-        {
-          active: activePage === page,
-        },
-      ]"
-      @click="changePage(page)"
-    >
-      {{ page }}
-    </div>
-    <div
-      v-if="!isHideLastInterval"
-      class="interval"
-    >
-      ...
-    </div>
-    <div
-      v-if="lastPage"
-      class="number"
-      :class="[
-        numberClass,
-        {
-          active: activePage === lastPage,
-        },
-      ]"
-      @click="changePage(lastPage)"
-    >
-      {{ lastPage }}
-    </div>
-    <template v-if="showAngle">
-      <button
-        class="angle angle-right"
-        :class="{ disabled: disableRightAngle }"
-        :disabled="disableRightAngle"
-        @click="clickRightAngle"
+        ...
+      </div>
+      <div
+        v-for="page in middlePage"
+        :key="page"
+        class="number"
+        :class="[
+          numberClass,
+          {
+            active: activePage === page,
+          },
+        ]"
+        @click="changePage(page)"
       >
-        <ic-angle-right />
-      </button>
-      <button
-        class="angle angles-right"
-        :class="{ disabled: disableRightAngle }"
-        :disabled="disableRightAngle"
-        @click="clickRightAngles"
+        {{ page }}
+      </div>
+      <div
+        v-if="!isHideLastInterval"
+        class="interval"
       >
-        <ic-angles-right />
-      </button>
-    </template>
+        ...
+      </div>
+      <div
+        v-if="lastPage"
+        class="number"
+        :class="[
+          numberClass,
+          {
+            active: activePage === lastPage,
+          },
+        ]"
+        @click="changePage(lastPage)"
+      >
+        {{ lastPage }}
+      </div>
+      <template v-if="showNavigation">
+        <button
+          class="angle angle-right"
+          :class="{ disabled: disableRightAngle }"
+          :disabled="disableRightAngle"
+          @click="clickRightAngle"
+        >
+          <ic-angle-right />
+        </button>
+        <button
+          class="angle angles-right"
+          :class="{ disabled: disableRightAngle }"
+          :disabled="disableRightAngle"
+          @click="clickRightAngles"
+        >
+          <ic-angles-right />
+        </button>
+      </template>
+    </div>
   </div>
 </template>
 
@@ -132,9 +141,13 @@ export default {
       type: String,
       default: '',
     },
-    showAngle: {
+    showNavigation: {
       type: Boolean,
       default: true,
+    },
+    showDataCount: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {
@@ -197,6 +210,18 @@ export default {
       }
       return this.activePage === this.lastPage;
     },
+    paginationDataCount() {
+      const startDataCount = (this.activePage - 1) * this.pageSize + 1;
+
+      let endDataCount = 0;
+      if (this.activePage >= this.lastPage) {
+        endDataCount = this.total;
+      } else {
+        endDataCount = this.activePage * this.pageSize;
+      }
+
+      return `${startDataCount}-${endDataCount}`;
+    },
   },
   watch: {
     activePage: {
@@ -240,61 +265,69 @@ export default {
 <style>
 .i-pagination {
   display: flex;
+  justify-content: space-between;
 
-  div {
+  .i-pagination-data-count {
+    @apply text-sm text-gray-400 flex items-center;
+  }
+
+  .i-pagination-container {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--gray-400);
-  }
 
-  .interval {
-    margin: 0px 12px;
-  }
-
-  .angle {
-    cursor: pointer;
-    color: var(--yellow-700);
-
-    &.angle-left {
-      margin-right: 7px;
-    }
-
-    &.angle-right {
-      margin-left: 7px;
-    }
-
-    &.angles-left {
-      margin-right: 20px;
-    }
-
-    &.angles-right {
-      margin-left: 20px;
-    }
-
-    &.disabled {
-      cursor: default;
+    .number,
+    .interval {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       color: var(--gray-400);
     }
-  }
 
-  .number {
-    cursor: pointer;
-    min-width: 19px;
-    text-align: center;
-    margin: 0px 12px;
-    font-size: 16px;
-    font-weight: 500;
-
-    &.active {
-      color: var(--yellow-700);
-      cursor: default;
-      border-bottom: 1px solid var(--yellow-700);
-      margin-bottom: -1px;
+    .interval {
+      display: inline-block;
+      margin: 0 12px;
     }
-  }
-  .interval {
-    display: inline-block;
+
+    .angle {
+      color: var(--yellow-700);
+      cursor: pointer;
+
+      &.angle-left {
+        margin-right: 7px;
+      }
+
+      &.angle-right {
+        margin-left: 7px;
+      }
+
+      &.angles-left {
+        margin-right: 20px;
+      }
+
+      &.angles-right {
+        margin-left: 20px;
+      }
+
+      &.disabled {
+        color: var(--gray-400);
+        cursor: default;
+      }
+    }
+
+    .number {
+      min-width: 19px;
+      margin: 0 12px;
+      font-size: 16px;
+      font-weight: 500;
+      text-align: center;
+      cursor: pointer;
+
+      &.active {
+        margin-bottom: -1px;
+        color: var(--yellow-700);
+        cursor: default;
+        border-bottom: 1px solid var(--yellow-700);
+      }
+    }
   }
 }
 </style>
