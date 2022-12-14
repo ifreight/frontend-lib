@@ -290,6 +290,7 @@ export default {
     .angle {
       color: var(--yellow-700);
       cursor: pointer;
+      background: none;
 
       &.angle-left {
         margin-right: 7px;
