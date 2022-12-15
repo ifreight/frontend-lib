@@ -68,8 +68,6 @@
       Test
     </i-box>
 
-    <i-button> Test </i-button>
-
     <div class="p-5">
       <i-checkbox label="toggle" />
     </div>
@@ -326,6 +324,7 @@
         Open Dialog
       </i-button>
       <i-button
+        plain
         class="w-[200px]"
         @click="showDialogHeader = true"
       >
@@ -345,6 +344,28 @@
       >
         Test Header
       </i-dialog>
+    </div>
+    <div class="py-5 w-[400px]">
+      <i-button
+        size="sm"
+        class="w-[200px] mb-5"
+        @click="changeTab"
+      >
+        Change Tab
+      </i-button>
+      <i-tabs
+        v-model="activeTab"
+        header-align="left"
+      >
+        <i-tab-pane
+          v-for="tab in tabs"
+          :key="`tab-${tab.name}`"
+          :label="tab.label"
+          :name="tab.name"
+        >
+          {{ tab.label }}
+        </i-tab-pane>
+      </i-tabs>
     </div>
     <div class="flex">
       <div class="py-5 flex w-[315px]">
@@ -382,6 +403,8 @@ import IPopover from './components/i-popover.vue';
 import ISelect from './components/i-select.vue';
 import IPagination from './components/i-pagination.vue';
 import IProgress from './components/i-progress.vue';
+import ITabs from './components/tab/i-tabs.vue';
+import ITabPane from './components/tab/i-tab-pane.vue';
 
 import IcArrowCircle from './icons/ic-arrow-circle.vue';
 import IcFilter from './icons/ic-filter.vue';
@@ -410,6 +433,8 @@ export default {
     ISelect,
     IPagination,
     IProgress,
+    ITabs,
+    ITabPane,
   },
   data() {
     return {
@@ -450,6 +475,17 @@ export default {
         currentPage: 1,
         total: 1000,
       },
+      activeTab: 'tab1',
+      tabs: [
+        {
+          label: 'Tab 1',
+          name: 'tab1',
+        },
+        {
+          label: 'Tab 2',
+          name: 'tab2',
+        },
+      ],
     };
   },
   mounted() {
@@ -487,6 +523,23 @@ export default {
           ]);
         }, 1000);
       });
+    },
+    changeTab() {
+      this.tabs = [
+        {
+          label: 'The Quick Brown Fox',
+          name: 'tabA',
+        },
+        {
+          label: 'Jumps Over the Lazy Dog',
+          name: 'tabB',
+        },
+        {
+          label: 'And Die Alone Miserably',
+          name: 'tabC',
+        },
+      ];
+      this.activeTab = this.tabs[0].name;
     },
   },
 };
