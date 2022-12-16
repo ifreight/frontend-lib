@@ -121,9 +121,21 @@
         placeholder="filterable"
         filterable
         class="flex-1"
-        :options="selectStaticOptions"
+        :options="selectObjectOptions"
+        option-key="key"
+        option-value="label"
+        dropdown-width="600px"
         clearable
-      />
+      >
+        <template #dropdownOptionsPrepend="{ option }">
+          <div class="flex items-center h-10 w-10 mr-3 -my-1">
+            <img
+              :src="option.logo"
+              alt="logo"
+            />
+          </div>
+        </template>
+      </i-select>
 
       <i-select
         v-model="selectRemoteId"
@@ -449,6 +461,23 @@ export default {
       select: null,
       selectFilterable: null,
       selectStaticOptions: ['Asia', 'America', 'Europe', 'Others'],
+      selectObjectOptions: [
+        {
+          key: 1,
+          label: 'Option 1',
+          logo: 'https://picsum.photos/200',
+        },
+        {
+          key: 2,
+          label: 'Option 2',
+          logo: 'https://picsum.photos/150',
+        },
+        {
+          key: 3,
+          label: 'Option 3',
+          logo: 'https://picsum.photos/100',
+        },
+      ],
       selectRemoteId: null,
       selectRemote: null,
       searchType: 1,

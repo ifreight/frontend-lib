@@ -11,6 +11,10 @@
         @click="$emit('selectedValue', option)"
       >
         <slot
+          name="optionsPrepend"
+          :option="option"
+        />
+        <slot
           name="options"
           :option="option"
         >
@@ -170,6 +174,8 @@ export default {
   }
 
   li {
+    display: flex;
+    align-items: center;
     padding: 16px 32px;
     font-size: 14px;
     line-height: 16px;

@@ -18,6 +18,7 @@
     <div
       v-show="isVisible"
       class="i-dropdown-box"
+      :style="{ width }"
     >
       <div
         v-if="$slots.header"
@@ -36,6 +37,10 @@ export default {
   name: 'IDropdown',
   props: {
     isVisible: Boolean,
+    width: {
+      type: String,
+      default: '100%',
+    },
   },
   data() {
     return {
@@ -96,7 +101,6 @@ export default {
     position: absolute;
     left: 0;
     z-index: 2;
-    width: 100%;
     padding: 20px;
     overflow: hidden;
     background-color: var(--white);

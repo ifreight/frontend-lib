@@ -18,9 +18,9 @@ const C = {
     return Array.isArray(C.countryList) || await Promise.resolve(C.countryList), C.countryList;
   }
 };
-function s(t, e, n, i, r, u, c, l) {
+function s(t, e, n, i, r, d, c, l) {
   var o = typeof t == "function" ? t.options : t;
-  e && (o.render = e, o.staticRenderFns = n, o._compiled = !0), i && (o.functional = !0), u && (o._scopeId = "data-v-" + u);
+  e && (o.render = e, o.staticRenderFns = n, o._compiled = !0), i && (o.functional = !0), d && (o._scopeId = "data-v-" + d);
   var p;
   if (c ? (p = function(f) {
     f = f || this.$vnode && this.$vnode.ssrContext || this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext, !f && typeof __VUE_SSR_CONTEXT__ < "u" && (f = __VUE_SSR_CONTEXT__), r && r.call(this, f), f && f._registeredComponents && f._registeredComponents.add(c);
@@ -257,17 +257,17 @@ var ce = function() {
   return n("button", { class: e.buttonClasses, attrs: { disabled: e.disabled }, on: { click: function(i) {
     return i.stopPropagation(), e.$emit("click");
   } } }, [e._t("prepend"), e._t("default"), e._t("append")], 2);
-}, ue = [], de = /* @__PURE__ */ s(
+}, de = [], ue = /* @__PURE__ */ s(
   le,
   ce,
-  ue,
+  de,
   !1,
   null,
   null,
   null,
   null
 );
-const _s = de.exports, pe = {
+const _s = ue.exports, pe = {
   name: "IcCheck"
 };
 var he = function() {
@@ -703,7 +703,11 @@ const ms = Qe.exports;
 const Ue = {
   name: "IDropdown",
   props: {
-    isVisible: Boolean
+    isVisible: Boolean,
+    width: {
+      type: String,
+      default: "100%"
+    }
   },
   data() {
     return {
@@ -727,7 +731,7 @@ const Ue = {
 };
 var Xe = function() {
   var e = this, n = e._self._c;
-  return n("div", { staticClass: "i-dropdown", class: e.openDirection }, [n("div", { ref: "reference", staticClass: "i-dropdown-reference" }), n("div", { directives: [{ name: "show", rawName: "v-show", value: e.isVisible, expression: "isVisible" }], staticClass: "i-dropdown-arrow" }, [n("span", { style: e.arrowStyles })]), n("div", { directives: [{ name: "show", rawName: "v-show", value: e.isVisible, expression: "isVisible" }], staticClass: "i-dropdown-box" }, [e.$slots.header ? n("div", { staticClass: "i-dropdown-header" }, [e._t("header")], 2) : e._e(), e._t("default")], 2)]);
+  return n("div", { staticClass: "i-dropdown", class: e.openDirection }, [n("div", { ref: "reference", staticClass: "i-dropdown-reference" }), n("div", { directives: [{ name: "show", rawName: "v-show", value: e.isVisible, expression: "isVisible" }], staticClass: "i-dropdown-arrow" }, [n("span", { style: e.arrowStyles })]), n("div", { directives: [{ name: "show", rawName: "v-show", value: e.isVisible, expression: "isVisible" }], staticClass: "i-dropdown-box", style: { width: e.width } }, [e.$slots.header ? n("div", { staticClass: "i-dropdown-header" }, [e._t("header")], 2) : e._e(), e._t("default")], 2)]);
 }, et = [], tt = /* @__PURE__ */ s(
   Ue,
   Xe,
@@ -792,10 +796,10 @@ const nt = {
         return t;
       let n = e;
       n == null && ({ query: n } = this);
-      const i = t.replace(/\w/g, "#"), r = n.toLowerCase().replace(/\W/g, ""), u = t.replace(/\W/g, ""), c = u.toLowerCase().indexOf(r);
+      const i = t.replace(/\w/g, "#"), r = n.toLowerCase().replace(/\W/g, ""), d = t.replace(/\W/g, ""), c = d.toLowerCase().indexOf(r);
       if (c > -1 && r.length) {
         const l = c + r.length - 1, o = (_) => {
-          let h = u[_];
+          let h = d[_];
           return _ === c && (h = `<b>${h}`), _ === l && (h += "</b>"), h;
         };
         let p = -1;
@@ -808,9 +812,9 @@ const nt = {
 var it = function() {
   var e = this, n = e._self._c;
   return n("div", [e.filteredOptions.length > 0 ? n("ul", { staticClass: "i-dropdown-options" }, e._l(e.filteredOptions, function(i, r) {
-    return n("li", { key: `option-${r}`, class: e.currentValue === i[e.optionKey] && "selected", on: { click: function(u) {
+    return n("li", { key: `option-${r}`, class: e.currentValue === i[e.optionKey] && "selected", on: { click: function(d) {
       return e.$emit("selectedValue", i);
-    } } }, [e._t("options", function() {
+    } } }, [e._t("optionsPrepend", null, { option: i }), e._t("options", function() {
       return [e.currentValue === i[e.optionKey] ? n("span", [e._v(" " + e._s(i[e.optionValue]) + " ")]) : n("span", { domProps: { innerHTML: e._s(e.makeBold(i[e.optionValue])) } })];
     }, { option: i })], 2);
   }), 0) : n("span", { staticClass: "i-dropdown-options-placeholder" }, [e.loading ? [e._v(" Loading ")] : e.remote ? [e._v(" " + e._s(e.query ? e.noDataText : e.remoteText) + " ")] : [e._v(" " + e._s(e.noDataText) + " ")]], 2)]);
@@ -865,8 +869,8 @@ var ot = function() {
   null,
   null
 );
-const ut = ct.exports;
-const dt = {
+const dt = ct.exports;
+const ut = {
   name: "IInputLabel",
   props: {
     label: {
@@ -900,7 +904,7 @@ var pt = function() {
     return [e._v(e._s(e.label))];
   })], 2), e._t("default")], 2);
 }, ht = [], ft = /* @__PURE__ */ s(
-  dt,
+  ut,
   pt,
   ht,
   !1,
@@ -941,7 +945,7 @@ const gt = {
   components: {
     IcAngle: q,
     InputTel: I.component,
-    IDualInput: ut,
+    IDualInput: dt,
     IDropdown: j,
     IDropdownOptions: N
   },
@@ -1050,10 +1054,10 @@ var b = typeof globalThis < "u" ? globalThis : typeof window < "u" ? window : ty
     function i(c) {
       return c && typeof c == "object" && "default" in c ? c : { default: c };
     }
-    var r = i(n), u = { name: "id", weekdays: "Minggu_Senin_Selasa_Rabu_Kamis_Jumat_Sabtu".split("_"), months: "Januari_Februari_Maret_April_Mei_Juni_Juli_Agustus_September_Oktober_November_Desember".split("_"), weekdaysShort: "Min_Sen_Sel_Rab_Kam_Jum_Sab".split("_"), monthsShort: "Jan_Feb_Mar_Apr_Mei_Jun_Jul_Agt_Sep_Okt_Nov_Des".split("_"), weekdaysMin: "Mg_Sn_Sl_Rb_Km_Jm_Sb".split("_"), weekStart: 1, formats: { LT: "HH.mm", LTS: "HH.mm.ss", L: "DD/MM/YYYY", LL: "D MMMM YYYY", LLL: "D MMMM YYYY [pukul] HH.mm", LLLL: "dddd, D MMMM YYYY [pukul] HH.mm" }, relativeTime: { future: "dalam %s", past: "%s yang lalu", s: "beberapa detik", m: "semenit", mm: "%d menit", h: "sejam", hh: "%d jam", d: "sehari", dd: "%d hari", M: "sebulan", MM: "%d bulan", y: "setahun", yy: "%d tahun" }, ordinal: function(c) {
+    var r = i(n), d = { name: "id", weekdays: "Minggu_Senin_Selasa_Rabu_Kamis_Jumat_Sabtu".split("_"), months: "Januari_Februari_Maret_April_Mei_Juni_Juli_Agustus_September_Oktober_November_Desember".split("_"), weekdaysShort: "Min_Sen_Sel_Rab_Kam_Jum_Sab".split("_"), monthsShort: "Jan_Feb_Mar_Apr_Mei_Jun_Jul_Agt_Sep_Okt_Nov_Des".split("_"), weekdaysMin: "Mg_Sn_Sl_Rb_Km_Jm_Sb".split("_"), weekStart: 1, formats: { LT: "HH.mm", LTS: "HH.mm.ss", L: "DD/MM/YYYY", LL: "D MMMM YYYY", LLL: "D MMMM YYYY [pukul] HH.mm", LLLL: "dddd, D MMMM YYYY [pukul] HH.mm" }, relativeTime: { future: "dalam %s", past: "%s yang lalu", s: "beberapa detik", m: "semenit", mm: "%d menit", h: "sejam", hh: "%d jam", d: "sehari", dd: "%d hari", M: "sebulan", MM: "%d bulan", y: "setahun", yy: "%d tahun" }, ordinal: function(c) {
       return c + ".";
     } };
-    return r.default.locale(u, null, !0), u;
+    return r.default.locale(d, null, !0), d;
   });
 })(wt);
 const $t = {};
@@ -1627,15 +1631,15 @@ const cn = {
     }
   }
 };
-var un = function() {
+var dn = function() {
   var e = this, n = e._self._c;
   return n("div", { staticClass: "i-progress", class: e.border && "i-progress--border", style: { height: e.height } }, [n("span", { staticClass: "i-progress--bar", style: {
     width: e.barWidth
   } })]);
-}, dn = [], pn = /* @__PURE__ */ s(
+}, un = [], pn = /* @__PURE__ */ s(
   cn,
-  un,
   dn,
+  un,
   !1,
   null,
   null,
@@ -1703,34 +1707,34 @@ function si(t) {
   return n || ni.test(t) ? ii(t.slice(2), n ? 2 : 8) : ei.test(t) ? B : +t;
 }
 var ri = si, ai = z, x = bn, T = ri, oi = "Expected a function", li = Math.max, ci = Math.min;
-function ui(t, e, n) {
-  var i, r, u, c, l, o, p = 0, _ = !1, h = !1, f = !0;
+function di(t, e, n) {
+  var i, r, d, c, l, o, p = 0, _ = !1, h = !1, f = !0;
   if (typeof t != "function")
     throw new TypeError(oi);
-  e = T(e) || 0, ai(n) && (_ = !!n.leading, h = "maxWait" in n, u = h ? li(T(n.maxWait) || 0, e) : u, f = "trailing" in n ? !!n.trailing : f);
-  function m(d) {
+  e = T(e) || 0, ai(n) && (_ = !!n.leading, h = "maxWait" in n, d = h ? li(T(n.maxWait) || 0, e) : d, f = "trailing" in n ? !!n.trailing : f);
+  function m(u) {
     var v = i, g = r;
-    return i = r = void 0, p = d, c = t.apply(g, v), c;
+    return i = r = void 0, p = u, c = t.apply(g, v), c;
   }
-  function k(d) {
-    return p = d, l = setTimeout(w, e), _ ? m(d) : c;
+  function k(u) {
+    return p = u, l = setTimeout(w, e), _ ? m(u) : c;
   }
-  function K(d) {
-    var v = d - o, g = d - p, L = e - v;
-    return h ? ci(L, u - g) : L;
+  function K(u) {
+    var v = u - o, g = u - p, L = e - v;
+    return h ? ci(L, d - g) : L;
   }
-  function S(d) {
-    var v = d - o, g = d - p;
-    return o === void 0 || v >= e || v < 0 || h && g >= u;
+  function S(u) {
+    var v = u - o, g = u - p;
+    return o === void 0 || v >= e || v < 0 || h && g >= d;
   }
   function w() {
-    var d = x();
-    if (S(d))
-      return D(d);
-    l = setTimeout(w, K(d));
+    var u = x();
+    if (S(u))
+      return D(u);
+    l = setTimeout(w, K(u));
   }
-  function D(d) {
-    return l = void 0, f && i ? m(d) : (i = r = void 0, c);
+  function D(u) {
+    return l = void 0, f && i ? m(u) : (i = r = void 0, c);
   }
   function G() {
     l !== void 0 && clearTimeout(l), p = 0, i = o = r = l = void 0;
@@ -1739,8 +1743,8 @@ function ui(t, e, n) {
     return l === void 0 ? c : D(x());
   }
   function $() {
-    var d = x(), v = S(d);
-    if (i = arguments, r = this, o = d, v) {
+    var u = x(), v = S(u);
+    if (i = arguments, r = this, o = u, v) {
       if (l === void 0)
         return k(o);
       if (h)
@@ -1750,7 +1754,7 @@ function ui(t, e, n) {
   }
   return $.cancel = G, $.flush = J, $;
 }
-var di = ui;
+var ui = di;
 const pi = {
   name: "ISelect",
   components: {
@@ -1834,7 +1838,11 @@ const pi = {
         return ["sm", "base"].includes(t);
       }
     },
-    clearable: Boolean
+    clearable: Boolean,
+    dropdownWidth: {
+      type: String,
+      default: void 0
+    }
   },
   data() {
     return {
@@ -1903,7 +1911,7 @@ const pi = {
       deep: !0,
       immediate: !0,
       handler() {
-        this.inputValue && this.selectedOptionValue !== this.inputValue && this.updateSelectedOption(this.dropdownOptions.find((t) => t[this.optionKey] === this.inputValue));
+        this.inputValue && this.selectedOptionValue !== this.inputValue && this.dropdownOptions.length && this.updateSelectedOption(this.dropdownOptions.find((t) => t[this.optionKey] === this.inputValue));
       }
     },
     isVisible() {
@@ -1938,7 +1946,7 @@ const pi = {
       }
       this.remoteLoading = !1;
     },
-    debouncedHandleQuery: di(function() {
+    debouncedHandleQuery: ui(function() {
       this.handleQuery(this.query);
     }, 400),
     onInputKeyup(t) {
@@ -1972,9 +1980,11 @@ var hi = function() {
     return [e._t("append", function() {
       return [!e.filterable && !e.remote ? [n("div", { staticClass: "i-select-arrow-container", on: { click: e.toggleDropdown } }, [n("ic-angle", { attrs: { direction: e.isVisible ? "up" : "down" } })], 1)] : e._e()];
     })];
-  }, proxy: !0 }], null, !0) }), n("i-dropdown", { attrs: { "is-visible": e.isVisible }, scopedSlots: e._u([{ key: "header", fn: function() {
+  }, proxy: !0 }], null, !0) }), n("i-dropdown", { attrs: { "is-visible": e.isVisible, width: e.dropdownWidth }, scopedSlots: e._u([{ key: "header", fn: function() {
     return [e._t("dropdownHeader")];
-  }, proxy: !0 }], null, !0) }, [n("i-dropdown-options", { attrs: { options: e.dropdownOptions, "option-key": e.optionKey, "option-value": e.optionValue, "current-value": e.selectedOptionValue, query: e.query, filterable: e.filterable, remote: e.remote, "remote-text": e.remoteText, "no-data-text": e.noDataText, loading: e.isLoading }, on: { selectedValue: e.handleSelected } })], 1)], 2), e.errorMessage ? n("div", { staticClass: "i-input-error" }, [e._v(" " + e._s(e.errorMessage) + " ")]) : e._e()]);
+  }, proxy: !0 }], null, !0) }, [n("i-dropdown-options", { attrs: { options: e.dropdownOptions, "option-key": e.optionKey, "option-value": e.optionValue, "current-value": e.selectedOptionValue, query: e.query, filterable: e.filterable, remote: e.remote, "remote-text": e.remoteText, "no-data-text": e.noDataText, loading: e.isLoading }, on: { selectedValue: e.handleSelected }, scopedSlots: e._u([{ key: "optionsPrepend", fn: function({ option: i }) {
+    return [e._t("dropdownOptionsPrepend", null, { option: i })];
+  } }], null, !0) })], 1)], 2), e.errorMessage ? n("div", { staticClass: "i-input-error" }, [e._v(" " + e._s(e.errorMessage) + " ")]) : e._e()]);
 }, fi = [], _i = /* @__PURE__ */ s(
   pi,
   hi,
@@ -2126,10 +2136,10 @@ const yi = {
   methods: {
     loadPaneInstances(t = !1) {
       if (this.$slots.default) {
-        const u = this.$slots.default.filter(
+        const d = this.$slots.default.filter(
           (l) => l.tag && l.componentOptions && l.componentOptions.Ctor.options.name === "ITabPane"
-        ).map(({ componentInstance: l }) => l), c = !(u.length === this.panes.length && u.every((l, o) => l === this.panes[o]));
-        (t || c) && (this.panes = u);
+        ).map(({ componentInstance: l }) => l), c = !(d.length === this.panes.length && d.every((l, o) => l === this.panes[o]));
+        (t || c) && (this.panes = d);
       } else
         this.panes.length !== 0 && (this.panes = []);
       const e = this.$refs.tabHeaderWrapper, n = e ? e.scrollWidth : 0, i = e ? e.clientWidth : 0;
@@ -2157,8 +2167,8 @@ var bi = function() {
         active: i.name === e.value
       },
       e.headerListClass
-    ], on: { click: function(u) {
-      return u.stopPropagation(), e.changeActiveTab(i.name);
+    ], on: { click: function(d) {
+      return d.stopPropagation(), e.changeActiveTab(i.name);
     } } }, [e._v(" " + e._s(i.label) + " ")]);
   }), 0), e.isNavLeftVisible ? n("div", { staticClass: "i-tabs-header-nav-left", on: { click: e.clickLeft } }, [n("ic-angle-circle", { attrs: { direction: "left" } })], 1) : e._e(), e.isNavRightVisible ? n("div", { staticClass: "i-tabs-header-nav-right", on: { click: e.clickRight } }, [n("ic-angle-circle")], 1) : e._e()]), e._t("default")], 2);
 }, ki = [], wi = /* @__PURE__ */ s(
@@ -2361,7 +2371,7 @@ export {
   ms as IDialog,
   j as IDropdown,
   N as IDropdownOptions,
-  ut as IDualInput,
+  dt as IDualInput,
   Pt as IInput,
   Z as IInputLabel,
   gs as IInputTel,

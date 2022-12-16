@@ -64,7 +64,10 @@
         </template>
       </i-input>
 
-      <i-dropdown :is-visible="isVisible">
+      <i-dropdown
+        :is-visible="isVisible"
+        :width="dropdownWidth"
+      >
         <template #header>
           <slot name="dropdownHeader" />
         </template>
@@ -81,7 +84,14 @@
           :no-data-text="noDataText"
           :loading="isLoading"
           @selectedValue="handleSelected"
-        />
+        >
+          <template #optionsPrepend="{ option }">
+            <slot
+              name="dropdownOptionsPrepend"
+              :option="option"
+            />
+          </template>
+        </i-dropdown-options>
       </i-dropdown>
     </div>
 
@@ -187,6 +197,10 @@ export default {
       },
     },
     clearable: Boolean,
+    dropdownWidth: {
+      type: String,
+      default: undefined,
+    },
   },
   data() {
     return {
@@ -288,7 +302,7 @@ export default {
       deep: true,
       immediate: true,
       handler() {
-        if (this.inputValue && this.selectedOptionValue !== this.inputValue) {
+        if (this.inputValue && this.selectedOptionValue !== this.inputValue && this.dropdownOptions.length) {
           this.updateSelectedOption(this.dropdownOptions.find((item) => item[this.optionKey] === this.inputValue));
         }
       },
