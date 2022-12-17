@@ -266,7 +266,7 @@ export default {
           this.selectedDate.shift();
           this.selectedDate.push(dayjs(date).second(0).toDate());
         }
-        this.$emit('selectDate', date);
+        this.$emit('selectDate', date.toDate());
       } else {
         this.selectedDate.splice(findMatchIndex, 1);
       }

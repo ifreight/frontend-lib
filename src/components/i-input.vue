@@ -282,13 +282,6 @@ export default {
     onBlur() {
       this.$emit('blur');
     },
-    triggerInputFocus() {
-      if (this.$refs.inputRef.$el) {
-        this.$refs.inputRef.$el.focus();
-      } else {
-        this.$refs.inputRef.focus();
-      }
-    },
     onClear() {
       let clearedValue = '';
       if (this.value == null || typeof this.value === 'number') {
@@ -350,6 +343,10 @@ export default {
       &:disabled {
         color: var(--gray-400);
         background-color: transparent;
+      }
+
+      &:read-only {
+        pointer-events: none;
       }
 
       &::-webkit-outer-spin-button,

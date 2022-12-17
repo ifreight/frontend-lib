@@ -66,6 +66,7 @@ export default {
     color: var(--gray-400);
     text-overflow: ellipsis;
     white-space: nowrap;
+    pointer-events: none;
     cursor: text;
     transition: all 0.1s ease-in-out;
     transform: translate(0, 0) scale(1);
