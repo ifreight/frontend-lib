@@ -253,7 +253,7 @@ export default {
     },
     checkDateDisabled(date) {
       if (this.disabledDate) {
-        return !this.disabledDate(date);
+        return this.disabledDate(date);
       }
       return false;
     },
@@ -266,7 +266,7 @@ export default {
           this.selectedDate.shift();
           this.selectedDate.push(dayjs(date).second(0).toDate());
         }
-        this.$emit('selectDate');
+        this.$emit('selectDate', date);
       } else {
         this.selectedDate.splice(findMatchIndex, 1);
       }
@@ -317,6 +317,10 @@ export default {
 <style>
 .i-datepicker {
   padding: 4px;
+
+  button {
+    background: none;
+  }
 
   .each-date {
     display: flex;

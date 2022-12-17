@@ -521,11 +521,11 @@ const Be = {
       return t.length === e.length && t.every((i, r) => a(i).isSame(e[r], "day"));
     },
     checkDateDisabled(t) {
-      return this.disabledDate ? !this.disabledDate(t) : !1;
+      return this.disabledDate ? this.disabledDate(t) : !1;
     },
     clickDate(t) {
       const e = this.selectedDate.findIndex((n) => a(t).isSame(a(n), "day"));
-      e === -1 ? (this.pickLimit === "any" || this.selectedDate.length < this.pickLimit ? this.selectedDate.push(a(t).second(0).toDate()) : (this.selectedDate.shift(), this.selectedDate.push(a(t).second(0).toDate())), this.$emit("selectDate")) : this.selectedDate.splice(e, 1);
+      e === -1 ? (this.pickLimit === "any" || this.selectedDate.length < this.pickLimit ? this.selectedDate.push(a(t).second(0).toDate()) : (this.selectedDate.shift(), this.selectedDate.push(a(t).second(0).toDate())), this.$emit("selectDate", t)) : this.selectedDate.splice(e, 1);
     },
     isSelectedDate(t) {
       return this.selectedDate.find((e) => a(t).isSame(a(e), "day"));
