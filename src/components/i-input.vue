@@ -51,7 +51,7 @@
       >
         <ic-times-circle
           class="icon-clear"
-          @click.native="onClear"
+          @click.native.stop="onClear"
         />
       </div>
       <div
@@ -335,7 +335,7 @@ export default {
           color: var(--gray-900);
         }
 
-        &:focus::placeholder {
+        &:focus:not(:read-only)::placeholder {
           opacity: 0;
         }
       }
@@ -343,10 +343,6 @@ export default {
       &:disabled {
         color: var(--gray-400);
         background-color: transparent;
-      }
-
-      &:read-only {
-        pointer-events: none;
       }
 
       &::-webkit-outer-spin-button,

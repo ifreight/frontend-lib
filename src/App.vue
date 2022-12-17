@@ -262,7 +262,6 @@
             :options="searchTypeOptions"
             option-value="label"
             borderless
-            clearable
           />
         </template>
         <template #second-input>

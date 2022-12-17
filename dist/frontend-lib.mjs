@@ -1273,7 +1273,7 @@ var It = function() {
   }, proxy: !0 }], null, !0) }, [n(e.inputComponent, e._b({ ref: "inputRef", tag: "component", class: e.inputClasses, attrs: { id: e.inputId, name: e.name, value: e.displayModelValue, type: e.type, placeholder: e.placeholder || e.placeholderValue, disabled: e.disabled, readonly: e.readOnly, autocomplete: e.autoComplete, maxlength: e.maxlength }, on: { input: e.onInput, keyup: function(i) {
     return e.$emit("keyup", i);
   }, change: e.onChange, focus: e.onFocus, blur: e.onBlur } }, "component", e.maskAttributes, !1))], 1), e.clearable ? n("div", { directives: [{ name: "show", rawName: "v-show", value: e.filled, expression: "filled" }], staticClass: "append-container" }, [n("ic-times-circle", { staticClass: "icon-clear", nativeOn: { click: function(i) {
-    return e.onClear.apply(null, arguments);
+    return i.stopPropagation(), e.onClear.apply(null, arguments);
   } } })], 1) : n("div", { directives: [{ name: "show", rawName: "v-show", value: !!e.$slots.append, expression: "!!$slots.append" }], staticClass: "append-container" }, [e._t("append")], 2)], 1), e.errorMessage ? n("div", { staticClass: "i-input-error" }, [e._v(" " + e._s(e.errorMessage) + " ")]) : e._e()]);
 }, Vt = [], Ot = /* @__PURE__ */ s(
   Mt,
