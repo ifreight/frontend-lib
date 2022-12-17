@@ -283,9 +283,9 @@ export default {
       this.$emit('blur');
     },
     onClear() {
-      let clearedValue = '';
-      if (this.value == null || typeof this.value === 'number') {
-        clearedValue = undefined;
+      let clearedValue;
+      if (typeof this.value === 'string') {
+        clearedValue = '';
       }
       this.$emit('input', clearedValue);
       this.$emit('clear');

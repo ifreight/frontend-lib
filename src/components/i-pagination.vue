@@ -227,7 +227,6 @@ export default {
     activePage: {
       handler(val) {
         this.$emit('update:currentPage', val);
-        this.$emit('currentChange', val);
       },
     },
     currentPage: {
@@ -242,26 +241,33 @@ export default {
   methods: {
     changePage(val) {
       this.activePage = val;
+      this.$emit('currentChange', val);
     },
     clickLeftAngle() {
-      this.activePage -= 1;
+      this.changePage(this.activePage - 1);
     },
     clickLeftAngles() {
+      let resolvedPage;
       if (this.activePage - 10 < 1) {
-        this.activePage = 1;
+        resolvedPage = 1;
       } else {
-        this.activePage -= 10;
+        resolvedPage = this.activePage - 10;
       }
+
+      this.changePage(resolvedPage);
     },
     clickRightAngle() {
-      this.activePage += 1;
+      this.changePage(this.activePage + 1);
     },
     clickRightAngles() {
+      let resolvedPage;
       if (this.activePage + 10 > this.totalPages) {
-        this.activePage = this.totalPages;
+        resolvedPage = this.totalPages;
       } else {
-        this.activePage += 10;
+        resolvedPage = this.activePage + 10;
       }
+
+      this.changePage(resolvedPage);
     },
   },
 };
