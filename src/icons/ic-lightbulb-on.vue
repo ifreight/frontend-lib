@@ -58,6 +58,6 @@
 
 <script>
 export default {
-  name: 'IcLightblubOn',
+  name: 'IcLightbulbOn',
 };
 </script>
