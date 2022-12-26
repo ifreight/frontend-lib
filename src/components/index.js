@@ -18,3 +18,4 @@ export { default as ISelect } from './i-select.vue';
 export { default as ISortCaret } from './i-sort-caret.vue';
 export { default as ITabs } from './tab/i-tabs.vue';
 export { default as ITabPane } from './tab/i-tab-pane.vue';
+export { default as IRadio } from './i-radio.vue';
