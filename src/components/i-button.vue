@@ -63,7 +63,7 @@ export default {
 
 <style>
 .i-button {
-  @apply w-full rounded-md bg-yellow-300 border border-yellow-300 h-[53px] p-2;
+  @apply w-full rounded-md bg-yellow-300 border border-yellow-300 h-[53px] p-2 cursor-pointer;
   @apply relative font-semibold text-base text-gray-900 flex justify-center items-center;
 
   &.disabled {
@@ -108,7 +108,7 @@ export default {
 }
 
 .i-button-text {
-  @apply flex justify-center items-center p-0 border-0 text-yellow-700 font-medium bg-transparent;
+  @apply flex justify-center items-center p-0 border-0 text-yellow-700 font-medium bg-transparent cursor-pointer;
 
   &.disabled {
     @apply text-gray-400 pointer-events-none;

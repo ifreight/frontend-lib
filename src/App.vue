@@ -416,10 +416,10 @@
           <i-radio
             v-for="(type, index) in bookingTypeList"
             :key="`booking-type-dis-${index}`"
-            v-model="bookingType"
+            :value="1"
             name="bookingType"
             :label="type.id"
-            :disabled="type.id === 1"
+            disabled
           >
             <span class="ml-[8.5px] capitalize">
               {{ type.name }}

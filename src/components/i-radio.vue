@@ -70,7 +70,7 @@ export default {
   }
 
   .i-radio-input {
-    @apply accent-gray-900;
+    @apply accent-gray-900 m-0;
   }
 }
 </style>
