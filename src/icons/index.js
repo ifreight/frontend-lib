@@ -2,6 +2,7 @@ export { default as IcAngleCircle } from './ic-angle-circle.vue';
 export { default as IcAngle } from './ic-angle.vue';
 export { default as IcArrowCircle } from './ic-arrow-circle.vue';
 export { default as IcCheck } from './ic-check.vue';
+export { default as IcClock } from './ic-clock.vue';
 export { default as IcDepot } from './ic-depot.vue';
 export { default as IcInfoCircle } from './ic-info-circle.vue';
 export { default as IcLocation } from './ic-location.vue';

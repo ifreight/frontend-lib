@@ -251,6 +251,25 @@
     </div>
 
     <div class="py-5 flex gap-2">
+      <i-input-time
+        v-model="timeInput1"
+        input-id="timeInput1"
+        name="timeInput1"
+        label="Pilih waktu"
+        class="w-[190px]"
+        invalid
+      />
+      <i-input-time
+        v-model="timeInput2"
+        input-id="timeInput2"
+        name="timeInput2"
+        label="Pilih waktu"
+        class="w-[190px]"
+        size="sm"
+      />
+    </div>
+
+    <div class="py-5 flex gap-2">
       <i-dual-input :filled="!!searchString">
         <template #first-input>
           <i-select
@@ -441,6 +460,7 @@ import IDualInput from './components/i-dual-input.vue';
 import ISortCaret from './components/i-sort-caret.vue';
 import IInputTel from './components/i-input-tel.vue';
 import IInput from './components/i-input.vue';
+import IInputTime from './components/i-input-time.vue';
 import IPopover from './components/i-popover.vue';
 import ISelect from './components/i-select.vue';
 import IPagination from './components/i-pagination.vue';
@@ -472,6 +492,7 @@ export default {
     ISortCaret,
     IInputTel,
     IInput,
+    IInputTime,
     IPopover,
     ISelect,
     IPagination,
@@ -548,6 +569,8 @@ export default {
         },
       ],
       bookingType: '',
+      timeInput1: undefined,
+      timeInput2: new Date(),
     };
   },
   computed: {
