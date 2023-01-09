@@ -1,8 +1,19 @@
 <template>
-  <div>
+  <i-dropdown
+    :visible="visible"
+    :width="width"
+    class="i-dropdown-options"
+  >
+    <div
+      v-if="$slots.header"
+      class="i-dropdown-options-header"
+    >
+      <slot name="header" />
+    </div>
+
     <ul
       v-if="filteredOptions.length > 0"
-      class="i-dropdown-options"
+      class="i-dropdown-options-body"
     >
       <li
         v-for="(option, idx) in filteredOptions"
@@ -28,7 +39,7 @@
         </slot>
       </li>
     </ul>
-    <span
+    <div
       v-else
       class="i-dropdown-options-placeholder"
     >
@@ -39,14 +50,24 @@
       <template v-else>
         {{ noDataText }}
       </template>
-    </span>
-  </div>
+    </div>
+  </i-dropdown>
 </template>
 
 <script>
+import IDropdown from './i-dropdown.vue';
+
 export default {
   name: 'IDropdownOptions',
+  components: {
+    IDropdown,
+  },
   props: {
+    visible: Boolean,
+    width: {
+      type: String,
+      default: '100%',
+    },
     options: {
       type: Array,
       default: () => [],
@@ -149,54 +170,63 @@ export default {
 
 <style>
 .i-dropdown-options {
-  max-height: 264px;
-  padding: 0;
-  margin: 0;
-  overflow: scroll;
-  overflow-x: hidden;
-  overflow-y: overlay;
-  list-style: none;
-  scrollbar-width: thin;
-  scrollbar-color: var(--gray-120) transparent;
-
-  &::-webkit-scrollbar {
-    width: 6px;
+  .i-dropdown-options-header {
+    padding: 4px 0 12px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid var(--gray-200);
   }
 
-  &::-webkit-scrollbar-track {
-    background: transparent;
+  .i-dropdown-options-body {
+    max-height: 264px;
+    padding: 20px;
+    margin: 0;
+    overflow: scroll;
+    overflow-x: hidden;
+    overflow-y: overlay;
+    list-style: none;
+    scrollbar-width: thin;
+    scrollbar-color: var(--gray-120) transparent;
+
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--gray-120);
+      border: none;
+      border-radius: 20px;
+    }
+
+    li {
+      display: flex;
+      align-items: center;
+      padding: 16px 32px;
+      font-size: 14px;
+      line-height: 16px;
+      color: var(--gray-900);
+      cursor: pointer;
+      border-radius: 10px;
+
+      &.selected {
+        font-weight: 600;
+        background-color: var(--gray-70);
+      }
+
+      &:hover {
+        background-color: var(--gray-70);
+      }
+    }
   }
 
-  &::-webkit-scrollbar-thumb {
-    background-color: var(--gray-120);
-    border: none;
-    border-radius: 20px;
-  }
-
-  li {
-    display: flex;
-    align-items: center;
-    padding: 16px 32px;
-    font-size: 14px;
+  .i-dropdown-options-placeholder {
+    padding: 20px;
+    font-size: 16px;
     line-height: 16px;
-    color: var(--gray-900);
-    cursor: pointer;
-    border-radius: 10px;
-
-    &.selected {
-      font-weight: 600;
-      background-color: var(--gray-70);
-    }
-
-    &:hover {
-      background-color: var(--gray-70);
-    }
+    color: var(--gray-400);
   }
-}
-
-.i-dropdown-options-placeholder {
-  font-size: 16px;
-  line-height: 16px;
-  color: var(--gray-400);
 }
 </style>

@@ -319,6 +319,7 @@ export default {
   padding: 4px;
 
   button {
+    cursor: pointer;
     background: none;
   }
 

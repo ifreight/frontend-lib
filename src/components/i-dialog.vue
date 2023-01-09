@@ -1,49 +1,52 @@
 <template>
-  <transition
-    name="i-dialog-fade"
-    @after-enter="afterEnter"
-    @after-leave="afterLeave"
-  >
+  <transition name="i-dialog-fade">
     <div
       v-show="show"
       class="i-dialog-wrapper"
       @click.self="handleClose"
     >
-      <div
-        :key="key"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="dialog"
-        :class="['i-dialog', { 'show-header': showHeader }]"
-        :style="style"
+      <transition
+        name="i-dialog-slide"
+        @after-enter="afterEnter"
+        @after-leave="afterLeave"
       >
         <div
-          v-if="showHeader"
-          class="i-dialog-header"
+          v-show="show"
+          :key="key"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="dialog"
+          :class="['i-dialog', { 'show-header': showHeader }]"
+          :style="style"
         >
-          <ic-logo
-            class="i-dialog-header-logo"
-            width="104"
-            height="28"
-          />
-          <slot name="header" />
-        </div>
+          <div
+            v-if="showHeader"
+            class="i-dialog-header"
+          >
+            <ic-logo
+              class="i-dialog-header-logo"
+              width="104"
+              height="28"
+            />
+            <slot name="header" />
+          </div>
 
-        <button
-          v-if="showClose"
-          class="i-dialog-close"
-          @click="handleClose"
-        >
-          <ic-times />
-        </button>
+          <button
+            v-if="showClose"
+            class="i-dialog-close"
+            @click="handleClose"
+          >
+            <ic-times />
+          </button>
 
-        <div
-          class="i-dialog-body"
-          :class="bodyClasses"
-        >
-          <slot />
+          <div
+            class="i-dialog-body"
+            :class="bodyClasses"
+          >
+            <slot />
+          </div>
         </div>
-      </div>
+      </transition>
     </div>
   </transition>
 </template>
@@ -74,6 +77,7 @@ export default {
       type: String,
       default: '50%',
     },
+    appendToBody: Boolean,
     destroyOnClose: Boolean,
   },
   data() {
@@ -99,8 +103,6 @@ export default {
       handler(val) {
         if (val) {
           this.open();
-        } else {
-          this.close();
         }
       },
     },
@@ -111,8 +113,8 @@ export default {
     }
   },
   destroyed() {
-    if (this.$el && this.$el.parentNode) {
-      document.body.style.overflow = 'auto';
+    document.body.style.overflow = 'auto';
+    if (this.appendToBody && this.$el && this.$el.parentNode) {
       this.$el.parentNode.removeChild(this.$el);
     }
   },
@@ -120,11 +122,11 @@ export default {
     open() {
       this.$emit('open');
       document.body.style.overflow = 'hidden';
-      document.body.appendChild(this.$el);
+      if (this.appendToBody) {
+        document.body.appendChild(this.$el);
+      }
     },
     close() {
-      this.$emit('close');
-      document.body.style.overflow = 'auto';
       if (this.destroyOnClose) {
         this.$nextTick(() => {
           this.key += 1;
@@ -132,12 +134,19 @@ export default {
       }
     },
     handleClose() {
+      this.$emit('close');
       this.$emit('update:show', false);
     },
     afterEnter() {
       this.$emit('opened');
     },
     afterLeave() {
+      document.body.style.overflow = 'auto';
+      if (this.destroyOnClose) {
+        this.$nextTick(() => {
+          this.key += 1;
+        });
+      }
       this.$emit('closed');
     },
   },
@@ -165,11 +174,38 @@ export default {
 }
 
 .i-dialog-fade-enter-active {
-  animation: i-dialog-fade-in 0.3s;
+  animation: i-dialog-fade-in 0.1s;
 }
 
 .i-dialog-fade-leave-active {
-  animation: i-dialog-fade-out 0.3s;
+  animation: i-dialog-fade-out 0.1s;
+}
+
+@keyframes i-dialog-slide-in {
+  0% {
+    transform: translateY(-2.5rem);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+@keyframes i-dialog-slide-out {
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(-2.5rem);
+  }
+}
+
+.i-dialog-slide-enter-active {
+  animation: i-dialog-slide-in 0.2s;
+}
+
+.i-dialog-slide-leave-active {
+  animation: i-dialog-slide-out 0.2s;
 }
 
 .i-dialog-wrapper {
@@ -185,7 +221,7 @@ export default {
 
   .i-dialog {
     position: relative;
-    margin: 0 auto 50px;
+    margin: 0 auto 20px;
     background-color: var(--white);
     border-radius: 20px;
     box-shadow: 0 0 20px rgb(0 0 0 / 25%);
@@ -203,7 +239,7 @@ export default {
     }
 
     &-close {
-      @apply absolute top-7 right-7 bg-transparent;
+      @apply absolute top-7 right-7 bg-transparent cursor-pointer;
     }
 
     &.show-header .i-dialog-close {

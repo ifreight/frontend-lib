@@ -9,24 +9,17 @@
     />
 
     <div
-      v-show="isVisible"
+      v-show="visible"
       class="i-dropdown-arrow"
     >
       <span :style="arrowStyles" />
     </div>
 
     <div
-      v-show="isVisible"
+      v-show="visible"
       class="i-dropdown-box"
       :style="{ width }"
     >
-      <div
-        v-if="$slots.header"
-        class="i-dropdown-header"
-      >
-        <slot name="header" />
-      </div>
-
       <slot />
     </div>
   </div>
@@ -36,7 +29,7 @@
 export default {
   name: 'IDropdown',
   props: {
-    isVisible: Boolean,
+    visible: Boolean,
     width: {
       type: String,
       default: '100%',
@@ -60,7 +53,7 @@ export default {
     },
   },
   watch: {
-    isVisible(value) {
+    visible(value) {
       if (value && this.$refs.reference) {
         const spaceBelow = window.innerHeight - this.$refs.reference.getBoundingClientRect().bottom;
         if (spaceBelow > 250) {
@@ -101,17 +94,10 @@ export default {
     position: absolute;
     left: 0;
     z-index: 2;
-    padding: 20px;
     overflow: hidden;
     background-color: var(--white);
     border-radius: 10px;
     box-shadow: 0 0 20px rgb(0 0 0 / 25%);
-
-    .i-dropdown-header {
-      padding: 4px 0 12px;
-      margin-bottom: 12px;
-      border-bottom: 1px solid var(--gray-200);
-    }
   }
 
   &.below {

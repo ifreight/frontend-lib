@@ -27,15 +27,14 @@
           </div>
         </div>
 
-        <i-dropdown :is-visible="countryDropdownOpen">
-          <i-dropdown-options
-            :options="countryList"
-            option-key="countryCode"
-            option-value="name"
-            :current-value="activeCountry && activeCountry.countryCode"
-            @selectedValue="onSelectCountry"
-          />
-        </i-dropdown>
+        <i-dropdown-options
+          :visible="countryDropdownOpen"
+          :options="countryList"
+          option-key="countryCode"
+          option-value="name"
+          :current-value="activeCountry && activeCountry.countryCode"
+          @selectedValue="onSelectCountry"
+        />
       </div>
     </template>
     <template #second-input>
@@ -60,8 +59,7 @@
 <script>
 import IcAngle from '@/icons/ic-angle.vue';
 
-import IDropdownOptions from './i-dropdown-options.vue';
-import IDropdown from './i-dropdown.vue';
+import IDropdownOptions from './dropdown/i-dropdown-options.vue';
 import IDualInput from './i-dual-input.vue';
 
 import InputTel from './input-tel';
@@ -72,7 +70,6 @@ export default {
     IcAngle,
     InputTel: InputTel.component,
     IDualInput,
-    IDropdown,
     IDropdownOptions,
   },
   props: {

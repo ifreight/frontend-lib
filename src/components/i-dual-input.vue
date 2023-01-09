@@ -57,8 +57,6 @@ export default {
   align-items: center;
   width: auto;
   height: 68px;
-  padding-right: 16px;
-  padding-left: 16px;
   background-color: var(--white);
   border: 1px solid var(--gray-400);
   border-radius: 10px;
@@ -90,8 +88,6 @@ export default {
 
   .divider {
     position: relative;
-    padding-right: 16px;
-    padding-left: 16px;
 
     .vl {
       position: absolute;

@@ -298,8 +298,7 @@ export default {
 .i-input {
   .i-input-container {
     height: 68px;
-    padding-right: 16px;
-    padding-left: 16px;
+    padding: 0 16px;
     color: var(--gray-900);
     background-color: var(--white);
     border: 1px solid var(--gray-400);
@@ -312,8 +311,7 @@ export default {
     .input {
       width: 100%;
       height: 100%;
-      padding: 0;
-      padding-top: 16px;
+      padding: 16px 0 0;
       font-size: 16px;
       line-height: 16px;
       color: var(--gray-900);
@@ -415,7 +413,6 @@ export default {
 
     &.borderless {
       height: 66px;
-      padding: 0;
       border: none;
 
       &.sm {

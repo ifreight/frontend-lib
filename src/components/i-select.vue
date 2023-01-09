@@ -64,35 +64,32 @@
         </template>
       </i-input>
 
-      <i-dropdown
-        :is-visible="isVisible"
+      <i-dropdown-options
+        :visible="isVisible"
         :width="dropdownWidth"
+        :options="dropdownOptions"
+        :option-key="optionKey"
+        :option-value="optionValue"
+        :current-value="selectedOptionValue"
+        :query="query"
+        :filterable="filterable"
+        :remote="remote"
+        :remote-text="remoteText"
+        :no-data-text="noDataText"
+        :loading="isLoading"
+        @selectedValue="handleSelected"
       >
         <template #header>
           <slot name="dropdownHeader" />
         </template>
 
-        <i-dropdown-options
-          :options="dropdownOptions"
-          :option-key="optionKey"
-          :option-value="optionValue"
-          :current-value="selectedOptionValue"
-          :query="query"
-          :filterable="filterable"
-          :remote="remote"
-          :remote-text="remoteText"
-          :no-data-text="noDataText"
-          :loading="isLoading"
-          @selectedValue="handleSelected"
-        >
-          <template #optionsPrepend="{ option }">
-            <slot
-              name="dropdownOptionsPrepend"
-              :option="option"
-            />
-          </template>
-        </i-dropdown-options>
-      </i-dropdown>
+        <template #optionsPrepend="{ option }">
+          <slot
+            name="dropdownOptionsPrepend"
+            :option="option"
+          />
+        </template>
+      </i-dropdown-options>
     </div>
 
     <div
@@ -109,8 +106,7 @@ import debounce from 'lodash/debounce';
 
 import IcAngle from '@/icons/ic-angle.vue';
 
-import IDropdownOptions from './i-dropdown-options.vue';
-import IDropdown from './i-dropdown.vue';
+import IDropdownOptions from './dropdown/i-dropdown-options.vue';
 import IInputLabel from './i-input-label.vue';
 import IInput from './i-input.vue';
 
@@ -119,7 +115,6 @@ export default {
   components: {
     IInputLabel,
     IInput,
-    IDropdown,
     IDropdownOptions,
     IcAngle,
   },

@@ -371,6 +371,8 @@
         :show.sync="showDialogHeader"
         show-close
         show-header
+        append-to-body
+        destroy-on-close
       >
         Test Header
       </i-dialog>
