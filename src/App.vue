@@ -417,37 +417,48 @@
           :pick-limit="3"
         />
       </div>
-      <div>
-        <h2 class="text-xl bg-gray-50 text-center">radio</h2>
-        <div class="flex gap-5">
-          <i-radio
-            v-for="(type, index) in bookingTypeList"
-            :key="`booking-type-${index}`"
-            v-model="bookingType"
-            name="bookingType"
-            :label="type.id"
-          >
-            <span class="ml-[8.5px] capitalize">
-              {{ type.name }}
-            </span>
-          </i-radio>
-        </div>
-        <h2 class="text-xl bg-gray-50 text-center mt-3">disabled radio</h2>
-        <div class="flex gap-5">
-          <i-radio
-            v-for="(type, index) in bookingTypeList"
-            :key="`booking-type-dis-${index}`"
-            :value="1"
-            name="bookingType"
-            :label="type.id"
-            disabled
-          >
-            <span class="ml-[8.5px] capitalize">
-              {{ type.name }}
-            </span>
-          </i-radio>
-        </div>
+    </div>
+    <div>
+      <h2 class="text-xl bg-gray-50 text-center">radio</h2>
+      <div class="flex gap-5">
+        <i-radio
+          v-for="(type, index) in bookingTypeList"
+          :key="`booking-type-${index}`"
+          v-model="bookingType"
+          name="bookingType"
+          :label="type.id"
+        >
+          <span class="ml-[8.5px] capitalize">
+            {{ type.name }}
+          </span>
+        </i-radio>
       </div>
+      <h2 class="text-xl bg-gray-50 text-center mt-3">disabled radio</h2>
+      <div class="flex gap-5">
+        <i-radio
+          v-for="(type, index) in bookingTypeList"
+          :key="`booking-type-dis-${index}`"
+          :value="1"
+          name="bookingType"
+          :label="type.id"
+          disabled
+        >
+          <span class="ml-[8.5px] capitalize">
+            {{ type.name }}
+          </span>
+        </i-radio>
+      </div>
+    </div>
+    <div class="py-5">
+      <h2 class="text-xl bg-gray-50 text-center">Input Tag</h2>
+      <i-input-tag
+        v-model="inputTag"
+        label="(Optional) Send to following emails:"
+        button-text="+ Email"
+        name="inputTag"
+        input-type="email"
+        class="border-gray-400"
+      />
     </div>
   </div>
 </template>
@@ -470,6 +481,7 @@ import IProgress from './components/i-progress.vue';
 import ITabs from './components/tab/i-tabs.vue';
 import ITabPane from './components/tab/i-tab-pane.vue';
 import IRadio from './components/i-radio.vue';
+import IInputTag from './components/i-input-tag.vue';
 
 import IcArrowCircle from './icons/ic-arrow-circle.vue';
 import IcFilter from './icons/ic-filter.vue';
@@ -502,6 +514,7 @@ export default {
     ITabs,
     ITabPane,
     IRadio,
+    IInputTag,
   },
   data() {
     return {
@@ -573,6 +586,7 @@ export default {
       bookingType: '',
       timeInput1: undefined,
       timeInput2: new Date(),
+      inputTag: ['john@mailinator.com'],
     };
   },
   computed: {
