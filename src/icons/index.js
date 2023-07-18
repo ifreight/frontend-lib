@@ -18,3 +18,5 @@ export { default as IcShip } from './ic-ship.vue';
 export { default as IcTimes } from './ic-times.vue';
 export { default as IcTimesCircle } from './ic-times-circle.vue';
 export { default as IcLightbulbOn } from './ic-lightbulb-on.vue';
+export { default as IcPaperClip } from './ic-paper-clip.vue';
+export { default as IcPaperPlane } from './ic-paper-plane.vue';
