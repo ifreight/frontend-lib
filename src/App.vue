@@ -460,6 +460,50 @@
         class="border-gray-400"
       />
     </div>
+    <div class="py-5">
+      <h2 class="text-xl bg-gray-50 text-center">Text Area</h2>
+      <i-text-area
+        v-model="textArea"
+        input-id="textarea"
+        name="message"
+        placeholder="Type Message Here.."
+        class="chat-textarea"
+      />
+    </div>
+    <div class="py-5">
+      <h2 class="text-xl bg-gray-50 text-center">Upload</h2>
+      <div class="flex gap-5">
+        <div class="flex-1">
+          <i-upload
+            v-model="files"
+            :accept="acceptableFiles"
+            required
+            name="upload"
+            @invalidSize="invalidSizeHandler"
+          />
+        </div>
+        <i-file-list :files.sync="files" />
+        <div class="flex-1">
+          <i-upload
+            v-slot="{ onClick }"
+            v-model="files2"
+            :accept="acceptableFiles"
+            required
+            name="upload2"
+            @invalidSize="invalidSizeHandler"
+          >
+            <i-button
+              text
+              class="text-gray-900"
+              @click="onClick"
+            >
+              <ic-paper-clip />
+            </i-button>
+          </i-upload>
+          <i-file-list :files.sync="files2" />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -480,6 +524,9 @@ import IPagination from './components/i-pagination.vue';
 import IProgress from './components/i-progress.vue';
 import ITabs from './components/tab/i-tabs.vue';
 import ITabPane from './components/tab/i-tab-pane.vue';
+import ITextArea from './components/i-text-area.vue';
+import IFileList from './components/i-file-list.vue';
+import IUpload from './components/i-upload.vue';
 import IRadio from './components/i-radio.vue';
 import IInputTag from './components/i-input-tag.vue';
 
@@ -488,6 +535,7 @@ import IcFilter from './icons/ic-filter.vue';
 import IcInfoCircle from './icons/ic-info-circle.vue';
 import IcLocation from './icons/ic-location.vue';
 import IcMagnifyingGlass from './icons/ic-magnifying-glass.vue';
+import IcPaperClip from './icons/ic-paper-clip.vue';
 
 export default {
   name: 'App',
@@ -497,6 +545,7 @@ export default {
     IcInfoCircle,
     IcLocation,
     IcMagnifyingGlass,
+    IcPaperClip,
     IBox,
     IButton,
     ICheckbox,
@@ -513,6 +562,9 @@ export default {
     IProgress,
     ITabs,
     ITabPane,
+    ITextArea,
+    IFileList,
+    IUpload,
     IRadio,
     IInputTag,
   },
@@ -587,9 +639,15 @@ export default {
       timeInput1: undefined,
       timeInput2: new Date(),
       inputTag: ['john@mailinator.com'],
+      textArea: '',
+      files: [],
+      files2: [],
     };
   },
   computed: {
+    acceptableFiles() {
+      return '.jpg,.jpeg,.png,.csv,.doc,.docx,.odt,.pdf,.rtf,.txt,.wpd,.wpf,.xls,.xlsx,.ppt,.pptx,.zip,.rar';
+    },
     bookingTypeList() {
       return [
         {
@@ -609,6 +667,9 @@ export default {
     }, 1000);
   },
   methods: {
+    invalidSizeHandler() {
+      window.alert('Each maximum file size should not exceed 5 MB.');
+    },
     disabledDate(date) {
       return new Date() < date;
     },
