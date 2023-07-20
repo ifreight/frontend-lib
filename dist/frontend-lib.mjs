@@ -3182,6 +3182,7 @@ export {
   ve as IcCheck,
   Vt as IcClock,
   qr as IcDepot,
+  i1 as IcDoubleCheck,
   Er as IcFileDoc,
   Wr as IcFileOther,
   Yr as IcFilePicture,

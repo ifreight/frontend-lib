@@ -470,6 +470,7 @@
         class="chat-textarea"
       />
     </div>
+    <ic-double-check />
     <div class="py-5">
       <h2 class="text-xl bg-gray-50 text-center">Upload</h2>
       <div class="flex gap-5">
@@ -536,6 +537,7 @@ import IcInfoCircle from './icons/ic-info-circle.vue';
 import IcLocation from './icons/ic-location.vue';
 import IcMagnifyingGlass from './icons/ic-magnifying-glass.vue';
 import IcPaperClip from './icons/ic-paper-clip.vue';
+import IcDoubleCheck from './icons/ic-double-check.vue';
 
 export default {
   name: 'App',
@@ -546,6 +548,7 @@ export default {
     IcLocation,
     IcMagnifyingGlass,
     IcPaperClip,
+    IcDoubleCheck,
     IBox,
     IButton,
     ICheckbox,
