@@ -136,11 +136,9 @@ export default {
             this.$emit('invalidLimit', file);
           }
         } else {
-          console.log(file);
           const isValidSize = file.size <= this.maxSize * 1024;
           if (isValidSize) {
             const result = await this.processingFile(file);
-            console.log(result);
             this.$emit('input', this.value.concat(result));
           } else {
             invalidFileSize.push(file);

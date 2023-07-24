@@ -2695,9 +2695,9 @@ const ts = {
               e.push(i);
           else
             this.$emit("invalidLimit", i);
-        else if (console.log(i), i.size <= this.maxSize * 1024) {
+        else if (i.size <= this.maxSize * 1024) {
           const l = await this.processingFile(i);
-          console.log(l), this.$emit("input", this.value.concat(l));
+          this.$emit("input", this.value.concat(l));
         } else
           e.push(i);
       }), e.length > 0 && this.$emit("invalidSize", e), this.$refs.input.value = null;
