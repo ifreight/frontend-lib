@@ -469,6 +469,18 @@
         placeholder="Type Message Here.."
         class="chat-textarea"
       />
+
+      <h2 class="text-xl bg-gray-50 text-center">Text Area Prevent enter</h2>
+      <i-text-area
+        v-model="textArea"
+        :prevent-enter-key="true"
+        input-id="textarea"
+        name="message"
+        placeholder="Type Message Here.."
+        class="chat-textarea"
+        @pressEnter="submitChat"
+        @pressEnterShift="enterShiftHandler"
+      />
     </div>
     <ic-double-check />
     <div class="py-5">
@@ -719,6 +731,12 @@ export default {
         },
       ];
       this.activeTab = this.tabs[0].name;
+    },
+    submitChat() {
+      console.log('submit chat');
+    },
+    enterShiftHandler() {
+      this.textArea = this.textArea ? (this.textArea += '\n') : '\n';
     },
   },
 };

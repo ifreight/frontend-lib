@@ -13,6 +13,25 @@
       top
     >
       <textarea
+        v-if="preventEnterKey"
+        v-bind="$attrs"
+        :id="inputId"
+        ref="textAreaRef"
+        :name="name"
+        :value="value || ''"
+        :disabled="disabled"
+        :placeholder="placeholder"
+        :readonly="readOnly"
+        :autocomplete="autoComplete"
+        class="textarea"
+        @blur="onBlur"
+        @focus="onFocus"
+        @input="onInput"
+        @keydown.enter.exact.prevent="pressKeyEnter"
+        @keydown.enter.shift.exact.prevent="pressKeyEnterShift"
+      />
+      <textarea
+        v-else
         v-bind="$attrs"
         :id="inputId"
         ref="textAreaRef"
@@ -91,6 +110,10 @@ export default {
     dark: Boolean,
     borderless: Boolean,
     showTextLimit: Boolean,
+    preventEnterKey: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     filled() {
@@ -135,6 +158,12 @@ export default {
     },
     onBlur() {
       this.$emit('blur');
+    },
+    pressKeyEnter() {
+      this.$emit('pressEnter');
+    },
+    pressKeyEnterShift() {
+      this.$emit('pressEnterShift');
     },
   },
 };
