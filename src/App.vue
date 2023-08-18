@@ -537,11 +537,11 @@
               v-for="(port, key) in isAdaData(date).listNya"
               :key="key"
               class="list-ports"
-              :class="port.isRatesAvailable ? 'tw-bg-green-400' : 'tw-bg-red-400'"
+              :class="port.isRatesAvailable ? 'bg-green-400' : 'bg-red-400'"
             >
               {{ port.origin }}-{{ port.destination }}
             </div>
-            <div class="tw-text-start tw-text-3xs tw-font-medium">+2</div>
+            <div class="more-list-ports">+2</div>
           </div>
           <i-button
             v-if="isSelected"
@@ -550,7 +550,7 @@
             class="btn-plan"
           >
             <template #prepend>
-              <ic-plus-circle class="tw-w-[11px] tw-h-[11px] tw-mr-[6px]" />
+              <ic-plus-circle class="icon-plus-circle" />
             </template>
             Plan
           </i-button>
@@ -859,4 +859,56 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.new-update-indicator {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  width: 6px;
+  height: 6px;
+  background: #ffd100;
+  border-radius: 100%;
+}
+
+.list-ports-wrapper {
+  position: absolute;
+  top: 10px;
+  left: 24px;
+
+  .list-ports {
+    width: 77px;
+    height: 14px;
+    margin-bottom: 2px;
+    font-size: 10px;
+    font-weight: 500;
+    line-height: normal;
+    border-radius: 8px;
+
+    &.bg-green-400 {
+      background: #1fc700;
+    }
+
+    &.bg-red-4ec {
+      background: #ec7173;
+    }
+  }
+
+  .more-list-ports {
+    font-size: 10px;
+    font-weight: 500;
+    text-align: start;
+  }
+}
+
+.btn-plan {
+  position: absolute;
+  right: 3px;
+  bottom: 3px;
+
+  .icon-plus-circle {
+    width: 11px;
+    height: 11px;
+    margin-right: 6px;
+  }
+}
+</style>
