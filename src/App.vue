@@ -482,7 +482,6 @@
         @pressEnterShift="enterShiftHandler"
       />
     </div>
-    <ic-double-check />
     <div class="py-5">
       <h2 class="text-xl bg-gray-50 text-center">Upload</h2>
       <div class="flex gap-5">
@@ -517,12 +516,56 @@
         </div>
       </div>
     </div>
+    <div class="py-5">
+      <i-calendar
+        v-model="computedStuffingDate"
+        :disabled-previous-month="false"
+        :disabled-next-month="false"
+        :is-there-new-update="true"
+      >
+        <template #indicator>
+          <div class="flex items-center">Slot Header</div>
+        </template>
+
+        <template #content="{ isSelected, date }">
+          <div class="new-update-indicator" />
+          <div
+            v-if="isAdaData(date)"
+            class="list-ports-wrapper"
+          >
+            <div
+              v-for="(port, key) in isAdaData(date).listNya"
+              :key="key"
+              class="list-ports"
+              :class="port.isRatesAvailable ? 'tw-bg-green-400' : 'tw-bg-red-400'"
+            >
+              {{ port.origin }}-{{ port.destination }}
+            </div>
+            <div class="tw-text-start tw-text-3xs tw-font-medium">+2</div>
+          </div>
+          <i-button
+            v-if="isSelected"
+            text
+            size="xs"
+            class="btn-plan"
+          >
+            <template #prepend>
+              <ic-plus-circle class="tw-w-[11px] tw-h-[11px] tw-mr-[6px]" />
+            </template>
+            Plan
+          </i-button>
+        </template>
+      </i-calendar>
+    </div>
   </div>
 </template>
 
 <script>
+import dayjs from 'dayjs';
+
 import IBox from './components/i-box.vue';
 import IButton from './components/i-button.vue';
+import ICalendar from './components/i-calendar.vue';
 import ICheckbox from './components/i-checkbox.vue';
 import IDatepicker from './components/i-datepicker.vue';
 import IDialog from './components/i-dialog.vue';
@@ -549,7 +592,7 @@ import IcInfoCircle from './icons/ic-info-circle.vue';
 import IcLocation from './icons/ic-location.vue';
 import IcMagnifyingGlass from './icons/ic-magnifying-glass.vue';
 import IcPaperClip from './icons/ic-paper-clip.vue';
-import IcDoubleCheck from './icons/ic-double-check.vue';
+import IcPlusCircle from './icons/ic-plus-circle.vue';
 
 export default {
   name: 'App',
@@ -560,9 +603,10 @@ export default {
     IcLocation,
     IcMagnifyingGlass,
     IcPaperClip,
-    IcDoubleCheck,
+    IcPlusCircle,
     IBox,
     IButton,
+    ICalendar,
     ICheckbox,
     IDatepicker,
     IDialog,
@@ -657,6 +701,75 @@ export default {
       textArea: '',
       files: [],
       files2: [],
+      computedStuffingDate: null,
+      api: [
+        {
+          tanggal: '2023-08-03T17:00:00Z',
+          index: 4,
+          listNya: [
+            {
+              id: 1,
+              origin: 'IDTPP',
+              destination: 'SGSIN',
+              isRatesAvailable: true,
+            },
+            {
+              id: 2,
+              origin: 'IDTPP',
+              destination: 'KRPUS',
+              isRatesAvailable: false,
+            },
+            {
+              id: 3,
+              origin: 'IDTPP',
+              destination: 'KRPUS',
+              isRatesAvailable: false,
+            },
+          ],
+        },
+        {
+          tanggal: '2023-08-10T17:00:00Z',
+          index: 5,
+          listNya: [
+            {
+              id: 1,
+              origin: 'IDTPP',
+              destination: 'SGSIN',
+              isRatesAvailable: true,
+            },
+            {
+              id: 2,
+              origin: 'IDTPP',
+              destination: 'KRPUS',
+              isRatesAvailable: false,
+            },
+          ],
+        },
+        {
+          tanggal: '2023-08-22T17:00:00Z',
+          index: 20,
+          listNya: [
+            {
+              id: 1,
+              origin: 'IDTPP',
+              destination: 'SGSIN',
+              isRatesAvailable: true,
+            },
+            {
+              id: 2,
+              origin: 'IDTPP',
+              destination: 'KRPUS',
+              isRatesAvailable: false,
+            },
+            {
+              id: 3,
+              origin: 'IDTPP',
+              destination: 'KRPUS',
+              isRatesAvailable: false,
+            },
+          ],
+        },
+      ],
     };
   },
   computed: {
@@ -682,6 +795,10 @@ export default {
     }, 1000);
   },
   methods: {
+    isAdaData(date) {
+      const find = this.api.find((x) => dayjs(x.tanggal).isSame(dayjs(date), 'day'));
+      return find;
+    },
     invalidSizeHandler() {
       window.alert('Each maximum file size should not exceed 5 MB.');
     },
