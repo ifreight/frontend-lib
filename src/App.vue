@@ -519,9 +519,7 @@
     <div class="py-5">
       <i-calendar
         v-model="computedStuffingDate"
-        :disabled-previous-month="false"
-        :disabled-next-month="false"
-        :is-there-new-update="true"
+        :disabled-date="null"
       >
         <template #indicator>
           <div class="flex items-center">Slot Header</div>
@@ -701,7 +699,7 @@ export default {
       textArea: '',
       files: [],
       files2: [],
-      computedStuffingDate: null,
+      computedStuffingDate: undefined,
       api: [
         {
           tanggal: '2023-08-03T17:00:00Z',

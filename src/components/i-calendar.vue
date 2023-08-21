@@ -73,10 +73,7 @@
               <div class="btn-month--label">
                 {{ month.monthDisplay }}
               </div>
-              <div
-                v-if="isThereNewUpdate"
-                class="new-update-indicator"
-              />
+              <div class="new-update-indicator" />
             </button>
           </div>
         </div>
@@ -139,15 +136,6 @@
             </div>
           </button>
         </div>
-        <div
-          v-for="date in nextPicker"
-          :key="`${date.date()}${date.month()}${date.year()}-next`"
-          class="each-date next-date"
-        >
-          <div class="hidden-date">
-            {{ date.date() }}
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -165,16 +153,17 @@ export default {
   },
   props: {
     value: {
-      type: [Date, Array],
-      default: () => null,
+      type: Date,
+      default: undefined,
     },
     initialDate: {
       type: Date,
       default: undefined,
     },
-    disabledPreviousMonth: Boolean,
-    disabledNextMonth: Boolean,
-    isThereNewUpdate: Boolean,
+    disabledDate: {
+      type: Function,
+      default: null,
+    },
   },
   data() {
     return {
@@ -196,7 +185,7 @@ export default {
       );
     },
     listMonth() {
-      const x = Array.from(Array(12), (v, i) => ({
+      const months = Array.from(Array(12), (v, i) => ({
         monthDisplay: dayjs(this.activeYearPicker)
           .month(i + 0)
           .format('MMM'),
@@ -205,7 +194,7 @@ export default {
           .startOf('month'),
       }));
 
-      return x;
+      return months;
     },
     activeDateString() {
       return this.activeDate ? this.activeDate.toString() : undefined;
@@ -229,14 +218,18 @@ export default {
         return { date };
       });
     },
-    nextPicker() {
-      const display = [];
-      const previous = this.previousPicker.length;
-      const current = dayjs(this.activeDateString).daysInMonth();
-      for (let i = 1; i <= 42 - (previous + current); i += 1) {
-        display.push(dayjs(this.activeDateString).date(i).add(1, 'month'));
-      }
-      return display;
+    disabledPreviousMonth() {
+      const [firstDayCurrent] = this.currentPicker;
+
+      const firstDaySubOne = dayjs(firstDayCurrent.date).subtract(1, 'day');
+      return this.checkDateDisabled(new Date(firstDaySubOne.format()));
+    },
+    disabledNextMonth() {
+      const lastDayCurrent = this.currentPicker.slice(-1).pop();
+      const lastDayDate = lastDayCurrent ? lastDayCurrent.date : undefined;
+
+      const lastDayAddOne = dayjs(lastDayDate).add(1, 'day');
+      return this.checkDateDisabled(new Date(lastDayAddOne.format()));
     },
   },
   watch: {
@@ -251,12 +244,20 @@ export default {
     },
     value: {
       handler(val) {
-        const valueArray = Array.isArray(val) ? val : [val];
+        const valueArray = [val];
 
         const isValueSame = this.checkSame(valueArray, this.selectedDate);
         if (!isValueSame) {
           this.selectedDate = valueArray.filter((date) => !!date).map((date) => dayjs(date.toString()).toDate());
         }
+      },
+    },
+    selectedDate: {
+      deep: true,
+      handler(val) {
+        const [first] = val;
+        this.$emit('onSelectDate');
+        this.$emit('input', dayjs(first.toString()).toDate());
       },
     },
   },
@@ -265,19 +266,8 @@ export default {
   },
   mounted() {
     if (this.value) {
-      if (Array.isArray(this.value)) {
-        if (this.value.length > 0) {
-          const [first] = this.value;
-          this.activeDate = dayjs(first.toString()).toDate();
-          const results = this.value.map((date) => dayjs(date.toString()).toDate());
-          this.selectedDate = results;
-        } else {
-          this.activeDate = dayjs().toDate();
-        }
-      } else {
-        this.activeDate = dayjs(this.value ? this.value.toString() : null).toDate();
-        this.selectedDate.push(this.activeDate);
-      }
+      this.activeDate = dayjs(this.value ? this.value.toString() : null).toDate();
+      this.selectedDate.push(this.activeDate);
     } else if (!this.activeDate) {
       this.activeDate = dayjs().toDate();
       this.clickDate(this.activeDate);
@@ -290,12 +280,17 @@ export default {
         array1.every((element, index) => dayjs(element).isSame(array2[index], 'day'));
       return isSame;
     },
+    checkDateDisabled(date) {
+      if (this.disabledDate) {
+        return this.disabledDate(date);
+      }
+      return false;
+    },
     clickDate(date) {
       const findMatchIndex = this.selectedDate.findIndex((d) => dayjs(date).isSame(dayjs(d), 'day'));
       if (findMatchIndex === -1) {
         this.selectedDate.shift();
         this.selectedDate.push(dayjs(date).second(0).toDate());
-        this.$emit('onSelectDate');
       } else {
         this.selectedDate.splice(findMatchIndex, 1);
       }
@@ -333,7 +328,7 @@ export default {
 
 <style>
 .i-calendar {
-  width: 735px;
+  width: 100%;
 
   .each-date {
     width: 105px;
@@ -344,8 +339,7 @@ export default {
       position: relative;
     }
 
-    &.previous-date,
-    &.next-date {
+    &.previous-date {
       cursor: default;
       border: none !important;
     }
