@@ -740,7 +740,7 @@ export default {
       computedStuffingDate: undefined,
       shipmentPlanData: [
         {
-          tanggal: '2023-08-03T17:00:00Z',
+          shipmentDate: '2023-08-03T17:00:00Z',
           index: 4,
           detail: [
             {
@@ -764,7 +764,7 @@ export default {
           ],
         },
         {
-          tanggal: '2023-08-10T17:00:00Z',
+          shipmentDate: '2023-08-10T17:00:00Z',
           index: 5,
           detail: [
             {
@@ -782,7 +782,7 @@ export default {
           ],
         },
         {
-          tanggal: '2023-08-22T17:00:00Z',
+          shipmentDate: '2023-08-22T17:00:00Z',
           index: 20,
           detail: [
             {
@@ -832,7 +832,7 @@ export default {
   },
   methods: {
     listDateData(date) {
-      const find = this.shipmentPlanData.find((x) => dayjs(x.tanggal).isSame(dayjs(date), 'day'));
+      const find = this.shipmentPlanData.find((x) => dayjs(x.shipmentDate).isSame(dayjs(date), 'day'));
       return find;
     },
     invalidSizeHandler() {
