@@ -67,7 +67,11 @@
           >
             <button
               class="btn-month"
-              :class="{ selected: isSelectedMonth(month.monthValue) }"
+              :class="{
+                selected: isSelectedMonth(month.monthValue),
+                disabled: month.idDisabled,
+              }"
+              :disabled="month.idDisabled"
               @click="clickMonth(month)"
             >
               <div class="btn-month--label">
@@ -188,12 +192,9 @@ export default {
     },
     listMonth() {
       const months = Array.from(Array(12), (v, i) => ({
-        monthDisplay: dayjs(this.activeYearPicker)
-          .month(i + 0)
-          .format('MMM'),
-        monthValue: dayjs(this.activeYearPicker)
-          .month(i + 0)
-          .startOf('month'),
+        monthDisplay: dayjs(this.activeYearPicker).month(i).format('MMM'),
+        monthValue: dayjs(this.activeYearPicker).month(i).startOf('month'),
+        idDisabled: this.checkDateDisabled(dayjs(this.activeYearPicker).month(i).endOf('month')),
       }));
 
       return months;
@@ -215,10 +216,6 @@ export default {
       return display.sort((a, b) => a.day() - b.day());
     },
     currentPicker() {
-      // return Array.from(Array(dayjs(this.activeDateString).daysInMonth()), (v, i) => {
-      //   const date = dayjs(this.activeDateString).date(++i);
-      //   return { date };
-      // });
       return Array.from(Array(dayjs(this.activeDateString).daysInMonth()), (v, i) => {
         const date = dayjs(this.activeDateString).date(++i);
         const isDisabled = this.checkDateDisabled(dayjs(date).toDate());
@@ -525,6 +522,11 @@ export default {
 
         &:hover:not(.selected) {
           background: var(--gray-200);
+        }
+
+        &.disabled {
+          color: var(--gray-500);
+          cursor: not-allowed;
         }
       }
 

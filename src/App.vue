@@ -526,11 +526,11 @@
         <template #content="{ isSelected, date }">
           <div class="new-update-indicator" />
           <div
-            v-if="isAdaData(date)"
+            v-if="listDateData(date)"
             class="list-ports-wrapper"
           >
             <div
-              v-for="(port, key) in isAdaData(date).detail"
+              v-for="(port, key) in listDateData(date).detail"
               :key="key"
               class="list-ports"
               :class="port.isRatesAvailable ? 'bg-green-400' : 'bg-red-400'"
@@ -566,11 +566,11 @@
         <template #content="{ isSelected, date }">
           <div class="new-update-indicator" />
           <div
-            v-if="isAdaData(date)"
+            v-if="listDateData(date)"
             class="list-ports-wrapper"
           >
             <div
-              v-for="(port, key) in isAdaData(date).detail"
+              v-for="(port, key) in listDateData(date).detail"
               :key="key"
               class="list-ports"
               :class="port.isRatesAvailable ? 'bg-green-400' : 'bg-red-400'"
@@ -831,7 +831,7 @@ export default {
     }, 1000);
   },
   methods: {
-    isAdaData(date) {
+    listDateData(date) {
       const find = this.shipmentPlanData.find((x) => dayjs(x.tanggal).isSame(dayjs(date), 'day'));
       return find;
     },
