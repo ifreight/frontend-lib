@@ -114,7 +114,9 @@
             class="i-calendar-pick"
             :class="{
               selected: isSelectedDate(date.date),
+              disabled: date.isDisabled,
             }"
+            :disabled="date.isDisabled"
             @click="clickDate(date.date)"
           >
             <div
@@ -213,9 +215,14 @@ export default {
       return display.sort((a, b) => a.day() - b.day());
     },
     currentPicker() {
+      // return Array.from(Array(dayjs(this.activeDateString).daysInMonth()), (v, i) => {
+      //   const date = dayjs(this.activeDateString).date(++i);
+      //   return { date };
+      // });
       return Array.from(Array(dayjs(this.activeDateString).daysInMonth()), (v, i) => {
         const date = dayjs(this.activeDateString).date(++i);
-        return { date };
+        const isDisabled = this.checkDateDisabled(dayjs(date).toDate());
+        return { date, isDisabled };
       });
     },
     disabledPreviousMonth() {
@@ -445,6 +452,11 @@ export default {
         border: 1px solid var(--yellow-700);
         border-radius: 50%;
       }
+
+      &.disabled {
+        cursor: not-allowed;
+        background: var(--gray-100);
+      }
     }
 
     .content-container {
@@ -457,8 +469,8 @@ export default {
     }
 
     &.disabled {
-      color: var(--gray-400);
       cursor: not-allowed;
+      background: var(--gray-100);
     }
   }
 

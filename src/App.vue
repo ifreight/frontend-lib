@@ -519,7 +519,7 @@
     <div class="py-5">
       <i-calendar
         v-model="computedStuffingDate"
-        :disabled-date="null"
+        :disabled-date="disabledDateCalendar"
       >
         <template #indicator>
           <div class="flex items-center">Slot Header</div>
@@ -805,6 +805,9 @@ export default {
     },
     disabledDateNext(date) {
       return new Date() > date;
+    },
+    disabledDateCalendar(date) {
+      return new Date() >= date;
     },
     selectRemoteMethod() {
       return new Promise((resolve) => {
