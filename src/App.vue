@@ -517,6 +517,44 @@
       </div>
     </div>
     <div class="py-5">
+      <div class="font-bold text-center mb-2">Calendar without disable date</div>
+      <i-calendar v-model="computedStuffingDate">
+        <template #indicator>
+          <div class="flex items-center">Slot Header</div>
+        </template>
+
+        <template #content="{ isSelected, date }">
+          <div class="new-update-indicator" />
+          <div
+            v-if="isAdaData(date)"
+            class="list-ports-wrapper"
+          >
+            <div
+              v-for="(port, key) in isAdaData(date).detail"
+              :key="key"
+              class="list-ports"
+              :class="port.isRatesAvailable ? 'bg-green-400' : 'bg-red-400'"
+            >
+              {{ port.origin }}-{{ port.destination }}
+            </div>
+            <div class="more-list-ports">+2</div>
+          </div>
+          <i-button
+            v-if="isSelected"
+            text
+            size="xs"
+            class="btn-plan"
+          >
+            <template #prepend>
+              <ic-plus-circle class="icon-plus-circle" />
+            </template>
+            Plan
+          </i-button>
+        </template>
+      </i-calendar>
+    </div>
+    <div class="py-5">
+      <div class="font-bold text-center mb-2">Calendar with disable date</div>
       <i-calendar
         v-model="computedStuffingDate"
         :disabled-date="disabledDateCalendar"
@@ -532,7 +570,7 @@
             class="list-ports-wrapper"
           >
             <div
-              v-for="(port, key) in isAdaData(date).listNya"
+              v-for="(port, key) in isAdaData(date).detail"
               :key="key"
               class="list-ports"
               :class="port.isRatesAvailable ? 'bg-green-400' : 'bg-red-400'"
@@ -700,11 +738,11 @@ export default {
       files: [],
       files2: [],
       computedStuffingDate: undefined,
-      api: [
+      shipmentPlanData: [
         {
           tanggal: '2023-08-03T17:00:00Z',
           index: 4,
-          listNya: [
+          detail: [
             {
               id: 1,
               origin: 'IDTPP',
@@ -728,7 +766,7 @@ export default {
         {
           tanggal: '2023-08-10T17:00:00Z',
           index: 5,
-          listNya: [
+          detail: [
             {
               id: 1,
               origin: 'IDTPP',
@@ -746,7 +784,7 @@ export default {
         {
           tanggal: '2023-08-22T17:00:00Z',
           index: 20,
-          listNya: [
+          detail: [
             {
               id: 1,
               origin: 'IDTPP',
@@ -794,7 +832,7 @@ export default {
   },
   methods: {
     isAdaData(date) {
-      const find = this.api.find((x) => dayjs(x.tanggal).isSame(dayjs(date), 'day'));
+      const find = this.shipmentPlanData.find((x) => dayjs(x.tanggal).isSame(dayjs(date), 'day'));
       return find;
     },
     invalidSizeHandler() {
