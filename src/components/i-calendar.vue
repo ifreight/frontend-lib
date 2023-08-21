@@ -259,9 +259,13 @@ export default {
     selectedDate: {
       deep: true,
       handler(val) {
-        const [first] = val;
-        this.$emit('onSelectDate');
-        this.$emit('input', dayjs(first.toString()).toDate());
+        if (val.length === 0) {
+          this.$emit('onSelectDate', undefined);
+          this.$emit('input', undefined);
+        } else {
+          const [first] = val;
+          this.$emit('onSelectDate', dayjs(first.toString()).toDate());
+        }
       },
     },
   },
