@@ -2,6 +2,7 @@ export { default as InputTel } from './input-tel';
 
 export { default as IBox } from './i-box.vue';
 export { default as IButton } from './i-button.vue';
+export { default as ICalendar } from './i-calendar.vue';
 export { default as ICheckbox } from './i-checkbox.vue';
 export { default as IDatepicker } from './i-datepicker.vue';
 export { default as IDialog } from './i-dialog.vue';
