@@ -265,6 +265,7 @@ export default {
         } else {
           const [first] = val;
           this.$emit('onSelectDate', dayjs(first.toString()).toDate());
+          this.$emit('input', dayjs(first.toString()).toDate());
         }
       },
     },
