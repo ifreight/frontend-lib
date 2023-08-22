@@ -307,6 +307,7 @@ export default {
     clickMonth(month) {
       this.activeDate = dayjs(month.monthValue.toString()).toDate();
       this.showMonthYearTable = false;
+      this.$emit('onChangeCalendar', this.activeDate);
     },
     isSelectedDate(date) {
       return this.selectedDate.find((d) => dayjs(date).isSame(dayjs(d), 'day'));
@@ -316,9 +317,11 @@ export default {
     },
     clickPreviousMonth() {
       this.activeDate = dayjs(this.activeDate.toString()).subtract(1, 'month').toDate();
+      this.$emit('onChangeCalendar', this.activeDate);
     },
     clickNextMonth() {
       this.activeDate = dayjs(this.activeDate.toString()).add(1, 'month').toDate();
+      this.$emit('onChangeCalendar', this.activeDate);
     },
     clickPreviousYear() {
       this.activeYearPicker = dayjs(this.activeYearPicker.toString()).subtract(1, 'year').toDate();
