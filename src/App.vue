@@ -518,7 +518,10 @@
     </div>
     <div class="py-5">
       <div class="font-bold text-center mb-2">Calendar without disable date</div>
-      <i-calendar v-model="computedStuffingDate">
+      <i-calendar
+        v-model="calendarDate"
+        @onChangeCalendar="changeCalendarHandler"
+      >
         <template #indicator>
           <div class="flex items-center">Slot Header</div>
         </template>
@@ -556,8 +559,9 @@
     <div class="py-5">
       <div class="font-bold text-center mb-2">Calendar with disable date</div>
       <i-calendar
-        v-model="computedStuffingDate"
+        v-model="calendarDate"
         :disabled-date="disabledDateCalendar"
+        @onChangeCalendar="changeCalendarHandler"
       >
         <template #indicator>
           <div class="flex items-center">Slot Header</div>
@@ -737,7 +741,7 @@ export default {
       textArea: '',
       files: [],
       files2: [],
-      computedStuffingDate: undefined,
+      calendarDate: undefined,
       shipmentPlanData: [
         {
           shipmentDate: '2023-08-03T17:00:00Z',
@@ -893,6 +897,9 @@ export default {
     },
     enterShiftHandler() {
       this.textArea = this.textArea ? (this.textArea += '\n') : '\n';
+    },
+    changeCalendarHandler(date) {
+      window.alert(`calendar display changed to ${date}`);
     },
   },
 };
