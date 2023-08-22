@@ -408,7 +408,7 @@ const ve = {
       e === -1 ? (this.selectedDate.shift(), this.selectedDate.push(s(i).second(0).toDate())) : this.selectedDate.splice(e, 1);
     },
     clickMonth(i) {
-      this.activeDate = s(i.monthValue.toString()).toDate(), this.showMonthYearTable = !1;
+      this.activeDate = s(i.monthValue.toString()).toDate(), this.showMonthYearTable = !1, this.$emit("onChangeCalendar", this.activeDate);
     },
     isSelectedDate(i) {
       return this.selectedDate.find((e) => s(i).isSame(s(e), "day"));
@@ -417,10 +417,10 @@ const ve = {
       return s(i).isSame(s(this.activeMonthPicker), "month");
     },
     clickPreviousMonth() {
-      this.activeDate = s(this.activeDate.toString()).subtract(1, "month").toDate();
+      this.activeDate = s(this.activeDate.toString()).subtract(1, "month").toDate(), this.$emit("onChangeCalendar", this.activeDate);
     },
     clickNextMonth() {
-      this.activeDate = s(this.activeDate.toString()).add(1, "month").toDate();
+      this.activeDate = s(this.activeDate.toString()).add(1, "month").toDate(), this.$emit("onChangeCalendar", this.activeDate);
     },
     clickPreviousYear() {
       this.activeYearPicker = s(this.activeYearPicker.toString()).subtract(1, "year").toDate();
