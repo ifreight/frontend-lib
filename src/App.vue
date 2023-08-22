@@ -482,7 +482,6 @@
         @pressEnterShift="enterShiftHandler"
       />
     </div>
-    <ic-double-check />
     <div class="py-5">
       <h2 class="text-xl bg-gray-50 text-center">Upload</h2>
       <div class="flex gap-5">
@@ -517,12 +516,92 @@
         </div>
       </div>
     </div>
+    <div class="py-5">
+      <div class="font-bold text-center mb-2">Calendar without disable date</div>
+      <i-calendar v-model="computedStuffingDate">
+        <template #indicator>
+          <div class="flex items-center">Slot Header</div>
+        </template>
+
+        <template #content="{ isSelected, date }">
+          <div class="new-update-indicator" />
+          <div
+            v-if="listDateData(date)"
+            class="list-ports-wrapper"
+          >
+            <div
+              v-for="(port, key) in listDateData(date).detail"
+              :key="key"
+              class="list-ports"
+              :class="port.isRatesAvailable ? 'bg-green-400' : 'bg-red-400'"
+            >
+              {{ port.origin }}-{{ port.destination }}
+            </div>
+            <div class="more-list-ports">+2</div>
+          </div>
+          <i-button
+            v-if="isSelected"
+            text
+            size="xs"
+            class="btn-plan"
+          >
+            <template #prepend>
+              <ic-plus-circle class="icon-plus-circle" />
+            </template>
+            Plan
+          </i-button>
+        </template>
+      </i-calendar>
+    </div>
+    <div class="py-5">
+      <div class="font-bold text-center mb-2">Calendar with disable date</div>
+      <i-calendar
+        v-model="computedStuffingDate"
+        :disabled-date="disabledDateCalendar"
+      >
+        <template #indicator>
+          <div class="flex items-center">Slot Header</div>
+        </template>
+
+        <template #content="{ isSelected, date }">
+          <div class="new-update-indicator" />
+          <div
+            v-if="listDateData(date)"
+            class="list-ports-wrapper"
+          >
+            <div
+              v-for="(port, key) in listDateData(date).detail"
+              :key="key"
+              class="list-ports"
+              :class="port.isRatesAvailable ? 'bg-green-400' : 'bg-red-400'"
+            >
+              {{ port.origin }}-{{ port.destination }}
+            </div>
+            <div class="more-list-ports">+2</div>
+          </div>
+          <i-button
+            v-if="isSelected"
+            text
+            size="xs"
+            class="btn-plan"
+          >
+            <template #prepend>
+              <ic-plus-circle class="icon-plus-circle" />
+            </template>
+            Plan
+          </i-button>
+        </template>
+      </i-calendar>
+    </div>
   </div>
 </template>
 
 <script>
+import dayjs from 'dayjs';
+
 import IBox from './components/i-box.vue';
 import IButton from './components/i-button.vue';
+import ICalendar from './components/i-calendar.vue';
 import ICheckbox from './components/i-checkbox.vue';
 import IDatepicker from './components/i-datepicker.vue';
 import IDialog from './components/i-dialog.vue';
@@ -549,7 +628,7 @@ import IcInfoCircle from './icons/ic-info-circle.vue';
 import IcLocation from './icons/ic-location.vue';
 import IcMagnifyingGlass from './icons/ic-magnifying-glass.vue';
 import IcPaperClip from './icons/ic-paper-clip.vue';
-import IcDoubleCheck from './icons/ic-double-check.vue';
+import IcPlusCircle from './icons/ic-plus-circle.vue';
 
 export default {
   name: 'App',
@@ -560,9 +639,10 @@ export default {
     IcLocation,
     IcMagnifyingGlass,
     IcPaperClip,
-    IcDoubleCheck,
+    IcPlusCircle,
     IBox,
     IButton,
+    ICalendar,
     ICheckbox,
     IDatepicker,
     IDialog,
@@ -657,6 +737,75 @@ export default {
       textArea: '',
       files: [],
       files2: [],
+      computedStuffingDate: undefined,
+      shipmentPlanData: [
+        {
+          shipmentDate: '2023-08-03T17:00:00Z',
+          index: 4,
+          detail: [
+            {
+              id: 1,
+              origin: 'IDTPP',
+              destination: 'SGSIN',
+              isRatesAvailable: true,
+            },
+            {
+              id: 2,
+              origin: 'IDTPP',
+              destination: 'KRPUS',
+              isRatesAvailable: false,
+            },
+            {
+              id: 3,
+              origin: 'IDTPP',
+              destination: 'KRPUS',
+              isRatesAvailable: false,
+            },
+          ],
+        },
+        {
+          shipmentDate: '2023-08-10T17:00:00Z',
+          index: 5,
+          detail: [
+            {
+              id: 1,
+              origin: 'IDTPP',
+              destination: 'SGSIN',
+              isRatesAvailable: true,
+            },
+            {
+              id: 2,
+              origin: 'IDTPP',
+              destination: 'KRPUS',
+              isRatesAvailable: false,
+            },
+          ],
+        },
+        {
+          shipmentDate: '2023-08-22T17:00:00Z',
+          index: 20,
+          detail: [
+            {
+              id: 1,
+              origin: 'IDTPP',
+              destination: 'SGSIN',
+              isRatesAvailable: true,
+            },
+            {
+              id: 2,
+              origin: 'IDTPP',
+              destination: 'KRPUS',
+              isRatesAvailable: false,
+            },
+            {
+              id: 3,
+              origin: 'IDTPP',
+              destination: 'KRPUS',
+              isRatesAvailable: false,
+            },
+          ],
+        },
+      ],
     };
   },
   computed: {
@@ -682,6 +831,10 @@ export default {
     }, 1000);
   },
   methods: {
+    listDateData(date) {
+      const find = this.shipmentPlanData.find((x) => dayjs(x.shipmentDate).isSame(dayjs(date), 'day'));
+      return find;
+    },
     invalidSizeHandler() {
       window.alert('Each maximum file size should not exceed 5 MB.');
     },
@@ -690,6 +843,9 @@ export default {
     },
     disabledDateNext(date) {
       return new Date() > date;
+    },
+    disabledDateCalendar(date) {
+      return new Date() >= date;
     },
     selectRemoteMethod() {
       return new Promise((resolve) => {
@@ -742,4 +898,56 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.new-update-indicator {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  width: 6px;
+  height: 6px;
+  background: #ffd100;
+  border-radius: 100%;
+}
+
+.list-ports-wrapper {
+  position: absolute;
+  top: 10px;
+  left: 24px;
+
+  .list-ports {
+    width: 77px;
+    height: 14px;
+    margin-bottom: 2px;
+    font-size: 10px;
+    font-weight: 500;
+    line-height: normal;
+    border-radius: 8px;
+
+    &.bg-green-400 {
+      background: #1fc700;
+    }
+
+    &.bg-red-4ec {
+      background: #ec7173;
+    }
+  }
+
+  .more-list-ports {
+    font-size: 10px;
+    font-weight: 500;
+    text-align: start;
+  }
+}
+
+.btn-plan {
+  position: absolute;
+  right: 3px;
+  bottom: 3px;
+
+  .icon-plus-circle {
+    width: 11px;
+    height: 11px;
+    margin-right: 6px;
+  }
+}
+</style>
