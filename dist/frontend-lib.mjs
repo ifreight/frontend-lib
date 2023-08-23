@@ -455,7 +455,7 @@ var me = function() {
     } } }, [t("div", { staticClass: "date-number", class: {
       red: n.date.day() === 0,
       selected: e.isSelectedDate(n.date)
-    } }, [t("span", [e._v(e._s(n.date.date()))])]), t("div", { staticClass: "content-container" }, [e._t("content", null, { isSelected: e.isSelectedDate(n.date), date: n.date, index: a })], 2)])]);
+    } }, [t("span", [e._v(e._s(n.date.date()))])]), t("div", { staticClass: "content-container" }, [e._t("content", null, { isSelected: e.isSelectedDate(n.date), date: n.date.toDate(), index: a })], 2)])]);
   })], 2)])]);
 }, Ce = [], ge = /* @__PURE__ */ r(
   ve,
