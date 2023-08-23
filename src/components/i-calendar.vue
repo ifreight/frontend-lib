@@ -137,6 +137,7 @@
                 name="content"
                 :is-selected="isSelectedDate(date.date)"
                 :date="date.date"
+                :content="date.dateContent"
                 :index="index"
               />
             </div>
@@ -169,6 +170,20 @@ export default {
     disabledDate: {
       type: Function,
       default: null,
+    },
+    calendarContent: {
+      type: Array,
+      default: () => [],
+      validator(value) {
+        if (value.length === 0) {
+          return true;
+        }
+        return value.every((d) => !!d.date);
+      },
+    },
+    limitDisplayContent: {
+      type: Number,
+      default: 3,
     },
   },
   data() {
@@ -219,7 +234,18 @@ export default {
       return Array.from(Array(dayjs(this.activeDateString).daysInMonth()), (v, i) => {
         const date = dayjs(this.activeDateString).date(++i);
         const isDisabled = this.checkDateDisabled(dayjs(date).toDate());
-        return { date, isDisabled };
+        let dateContent = null;
+        if (this.calendarContent.length > 0) {
+          const filteredContent = this.calendarContent.filter((val) => {
+            return dayjs(val.date).isSame(date, 'day');
+          });
+          const displayContent = filteredContent.slice(0, this.limitDisplayContent);
+          dateContent = {
+            allContent: filteredContent,
+            displayContent,
+          };
+        }
+        return { date, isDisabled, dateContent };
       });
     },
     disabledPreviousMonth() {
