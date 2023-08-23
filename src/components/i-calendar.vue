@@ -136,7 +136,7 @@
               <slot
                 name="content"
                 :is-selected="isSelectedDate(date.date)"
-                :date="date.date"
+                :date="date.date.toDate()"
                 :index="index"
               />
             </div>
