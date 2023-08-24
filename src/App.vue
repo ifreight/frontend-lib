@@ -518,29 +518,38 @@
     </div>
     <div class="py-5">
       <div class="font-bold text-center mb-2">Calendar without disable date</div>
+      <div>
+        <strong class="text-red-400">with calendarContent props and (default) limitDisplay props 3</strong>
+      </div>
       <i-calendar
         v-model="calendarDate"
+        :calendar-content="shipData"
         @onChangeCalendar="changeCalendarHandler"
       >
         <template #indicator>
           <div class="flex items-center">Slot Header</div>
         </template>
 
-        <template #content="{ isSelected, date }">
+        <template #content="{ isSelected, content }">
           <div class="new-update-indicator" />
           <div
-            v-if="listDateData(date)"
+            v-if="content"
             class="list-ports-wrapper"
           >
             <div
-              v-for="(port, key) in listDateData(date).detail"
+              v-for="(port, key) in content.displayContent"
               :key="key"
               class="list-ports"
               :class="port.isRatesAvailable ? 'bg-green-400' : 'bg-red-400'"
             >
-              {{ port.origin }}-{{ port.destination }}
+              {{ port.shippingRoute }}
             </div>
-            <div class="more-list-ports">+2</div>
+            <div
+              v-if="content.allContent.length - content.displayContent.length > 0"
+              class="more-list-ports"
+            >
+              +{{ content.allContent.length - content.displayContent.length }}
+            </div>
           </div>
           <i-button
             v-if="isSelected"
@@ -810,6 +819,7 @@ export default {
           ],
         },
       ],
+      shipData: [],
     };
   },
   computed: {
@@ -833,6 +843,287 @@ export default {
     setTimeout(() => {
       this.$refs.autoProgress.finishAutoProgress();
     }, 1000);
+    this.shipData = [
+      {
+        shipmentPlanId: 2,
+        stuffingDateTime: '2023-08-10T13:14:40.58Z',
+        shippingRoute: 'IDTPP-SGSIN',
+        havePricing: true,
+        haveNotification: false,
+      },
+      {
+        shipmentPlanId: 2,
+        stuffingDateTime: '2023-08-30T13:15:00.959Z',
+        shippingRoute: 'IDTPP-SGSIN',
+        havePricing: true,
+        haveNotification: false,
+      },
+      {
+        shipmentPlanId: 10,
+        stuffingDateTime: '2023-08-12T07:38:00Z',
+        shippingRoute: 'IDTPP-JPAXT',
+        havePricing: false,
+        haveNotification: false,
+      },
+      {
+        shipmentPlanId: 11,
+        stuffingDateTime: '2023-08-12T07:38:00Z',
+        shippingRoute: 'IDTPP-JPAXT',
+        havePricing: true,
+        haveNotification: false,
+      },
+      {
+        shipmentPlanId: 12,
+        stuffingDateTime: '2023-08-12T07:38:00Z',
+        shippingRoute: 'IDTPP-JPAXT',
+        havePricing: true,
+        haveNotification: false,
+      },
+      {
+        shipmentPlanId: 13,
+        stuffingDateTime: '2023-08-12T07:38:00Z',
+        shippingRoute: 'IDTPP-JPAXT',
+        havePricing: true,
+        haveNotification: false,
+      },
+      {
+        shipmentPlanId: 14,
+        stuffingDateTime: '2023-08-12T07:38:00Z',
+        shippingRoute: 'IDTPP-JPAXT',
+        havePricing: true,
+        haveNotification: false,
+      },
+      {
+        shipmentPlanId: 15,
+        stuffingDateTime: '2023-08-12T07:38:00Z',
+        shippingRoute: 'IDTPP-JPAXT',
+        havePricing: true,
+        haveNotification: false,
+      },
+      {
+        shipmentPlanId: 18,
+        stuffingDateTime: '2023-08-12T07:38:00Z',
+        shippingRoute: 'IDTPP-JPAXT',
+        havePricing: true,
+        haveNotification: false,
+      },
+      {
+        shipmentPlanId: 19,
+        stuffingDateTime: '2023-08-12T07:38:00Z',
+        shippingRoute: 'IDTPP-JPAXT',
+        havePricing: true,
+        haveNotification: false,
+      },
+      {
+        shipmentPlanId: 20,
+        stuffingDateTime: '2023-08-11T07:38:00Z',
+        shippingRoute: 'IDTPP-JPAXT',
+        havePricing: true,
+        haveNotification: false,
+      },
+      {
+        shipmentPlanId: 20,
+        stuffingDateTime: '2023-08-12T07:38:00Z',
+        shippingRoute: 'IDTPP-JPAXT',
+        havePricing: true,
+        haveNotification: false,
+      },
+      {
+        shipmentPlanId: 21,
+        stuffingDateTime: '2023-08-11T07:38:00Z',
+        shippingRoute: 'IDTPP-JPAXT',
+        havePricing: true,
+        haveNotification: false,
+      },
+      {
+        shipmentPlanId: 21,
+        stuffingDateTime: '2023-08-12T07:38:00Z',
+        shippingRoute: 'IDTPP-JPAXT',
+        havePricing: true,
+        haveNotification: false,
+      },
+      {
+        shipmentPlanId: 22,
+        stuffingDateTime: '2023-08-11T07:38:00Z',
+        shippingRoute: 'IDTPP-JPAXT',
+        havePricing: true,
+        haveNotification: false,
+      },
+      {
+        shipmentPlanId: 22,
+        stuffingDateTime: '2023-08-12T07:38:00Z',
+        shippingRoute: 'IDTPP-JPAXT',
+        havePricing: true,
+        haveNotification: false,
+      },
+      {
+        shipmentPlanId: 23,
+        stuffingDateTime: '2023-08-11T07:38:00Z',
+        shippingRoute: 'IDTPP-JPAXT',
+        havePricing: false,
+        haveNotification: false,
+      },
+      {
+        shipmentPlanId: 23,
+        stuffingDateTime: '2023-08-12T07:38:00Z',
+        shippingRoute: 'IDTPP-JPAXT',
+        havePricing: false,
+        haveNotification: false,
+      },
+      {
+        shipmentPlanId: 24,
+        stuffingDateTime: '2023-08-11T07:38:00Z',
+        shippingRoute: 'IDTPP-JPAXT',
+        havePricing: true,
+        haveNotification: false,
+      },
+      {
+        shipmentPlanId: 24,
+        stuffingDateTime: '2023-08-12T07:38:00Z',
+        shippingRoute: 'IDTPP-JPAXT',
+        havePricing: true,
+        haveNotification: false,
+      },
+      {
+        shipmentPlanId: 25,
+        stuffingDateTime: '2023-08-11T07:38:00Z',
+        shippingRoute: 'IDTPP-JPAXT',
+        havePricing: true,
+        haveNotification: false,
+      },
+      {
+        shipmentPlanId: 25,
+        stuffingDateTime: '2023-08-12T07:38:00Z',
+        shippingRoute: 'IDTPP-JPAXT',
+        havePricing: true,
+        haveNotification: false,
+      },
+      {
+        shipmentPlanId: 26,
+        stuffingDateTime: '2023-08-21T07:07:00Z',
+        shippingRoute: 'IDTPP-MYKBC',
+        havePricing: true,
+        haveNotification: false,
+      },
+      {
+        shipmentPlanId: 27,
+        stuffingDateTime: '2023-08-12T07:07:00Z',
+        shippingRoute: 'IDTPP-CNXGA',
+        havePricing: false,
+        haveNotification: false,
+      },
+      {
+        shipmentPlanId: 28,
+        stuffingDateTime: '2023-08-20T08:17:00Z',
+        shippingRoute: 'IDTPP-HKHKG',
+        havePricing: false,
+        haveNotification: false,
+      },
+      {
+        shipmentPlanId: 29,
+        stuffingDateTime: '2023-08-11T07:38:00Z',
+        shippingRoute: 'IDTPP-JPAXT',
+        havePricing: true,
+        haveNotification: false,
+      },
+      {
+        shipmentPlanId: 29,
+        stuffingDateTime: '2023-08-12T07:38:00Z',
+        shippingRoute: 'IDTPP-JPAXT',
+        havePricing: true,
+        haveNotification: false,
+      },
+      {
+        shipmentPlanId: 33,
+        stuffingDateTime: '2023-08-20T08:17:00Z',
+        shippingRoute: 'IDTPP-CNXGA',
+        havePricing: false,
+        haveNotification: false,
+      },
+      {
+        shipmentPlanId: 34,
+        stuffingDateTime: '2023-08-20T08:17:00Z',
+        shippingRoute: 'IDTPP-CNXGA',
+        havePricing: false,
+        haveNotification: false,
+      },
+      {
+        shipmentPlanId: 35,
+        stuffingDateTime: '2023-08-25T18:21:00Z',
+        shippingRoute: 'IDTPP-THSIR',
+        havePricing: true,
+        haveNotification: false,
+      },
+      {
+        shipmentPlanId: 36,
+        stuffingDateTime: '2023-08-25T18:21:00Z',
+        shippingRoute: 'IDTPP-THSIR',
+        havePricing: true,
+        haveNotification: false,
+      },
+      {
+        shipmentPlanId: 37,
+        stuffingDateTime: '2023-08-30T18:22:00Z',
+        shippingRoute: 'IDTPP-THSIR',
+        havePricing: true,
+        haveNotification: false,
+      },
+      {
+        shipmentPlanId: 38,
+        stuffingDateTime: '2023-08-24T18:26:00Z',
+        shippingRoute: 'IDTPP-THSIR',
+        havePricing: true,
+        haveNotification: false,
+      },
+      {
+        shipmentPlanId: 39,
+        stuffingDateTime: '2023-08-24T18:28:00Z',
+        shippingRoute: 'IDTPP-THSIR',
+        havePricing: true,
+        haveNotification: false,
+      },
+      {
+        shipmentPlanId: 39,
+        stuffingDateTime: '2023-08-25T18:28:00Z',
+        shippingRoute: 'IDTPP-THSIR',
+        havePricing: true,
+        haveNotification: false,
+      },
+      {
+        shipmentPlanId: 40,
+        stuffingDateTime: '2023-08-24T18:28:00Z',
+        shippingRoute: 'IDTPP-THSIR',
+        havePricing: true,
+        haveNotification: false,
+      },
+      {
+        shipmentPlanId: 40,
+        stuffingDateTime: '2023-08-25T18:28:00Z',
+        shippingRoute: 'IDTPP-THSIR',
+        havePricing: true,
+        haveNotification: false,
+      },
+      {
+        shipmentPlanId: 41,
+        stuffingDateTime: '2023-08-24T18:28:00Z',
+        shippingRoute: 'IDTPP-THSIR',
+        havePricing: true,
+        haveNotification: false,
+      },
+      {
+        shipmentPlanId: 41,
+        stuffingDateTime: '2023-08-25T18:28:00Z',
+        shippingRoute: 'IDTPP-THSIR',
+        havePricing: true,
+        haveNotification: false,
+      },
+    ];
+    this.shipData = this.shipData.map((dat) => {
+      return {
+        ...dat,
+        date: dat.stuffingDateTime,
+      };
+    });
   },
   methods: {
     listDateData(date) {
