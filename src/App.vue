@@ -750,7 +750,7 @@ export default {
       textArea: '',
       files: [],
       files2: [],
-      calendarDate: new Date(),
+      calendarDate: null,
       shipmentPlanData: [
         {
           shipmentDate: '2023-08-03T17:00:00Z',
