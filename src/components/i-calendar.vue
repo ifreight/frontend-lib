@@ -127,7 +127,7 @@
               class="date-number"
               :class="{
                 red: date.date.day() === 0,
-                selected: isSelectedDate(date.date),
+                active: isToday(date.date),
               }"
             >
               <span>{{ date.date.date() }}</span>
@@ -304,8 +304,7 @@ export default {
       this.activeDate = dayjs(this.value ? this.value.toString() : null).toDate();
       this.selectedDate.push(this.activeDate);
     } else if (!this.activeDate) {
-      this.activeDate = dayjs().toDate();
-      this.clickDate(this.activeDate);
+      this.activeDate = this.initialDate ? dayjs(this.initialDate.toString()) : dayjs().toDate();
     }
   },
   methods: {
@@ -359,6 +358,9 @@ export default {
       this.activeMonthPicker = this.activeDate;
       this.activeYearPicker = dayjs(this.activeDate.toString()).format('YYYY');
       this.showMonthYearTable = !this.showMonthYearTable;
+    },
+    isToday(date) {
+      return dayjs(date).isSame(dayjs(), 'day');
     },
   },
 };
@@ -472,7 +474,7 @@ export default {
         color: var(--red-400);
       }
 
-      &.selected {
+      &.active {
         display: flex;
         align-items: center;
         justify-content: center;
