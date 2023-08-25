@@ -413,7 +413,7 @@ const ve = {
     this.activeDate = this.initialDate;
   },
   mounted() {
-    this.value ? (this.activeDate = s(this.value ? this.value.toString() : null).toDate(), this.selectedDate.push(this.activeDate)) : this.activeDate || (this.activeDate = s().toDate(), this.clickDate(this.activeDate));
+    this.value ? (this.activeDate = s(this.value ? this.value.toString() : null).toDate(), this.selectedDate.push(this.activeDate)) : this.activeDate || (this.activeDate = this.initialDate ? s(this.initialDate.toString()) : s().toDate());
   },
   methods: {
     checkSame(t, e) {
@@ -449,6 +449,9 @@ const ve = {
     },
     clickMonthPicker() {
       this.activeMonthPicker = this.activeDate, this.activeYearPicker = s(this.activeDate.toString()).format("YYYY"), this.showMonthYearTable = !this.showMonthYearTable;
+    },
+    isToday(t) {
+      return s(t).isSame(s(), "day");
     }
   }
 };
@@ -473,7 +476,7 @@ var me = function() {
       return e.clickDate(n.date);
     } } }, [i("div", { staticClass: "date-number", class: {
       red: n.date.day() === 0,
-      selected: e.isSelectedDate(n.date)
+      active: e.isToday(n.date)
     } }, [i("span", [e._v(e._s(n.date.date()))])]), i("div", { staticClass: "content-container" }, [e._t("content", null, { isSelected: e.isSelectedDate(n.date), date: n.date.toDate(), content: n.dateContent, index: a })], 2)])]);
   })], 2)])]);
 }, Ce = [], ge = /* @__PURE__ */ r(
