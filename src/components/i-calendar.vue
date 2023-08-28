@@ -371,7 +371,7 @@ export default {
   width: 100%;
 
   .each-date {
-    width: 105px;
+    width: 14.2857%;
     height: 90px;
     border: 0.8px solid #e6e6e6;
 
@@ -416,7 +416,7 @@ export default {
     .list-day {
       display: flex;
       justify-content: center;
-      width: 105px;
+      width: 14.2857%;
     }
   }
 
