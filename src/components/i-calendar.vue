@@ -14,6 +14,7 @@
           />
         </button>
         <button
+          ref="yearButton"
           class="btn-active-month-year"
           @click="clickMonthPicker"
         >
@@ -36,6 +37,7 @@
       </div>
       <div
         v-if="showMonthYearTable"
+        ref="monthYearTable"
         class="floating-month-year-pop-up"
       >
         <div class="year-wrapper">
@@ -77,7 +79,10 @@
               <div class="btn-month--label">
                 {{ month.monthDisplay }}
               </div>
-              <div class="new-update-indicator" />
+              <div
+                v-if="month.isHaveNotification"
+                class="new-update-indicator"
+              />
             </button>
           </div>
         </div>
@@ -185,6 +190,16 @@ export default {
       type: Number,
       default: 3,
     },
+    monthIndicatorList: {
+      type: Array,
+      default: () => [],
+      validator(value) {
+        if (value.length === 0) {
+          return true;
+        }
+        return value.length === 12 && value.every((d) => typeof d === 'boolean');
+      },
+    },
   },
   data() {
     return {
@@ -210,6 +225,7 @@ export default {
         monthDisplay: dayjs(this.activeYearPicker).month(i).format('MMM'),
         monthValue: dayjs(this.activeYearPicker).month(i).startOf('month'),
         idDisabled: this.checkDateDisabled(dayjs(this.activeYearPicker).month(i).endOf('month')),
+        isHaveNotification: this.monthIndicatorList.length > 0 ? this.monthIndicatorList[i] : false,
       }));
 
       return months;
@@ -218,7 +234,7 @@ export default {
       return this.activeDate ? this.activeDate.toString() : undefined;
     },
     activeYearPickerString() {
-      return dayjs(this.activeYearPicker.toString()).format('YYYY');
+      return this.activeYearPicker ? dayjs(this.activeYearPicker.toString()).format('YYYY') : null;
     },
     previousPicker() {
       const display = [];
@@ -306,6 +322,10 @@ export default {
     } else if (!this.activeDate) {
       this.activeDate = this.initialDate ? dayjs(this.initialDate.toString()) : dayjs().toDate();
     }
+    document.addEventListener('click', this.onClickOutside);
+  },
+  beforeDestroy() {
+    document.removeEventListener('click', this.onClickOutside);
   },
   methods: {
     checkSame(array1, array2) {
@@ -350,9 +370,11 @@ export default {
     },
     clickPreviousYear() {
       this.activeYearPicker = dayjs(this.activeYearPicker.toString()).subtract(1, 'year').toDate();
+      this.$emit('onChangeYear', this.activeYearPicker);
     },
     clickNextYear() {
       this.activeYearPicker = dayjs(this.activeYearPicker.toString()).add(1, 'year').toDate();
+      this.$emit('onChangeYear', this.activeYearPicker);
     },
     clickMonthPicker() {
       this.activeMonthPicker = this.activeDate;
@@ -361,6 +383,13 @@ export default {
     },
     isToday(date) {
       return dayjs(date).isSame(dayjs(), 'day');
+    },
+    onClickOutside(event) {
+      const isInsideMonth = event.composedPath().includes(this.$refs.monthYearTable);
+      const isInsideYearButton = event.composedPath().includes(this.$refs.yearButton);
+      if (!isInsideMonth && !isInsideYearButton) {
+        this.showMonthYearTable = false;
+      }
     },
   },
 };

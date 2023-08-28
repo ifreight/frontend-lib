@@ -524,7 +524,9 @@
       <i-calendar
         v-model="calendarDate"
         :calendar-content="shipData"
+        :month-indicator-list="[true, false, true, false, true, false, true, false, true, false, true, false]"
         @onChangeCalendar="changeCalendarHandler"
+        @onChangeYear="changeYearHandler"
       >
         <template #indicator>
           <div class="flex items-center">Slot Header</div>
@@ -1191,6 +1193,9 @@ export default {
     },
     changeCalendarHandler(date) {
       window.alert(`calendar display changed to ${date}`);
+    },
+    changeYearHandler(date) {
+      window.alert(`change to ${date}`);
     },
   },
 };
