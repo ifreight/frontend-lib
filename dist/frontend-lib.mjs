@@ -459,7 +459,7 @@ const ve = {
       this.activeYearPicker = s(this.activeYearPicker.toString()).add(1, "year").toDate(), this.$emit("onChangeYear", this.activeYearPicker);
     },
     clickMonthPicker() {
-      this.activeMonthPicker = this.activeDate, this.activeYearPicker = s(this.activeDate.toString()).format("YYYY"), this.showMonthYearTable = !this.showMonthYearTable;
+      this.activeMonthPicker = this.activeDate, this.activeYearPicker = s(this.activeDate.toString()).format("YYYY"), this.showMonthYearTable = !this.showMonthYearTable, this.$emit("onChangeYear", this.activeYearPicker);
     },
     isToday(t) {
       return s(t).isSame(s(), "day");
