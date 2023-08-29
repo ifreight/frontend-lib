@@ -380,6 +380,7 @@ export default {
       this.activeMonthPicker = this.activeDate;
       this.activeYearPicker = dayjs(this.activeDate.toString()).format('YYYY');
       this.showMonthYearTable = !this.showMonthYearTable;
+      this.$emit('onChangeYear', this.activeYearPicker);
     },
     isToday(date) {
       return dayjs(date).isSame(dayjs(), 'day');
