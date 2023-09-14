@@ -288,16 +288,6 @@ export default {
         }
       },
     },
-    value: {
-      handler(val) {
-        const valueArray = [val];
-
-        const isValueSame = this.checkSame(valueArray, this.selectedDate);
-        if (!isValueSame) {
-          this.selectedDate = valueArray.filter((date) => !!date).map((date) => dayjs(date.toString()).toDate());
-        }
-      },
-    },
     selectedDate: {
       deep: true,
       handler(val) {
