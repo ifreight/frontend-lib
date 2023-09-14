@@ -399,12 +399,6 @@ const ve = {
         t && (this.activeMonth = s(t.toString()).format("MMM"), this.activeYear = s(t.toString()).format("YYYY"));
       }
     },
-    value: {
-      handler(t) {
-        const e = [t];
-        this.checkSame(e, this.selectedDate) || (this.selectedDate = e.filter((n) => !!n).map((n) => s(n.toString()).toDate()));
-      }
-    },
     selectedDate: {
       deep: !0,
       handler(t) {

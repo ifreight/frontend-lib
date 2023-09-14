@@ -527,6 +527,7 @@
         :month-indicator-list="[true, false, true, false, true, false, true, false, true, false, true, false]"
         @onChangeCalendar="changeCalendarHandler"
         @onChangeYear="changeYearHandler"
+        @onSelectDate="selectDate"
       >
         <template #indicator>
           <div class="flex items-center">Slot Header</div>
@@ -1196,6 +1197,9 @@ export default {
     },
     changeYearHandler(date) {
       window.alert(`change to ${date}`);
+    },
+    selectDate(date) {
+      console.log('select date', date);
     },
   },
 };
