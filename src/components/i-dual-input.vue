@@ -3,7 +3,12 @@
     class="i-dual-input"
     :class="classes"
   >
-    <slot name="first-input" />
+    <div
+      :class="firstInputClass"
+      :style="firstInputStyle"
+    >
+      <slot name="first-input" />
+    </div>
 
     <div
       v-show="!hideDivider"
@@ -15,7 +20,12 @@
       </div>
     </div>
 
-    <slot name="second-input" />
+    <div
+      :class="secondInputClass"
+      :style="secondInputStyle"
+    >
+      <slot name="second-input" />
+    </div>
   </div>
 </template>
 
@@ -28,12 +38,21 @@ export default {
     invalid: Boolean,
     filled: Boolean,
     hideDivider: Boolean,
-    size: {
+    firstInputWidth: {
+      type: [String, Number],
+      default: '100%',
+    },
+    firstInputClass: {
       type: String,
-      default: 'base',
-      validator(value) {
-        return ['sm', 'base'].includes(value);
-      },
+      default: '',
+    },
+    secondInputWidth: {
+      type: [String, Number],
+      default: '100%',
+    },
+    secondInputClass: {
+      type: String,
+      default: '',
     },
   },
   computed: {
@@ -44,6 +63,12 @@ export default {
         invalid: this.invalid,
         filled: this.filled,
       };
+    },
+    firstInputStyle() {
+      return `width: ${this.firstInputWidth}`;
+    },
+    secondInputStyle() {
+      return `width: ${this.secondInputWidth}`;
     },
   },
 };

@@ -14,6 +14,9 @@
     <ul
       v-if="filteredOptions.length > 0"
       class="i-dropdown-options-body"
+      :style="{
+        'max-height': maxHeight,
+      }"
     >
       <li
         v-for="(option, idx) in filteredOptions"
@@ -99,6 +102,10 @@ export default {
       default: 'No results found.',
     },
     loading: Boolean,
+    maxHeight: {
+      type: String,
+      default: '264px',
+    },
   },
   computed: {
     filteredOptions() {
@@ -178,7 +185,7 @@ export default {
 
   .i-dropdown-options-body {
     max-height: 264px;
-    padding: 20px;
+    padding: 0;
     margin: 0;
     overflow: scroll;
     overflow-x: hidden;

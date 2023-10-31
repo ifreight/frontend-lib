@@ -94,6 +94,7 @@ export default {
     position: absolute;
     left: 0;
     z-index: 2;
+    padding: 20px;
     overflow: hidden;
     background-color: var(--white);
     border-radius: 10px;

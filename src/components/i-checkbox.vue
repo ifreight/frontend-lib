@@ -12,6 +12,7 @@
         name="checkbox"
         :value="value"
         :checked="value"
+        :disabled="disabled"
         @input="onInput"
       />
       <ic-check class="i-checkbox-icon" />
@@ -42,12 +43,14 @@ export default {
       default: '',
     },
     invalid: Boolean,
+    disabled: Boolean,
   },
   computed: {
     classes() {
       return {
         checked: this.value,
         invalid: this.invalid,
+        disabled: this.disabled,
       };
     },
   },
@@ -102,6 +105,14 @@ export default {
 
   &.invalid .i-checkbox-input {
     @apply border-red-400;
+  }
+
+  &.disabled {
+    cursor: default;
+
+    .i-checkbox-input {
+      border-color: #e2e2e2;
+    }
   }
 
   &:hover .i-checkbox-input::before {

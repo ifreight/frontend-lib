@@ -28,7 +28,7 @@ export default {
       default: '',
     },
     top: Boolean,
-    forceActive: Boolean,
+    forceActive: Boolean, // works like isFloating at frontend
     disabled: Boolean,
     dark: Boolean,
     invalid: Boolean,
