@@ -111,7 +111,7 @@ export default {
     cursor: default;
 
     .i-checkbox-input {
-      border-color: #e2e2e2;
+      border-color: var(--gray-200);
     }
   }
 

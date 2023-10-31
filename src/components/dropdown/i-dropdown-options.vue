@@ -31,6 +31,7 @@
         <slot
           name="options"
           :option="option"
+          :make-bold="makeBold"
         >
           <span v-if="currentValue === option[optionKey]">
             {{ option[optionValue] }}

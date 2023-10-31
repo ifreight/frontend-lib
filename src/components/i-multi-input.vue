@@ -48,8 +48,8 @@ export default {
   align-items: center;
   width: auto;
   height: 68px;
-  background-color: #ffffff;
-  border: 1px solid #a8a8a8;
+  background-color: var(--white);
+  border: 1px solid var(--gray-400);
   border-radius: 10px;
 
   &.sm {
@@ -57,24 +57,24 @@ export default {
   }
 
   &.disabled {
-    background-color: #fbfbfd;
+    background-color: var(--gray-50);
   }
 
   &:focus-within,
   &.is-filled {
-    border-color: #2d2d2d;
+    border-color: var(--gray-900);
   }
 
   &.dark,
   &.dark.disabled {
-    background-color: #2d2d2d;
-    border-color: #fffffd;
+    background-color: var(--gray-900);
+    border-color: var(--white);
   }
 
   &.invalid,
   &.invalid.is-filled,
   &.invalid.dark {
-    border-color: #ec7173;
+    border-color: var(--red-400);
   }
 }
 
@@ -91,7 +91,7 @@ export default {
       width: 1px;
       height: 70%;
       content: '';
-      background-color: #a8a8a8;
+      background-color: var(--gray-400);
     }
   }
 }

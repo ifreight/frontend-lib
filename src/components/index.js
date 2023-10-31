@@ -21,6 +21,7 @@ export { default as IPopover } from './i-popover.vue';
 export { default as IProgress } from './i-progress.vue';
 export { default as IScrollbar } from './i-scrollbar.vue';
 export { default as ISelect } from './i-select.vue';
+export { default as ISelectCountryPort } from './i-select-country-port.vue';
 export { default as ISortCaret } from './i-sort-caret.vue';
 export { default as ITabs } from './tab/i-tabs.vue';
 export { default as ITabPane } from './tab/i-tab-pane.vue';

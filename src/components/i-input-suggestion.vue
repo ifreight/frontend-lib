@@ -248,7 +248,7 @@ export default {
     height: 68px;
     padding-right: 16px;
     padding-left: 16px;
-    border: 1px solid #a8a8a8;
+    border: 1px solid var(--gray-400);
     border-radius: 10px;
 
     &.sm {
@@ -256,9 +256,9 @@ export default {
     }
 
     &.dark {
-      color: #ffffff;
-      background-color: #2d2d2d;
-      border-color: #ffffff;
+      color: var(--white);
+      background-color: var(--gray-900);
+      border-color: var(--white);
     }
 
     &.borderless {

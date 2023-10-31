@@ -76,9 +76,9 @@ export default {
   .i-pill {
     padding: 10px 16px;
     font-size: 14px;
-    color: #fbfbfd;
+    color: var(--gray-50);
     cursor: pointer;
-    border: #fbfbfd;
+    border: 1px solid var(--gray-50);
     border-radius: 100px;
 
     &:not(:first-child) {
@@ -86,19 +86,14 @@ export default {
     }
 
     &:not(.primary).active {
-      font-weight: 600;
-      color: #2d2d2d;
-      background-color: #fbfbfd;
+      @apply bg-gray-50 text-gray-900 font-semibold;
     }
 
     &.primary {
-      color: #ffe800;
-      border-color: #ffe800;
+      @apply text-yellow-300 border-yellow-300;
 
       &.active {
-        font-weight: bold;
-        color: #2d2d2d;
-        background-color: #ffe800;
+        @apply bg-yellow-300 text-gray-900 font-bold;
       }
     }
   }

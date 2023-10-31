@@ -611,7 +611,10 @@
         </i-calendar>
       </div>
     </div>
-    <div class="sync-component">
+    <div
+      class="sync-component"
+      style="padding-bottom: 50px"
+    >
       <div>
         <h4>dual input example</h4>
         <i-dual-input
@@ -626,7 +629,7 @@
           <template #first-input>
             <i-checkbox
               v-model="isDangerousGoods"
-              input-checkbox-classes="tw-mr-0"
+              input-checkbox-classes="mr-0"
             />
           </template>
           <template #second-input>
@@ -643,8 +646,8 @@
             >
               <template #prepend>
                 <ic-info-circle
-                  class="tw--ml-4"
-                  :class="isDangerousGoods ? 'tw-text-gray-900' : 'tw-text-gray-400'"
+                  class="-ml-4"
+                  :class="isDangerousGoods ? 'text-gray-900' : 'text-gray-400'"
                 />
               </template>
             </i-select>
@@ -720,9 +723,70 @@
           dropdown-max-height="290px"
         >
           <template #dropdownHeader>
-            <div class="tw-text-xs tw-text-gray-400 tw-text-right">common used</div>
+            <div class="text-xs text-gray-400 text-right">common used</div>
           </template>
         </i-input-suggestion>
+      </div>
+      <div style="margin-top: 20px">
+        <h4>select country port</h4>
+        <i-select-country-port
+          v-model="countryPort"
+          label="Country Port Example"
+          placeholder="Type "
+          remote-text="Input port name or country to search."
+          name="countryPort"
+          :invalid="false"
+          :remote-method="remoteCountryPort"
+          :value-option.sync="selectedCountryPort"
+          input-id="SelectCountryPort"
+        >
+          <template #prepend>
+            <ic-location />
+          </template>
+        </i-select-country-port>
+
+        <h4 class="mt-5">using dual input (borderless)</h4>
+        <i-dual-input>
+          <template #first-input>
+            <i-select-country-port
+              v-model="countryPort1"
+              label="Country Port Example"
+              placeholder="Type "
+              remote-text="Input port name or country to search."
+              name="countryPort"
+              :invalid="false"
+              :remote-method="remoteCountryPort"
+              :value-option.sync="selectedCountryPort1"
+              input-id="SelectCountryPort1"
+              borderless
+            >
+              <template #prepend>
+                <ic-location />
+              </template>
+            </i-select-country-port>
+          </template>
+          <template #icon>
+            <ic-arrow-circle />
+          </template>
+          <template #second-input>
+            <i-select-country-port
+              v-model="countryPort2"
+              label="Country Port Example"
+              placeholder="Type "
+              remote-text="Input port name or country to search."
+              name="countryPort"
+              :invalid="false"
+              :remote-method="remoteCountryPort"
+              :value-option.sync="selectedCountryPort2"
+              input-id="SelectCountryPort2"
+              borderless
+            >
+              <template #prepend>
+                <ic-location />
+              </template>
+            </i-select-country-port>
+          </template>
+        </i-dual-input>
       </div>
     </div>
   </div>
@@ -756,6 +820,7 @@ import IInputTag from './components/i-input-tag.vue';
 import IPill from './components/i-pill.vue';
 import IMultiInput from './components/i-multi-input.vue';
 import IInputSuggestion from './components/i-input-suggestion.vue';
+import ISelectCountryPort from './components/i-select-country-port.vue';
 
 import IcArrowCircle from './icons/ic-arrow-circle.vue';
 import IcFilter from './icons/ic-filter.vue';
@@ -800,6 +865,7 @@ export default {
     IPill,
     IMultiInput,
     IInputSuggestion,
+    ISelectCountryPort,
   },
   data() {
     return {
@@ -953,6 +1019,12 @@ export default {
       width: null,
       length: null,
       suggestion: null,
+      countryPort: null,
+      selectedCountryPort: null,
+      countryPort1: null,
+      selectedCountryPort1: null,
+      countryPort2: null,
+      selectedCountryPort2: null,
     };
   },
   computed: {
@@ -1382,6 +1454,80 @@ export default {
     },
     selectDate(date) {
       console.log('select date', date);
+    },
+    remoteCountryPort() {
+      return [
+        {
+          portId: 27,
+          portCode: 'JUR',
+          portName: 'Jurong/Singapore',
+          portAddress: null,
+          portLocation: 'Jurong/Singapore, Singapore (SGJUR)',
+          countryId: 7,
+          countryCode: 'SG',
+          countryName: 'Singapore',
+        },
+        {
+          portId: 24,
+          portCode: 'KEP',
+          portName: 'Keppel Wharves',
+          portAddress: null,
+          portLocation: 'Keppel Wharves, Singapore (SGKEP)',
+          countryId: 7,
+          countryCode: 'SG',
+          countryName: 'Singapore',
+        },
+        {
+          portId: 25,
+          portCode: 'PAP',
+          portName: 'Pasir Panjang Wharves',
+          portAddress: null,
+          portLocation: 'Pasir Panjang Wharves, Singapore (SGPAP)',
+          countryId: 7,
+          countryCode: 'SG',
+          countryName: 'Singapore',
+        },
+        {
+          portId: 26,
+          portCode: 'SEM',
+          portName: 'Sembawang Port',
+          portAddress: null,
+          portLocation: 'Sembawang Port, Singapore (SGSEM)',
+          countryId: 7,
+          countryCode: 'SG',
+          countryName: 'Singapore',
+        },
+        {
+          portId: 28,
+          portCode: 'SIN',
+          portName: 'Singapore',
+          portAddress: null,
+          portLocation: 'Singapore, Singapore (SGSIN)',
+          countryId: 7,
+          countryCode: 'SG',
+          countryName: 'Singapore',
+        },
+        {
+          portId: 29,
+          portCode: 'SCT',
+          portName: 'Singapore Container Terminal',
+          portAddress: null,
+          portLocation: 'Singapore Container Terminal, Singapore (SGSCT)',
+          countryId: 7,
+          countryCode: 'SG',
+          countryName: 'Singapore',
+        },
+        {
+          portId: 23,
+          portCode: 'TPG',
+          portName: 'Tanjong Pagar',
+          portAddress: null,
+          portLocation: 'Tanjong Pagar, Singapore (SGTPG)',
+          countryId: 7,
+          countryCode: 'SG',
+          countryName: 'Singapore',
+        },
+      ];
     },
   },
 };
