@@ -34,8 +34,6 @@
 </template>
 
 <script>
-// import { computed, watch, defineComponent, ref, reactive } from '@vue/composition-api';
-
 import IButton from '@/components/i-button.vue';
 import IcPlusCircle from '@/icons/ic-plus-circle.vue';
 

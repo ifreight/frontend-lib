@@ -4,610 +4,790 @@
     class="p-5"
   >
     <span>Frontend Lib</span>
-    <div class="my-5">
-      <div class="mb-3">Pagination</div>
-      <div class="flex gap-3 mb-5">
-        <div>
-          <i-pagination
-            :current-page="pagination.currentPage"
-            :total="pagination.total"
-            :page-size="10"
-            :pager-count="pagination.limit"
-          />
-        </div>
-        <div>
-          <i-pagination
-            :current-page="1"
-            :total="30"
-            :page-size="10"
-          />
-        </div>
-        <div>
-          <i-pagination
-            :current-page="1"
-            :total="5"
-            :page-size="10"
-          />
-        </div>
-        <div>
-          <i-pagination
-            :current-page="1"
-            :total="80"
-            :page-size="10"
-          />
-        </div>
-      </div>
-      <div class="pb-5">
-        <div>show-data-count</div>
-        <i-pagination
-          :current-page="1"
-          :total="95"
-          :page-size="10"
-          show-data-count
-        />
-      </div>
-    </div>
-
-    <div class="py-5 flex gap-2">
-      <i-progress
-        :current-step="1"
-        :max-step="4"
-      />
-      <i-progress
-        ref="autoProgress"
-        height="10px"
-        border
-        auto
-      />
-    </div>
-
-    <i-box
-      label="Test Box"
-      class="p-5"
-    >
-      Test
-    </i-box>
-
-    <div class="p-5">
-      <i-checkbox label="toggle" />
-    </div>
-
-    <i-sort-caret v-model="sortCaretValue" />
-
-    <i-input-tel v-model="phone" />
-
-    <div class="w-[200px] py-5 flex justify-around">
-      <i-popover
-        dark
-        tooltip
-        show-close
-        placement="right"
-      >
-        <template #reference>
-          <ic-info-circle class="inline text-gray-400" />
-        </template>
-        <span>
-          Country ID is a number used to list down<br />
-          registered countries all over iFreight's database.
-        </span>
-      </i-popover>
-
-      <i-popover trigger="click">
-        <template #reference>
-          <ic-filter class="inline" />
-        </template>
-
-        <div class="w-[205px] px-5 py-6">Test</div>
-      </i-popover>
-    </div>
-
-    <div class="py-5 flex gap-2">
-      <i-select
-        v-model="select"
-        input-id="select"
-        name="select"
-        label="Select"
-        class="flex-1"
-        :options="selectStaticOptions"
-        clearable
-        error-message="Field required"
-      />
-
-      <i-select
-        v-model="selectFilterable"
-        input-id="selectFilterable"
-        name="selectFilterable"
-        label="Select Filterable"
-        placeholder="filterable"
-        filterable
-        class="flex-1"
-        :options="selectObjectOptions"
-        option-key="key"
-        option-value="label"
-        dropdown-width="600px"
-        clearable
-      >
-        <template #dropdownOptionsPrepend="{ option }">
-          <div class="flex items-center h-10 w-10 mr-3 -my-1">
-            <img
-              :src="option.logo"
-              alt="logo"
+    <div>
+      <div class="my-5">
+        <div class="mb-3">Pagination</div>
+        <div class="flex gap-3 mb-5">
+          <div>
+            <i-pagination
+              :current-page="pagination.currentPage"
+              :total="pagination.total"
+              :page-size="10"
+              :pager-count="pagination.limit"
             />
           </div>
-        </template>
-      </i-select>
-
-      <i-select
-        v-model="selectRemoteId"
-        :value-option.sync="selectRemote"
-        input-id="selectRemote"
-        name="selectRemote"
-        label="Select Remote"
-        placeholder="remote"
-        class="flex-1"
-        remote
-        :remote-method="selectRemoteMethod"
-        clearable
-      />
-    </div>
-
-    <div class="py-5 flex gap-2">
-      <i-input
-        v-model="text"
-        input-id="text"
-        name="text"
-        label="Input Text"
-        class="flex-1"
-        clearable
-        :maxlength="3"
-      />
-
-      <i-input
-        v-model="textPlaceholder"
-        input-id="textPlaceholder"
-        name="textPlaceholder"
-        label="Input Text Placeholder"
-        placeholder-value="e.g. text placeholder"
-        class="flex-1"
-        error-message="Field required"
-      >
-        <template #prepend>
-          <IcFilter />
-        </template>
-        <template #append>
-          <IcFilter />
-        </template>
-      </i-input>
-
-      <i-input
-        v-model="textFilled"
-        input-id="textFilled"
-        name="textFilled"
-        label="Input Text Filled"
-        mask="number"
-        :mask-options="{
-          min: -100,
-          max: 100,
-        }"
-        class="flex-1"
-      >
-        <template #prepend>
-          <IcFilter />
-        </template>
-      </i-input>
-
-      <i-input
-        v-model="textNpwp"
-        input-id="textNpwp"
-        name="textNpwp"
-        label="Input Text NPWP"
-        placeholder="62.252.125-2.221"
-        mask="npwp"
-        class="flex-1"
-      >
-        <template #append>
-          <IcFilter />
-        </template>
-      </i-input>
-
-      <i-input
-        v-model="textNumber"
-        input-id="textNumber"
-        name="textNumber"
-        label="Input Number"
-        mask="number"
-        class="flex-1"
-        :maxlength="3"
-      >
-        <template #label>
-          <span class="mr-1">Input Text</span>
-          <i-popover
-            dark
-            tooltip
-            show-close
-            placement="top"
-            class="inline-block"
-          >
-            <template #reference>
-              <ic-info-circle class="inline" />
-            </template>
-            <span>
-              Country ID is a number used to list down<br />
-              registered countries all over iFreight's database.
-            </span>
-          </i-popover>
-        </template>
-      </i-input>
-
-      <i-input
-        v-model="textDecimal"
-        input-id="textDecimal"
-        name="textDecimal"
-        label="Input Decimal"
-        placeholder="123.45"
-        mask="decimal"
-        class="flex-1"
-      />
-    </div>
-
-    <div class="py-5 flex gap-2">
-      <i-input-time
-        v-model="timeInput1"
-        input-id="timeInput1"
-        name="timeInput1"
-        label="Pilih waktu"
-        class="w-[190px]"
-        invalid
-      />
-      <i-input-time
-        v-model="timeInput2"
-        input-id="timeInput2"
-        name="timeInput2"
-        label="Pilih waktu"
-        class="w-[190px]"
-        size="sm"
-      />
-    </div>
-
-    <div class="py-5 flex gap-2">
-      <i-dual-input :filled="!!searchString">
-        <template #first-input>
-          <i-select
-            v-model="searchType"
-            input-id="searchType"
-            name="searchType"
-            label="Search by"
-            class="w-[190px] relative"
-            :options="searchTypeOptions"
-            option-value="label"
-            borderless
+          <div>
+            <i-pagination
+              :current-page="1"
+              :total="30"
+              :page-size="10"
+            />
+          </div>
+          <div>
+            <i-pagination
+              :current-page="1"
+              :total="5"
+              :page-size="10"
+            />
+          </div>
+          <div>
+            <i-pagination
+              :current-page="1"
+              :total="80"
+              :page-size="10"
+            />
+          </div>
+        </div>
+        <div class="pb-5">
+          <div>show-data-count</div>
+          <i-pagination
+            :current-page="1"
+            :total="95"
+            :page-size="10"
+            show-data-count
           />
-        </template>
-        <template #second-input>
-          <i-input
-            v-model="searchString"
-            input-id="searchString"
-            name="searchString"
-            :label="searchTypeOptions.find((v) => v.id === searchType).label"
-            placeholder="Input Country"
-            class="flex-1"
-            borderless
-          >
-            <template #prepend>
-              <IcMagnifyingGlass class="text-gray-400" />
-            </template>
-          </i-input>
-        </template>
-      </i-dual-input>
+        </div>
+      </div>
 
-      <i-dual-input
-        :filled="!!origin || !!destination"
-        class="w-[539px]"
-      >
-        <template #first-input>
-          <i-select
-            v-model="origin"
-            input-id="origin"
-            name="origin"
-            label="Origin"
-            placeholder-value="All origin ports"
-            :options="searchTypeOptions"
-            option-value="label"
-            borderless
-            clearable
-            class="flex-1"
-          >
-            <template #prepend>
-              <ic-location />
-            </template>
-          </i-select>
-        </template>
-        <template #icon>
-          <ic-arrow-circle />
-        </template>
-        <template #second-input>
-          <i-select
-            v-model="destination"
-            input-id="destination"
-            name="destination"
-            label="Destination"
-            placeholder-value="All destination ports"
-            :options="searchTypeOptions"
-            option-value="label"
-            borderless
-            clearable
-            class="flex-1"
-          >
-            <template #prepend>
-              <ic-location />
-            </template>
-          </i-select>
-        </template>
-      </i-dual-input>
-    </div>
+      <div class="py-5 flex gap-2">
+        <i-progress
+          :current-step="1"
+          :max-step="4"
+        />
+        <i-progress
+          ref="autoProgress"
+          height="10px"
+          border
+          auto
+        />
+      </div>
 
-    <div class="py-5 flex gap-2">
-      <i-button
-        class="w-[200px]"
-        @click="showDialog = true"
-      >
-        Open Dialog
-      </i-button>
-      <i-button
-        plain
-        class="w-[200px]"
-        @click="showDialogHeader = true"
-      >
-        Open Dialog Header
-      </i-button>
-
-      <i-dialog
-        :show.sync="showDialog"
-        show-close
+      <i-box
+        label="Test Box"
+        class="p-5"
       >
         Test
-      </i-dialog>
-      <i-dialog
-        :show.sync="showDialogHeader"
-        show-close
-        show-header
-        append-to-body
-        destroy-on-close
-      >
-        Test Header
-      </i-dialog>
-    </div>
-    <div class="py-5 w-[400px]">
-      <i-button
-        size="sm"
-        class="w-[200px] mb-5"
-        @click="changeTab"
-      >
-        Change Tab
-      </i-button>
-      <i-tabs
-        v-model="activeTab"
-        header-align="left"
-      >
-        <i-tab-pane
-          v-for="tab in tabs"
-          :key="`tab-${tab.name}`"
-          :label="tab.label"
-          :name="tab.name"
-        >
-          {{ tab.label }}
-        </i-tab-pane>
-      </i-tabs>
-    </div>
-    <div class="flex">
-      <div class="py-5 flex w-[315px]">
-        <i-datepicker v-model="date" />
-      </div>
-      <div class="py-5 flex w-[315px]">
-        <i-datepicker
-          v-model="dateMultiple"
-          :disabled-date="disabledDate"
-          :pick-limit="3"
-        />
-      </div>
-      <div class="py-5 flex w-[315px]">
-        <i-datepicker
-          v-model="dateMultiple"
-          :disabled-date="disabledDateNext"
-          :pick-limit="3"
-        />
-      </div>
-    </div>
-    <div>
-      <h2 class="text-xl bg-gray-50 text-center">radio</h2>
-      <div class="flex gap-5">
-        <i-radio
-          v-for="(type, index) in bookingTypeList"
-          :key="`booking-type-${index}`"
-          v-model="bookingType"
-          name="bookingType"
-          :label="type.id"
-        >
-          <span class="ml-[8.5px] capitalize">
-            {{ type.name }}
-          </span>
-        </i-radio>
-      </div>
-      <h2 class="text-xl bg-gray-50 text-center mt-3">disabled radio</h2>
-      <div class="flex gap-5">
-        <i-radio
-          v-for="(type, index) in bookingTypeList"
-          :key="`booking-type-dis-${index}`"
-          :value="1"
-          name="bookingType"
-          :label="type.id"
-          disabled
-        >
-          <span class="ml-[8.5px] capitalize">
-            {{ type.name }}
-          </span>
-        </i-radio>
-      </div>
-    </div>
-    <div class="py-5">
-      <h2 class="text-xl bg-gray-50 text-center">Input Tag</h2>
-      <i-input-tag
-        v-model="inputTag"
-        label="(Optional) Send to following emails:"
-        button-text="+ Email"
-        name="inputTag"
-        input-type="email"
-        class="border-gray-400"
-      />
-    </div>
-    <div class="py-5">
-      <h2 class="text-xl bg-gray-50 text-center">Text Area</h2>
-      <i-text-area
-        v-model="textArea"
-        input-id="textarea"
-        name="message"
-        placeholder="Type Message Here.."
-        class="chat-textarea"
-      />
+      </i-box>
 
-      <h2 class="text-xl bg-gray-50 text-center">Text Area Prevent enter</h2>
-      <i-text-area
-        v-model="textArea"
-        :prevent-enter-key="true"
-        input-id="textarea"
-        name="message"
-        placeholder="Type Message Here.."
-        class="chat-textarea"
-        @pressEnter="submitChat"
-        @pressEnterShift="enterShiftHandler"
-      />
-    </div>
-    <div class="py-5">
-      <h2 class="text-xl bg-gray-50 text-center">Upload</h2>
-      <div class="flex gap-5">
-        <div class="flex-1">
-          <i-upload
-            v-model="files"
-            :accept="acceptableFiles"
-            required
-            name="upload"
-            @invalidSize="invalidSizeHandler"
+      <div class="p-5">
+        <i-checkbox label="toggle" />
+      </div>
+
+      <i-sort-caret v-model="sortCaretValue" />
+
+      <i-input-tel v-model="phone" />
+
+      <div class="w-[200px] py-5 flex justify-around">
+        <i-popover
+          dark
+          tooltip
+          show-close
+          placement="right"
+        >
+          <template #reference>
+            <ic-info-circle class="inline text-gray-400" />
+          </template>
+          <span>
+            Country ID is a number used to list down<br />
+            registered countries all over iFreight's database.
+          </span>
+        </i-popover>
+
+        <i-popover trigger="click">
+          <template #reference>
+            <ic-filter class="inline" />
+          </template>
+
+          <div class="w-[205px] px-5 py-6">Test</div>
+        </i-popover>
+      </div>
+
+      <div class="py-5 flex gap-2">
+        <i-select
+          v-model="select"
+          input-id="select"
+          name="select"
+          label="Select"
+          class="flex-1"
+          :options="selectStaticOptions"
+          clearable
+          error-message="Field required"
+        />
+
+        <i-select
+          v-model="selectFilterable"
+          input-id="selectFilterable"
+          name="selectFilterable"
+          label="Select Filterable"
+          placeholder="filterable"
+          filterable
+          class="flex-1"
+          :options="selectObjectOptions"
+          option-key="key"
+          option-value="label"
+          dropdown-width="600px"
+          clearable
+        >
+          <template #dropdownOptionsPrepend="{ option }">
+            <div class="flex items-center h-10 w-10 mr-3 -my-1">
+              <img
+                :src="option.logo"
+                alt="logo"
+              />
+            </div>
+          </template>
+        </i-select>
+
+        <i-select
+          v-model="selectRemoteId"
+          :value-option.sync="selectRemote"
+          input-id="selectRemote"
+          name="selectRemote"
+          label="Select Remote"
+          placeholder="remote"
+          class="flex-1"
+          remote
+          :remote-method="selectRemoteMethod"
+          clearable
+        />
+      </div>
+
+      <div class="py-5 flex gap-2">
+        <i-input
+          v-model="text"
+          input-id="text"
+          name="text"
+          label="Input Text"
+          class="flex-1"
+          clearable
+          :maxlength="3"
+        />
+
+        <i-input
+          v-model="textPlaceholder"
+          input-id="textPlaceholder"
+          name="textPlaceholder"
+          label="Input Text Placeholder"
+          placeholder-value="e.g. text placeholder"
+          class="flex-1"
+          error-message="Field required"
+        >
+          <template #prepend>
+            <IcFilter />
+          </template>
+          <template #append>
+            <IcFilter />
+          </template>
+        </i-input>
+
+        <i-input
+          v-model="textFilled"
+          input-id="textFilled"
+          name="textFilled"
+          label="Input Text Filled"
+          mask="number"
+          :mask-options="{
+            min: -100,
+            max: 100,
+          }"
+          class="flex-1"
+        >
+          <template #prepend>
+            <IcFilter />
+          </template>
+        </i-input>
+
+        <i-input
+          v-model="textNpwp"
+          input-id="textNpwp"
+          name="textNpwp"
+          label="Input Text NPWP"
+          placeholder="62.252.125-2.221"
+          mask="npwp"
+          class="flex-1"
+        >
+          <template #append>
+            <IcFilter />
+          </template>
+        </i-input>
+
+        <i-input
+          v-model="textNumber"
+          input-id="textNumber"
+          name="textNumber"
+          label="Input Number"
+          mask="number"
+          class="flex-1"
+          :maxlength="3"
+        >
+          <template #label>
+            <span class="mr-1">Input Text</span>
+            <i-popover
+              dark
+              tooltip
+              show-close
+              placement="top"
+              class="inline-block"
+            >
+              <template #reference>
+                <ic-info-circle class="inline" />
+              </template>
+              <span>
+                Country ID is a number used to list down<br />
+                registered countries all over iFreight's database.
+              </span>
+            </i-popover>
+          </template>
+        </i-input>
+
+        <i-input
+          v-model="textDecimal"
+          input-id="textDecimal"
+          name="textDecimal"
+          label="Input Decimal"
+          placeholder="123.45"
+          mask="decimal"
+          class="flex-1"
+        />
+      </div>
+
+      <div class="py-5 flex gap-2">
+        <i-input-time
+          v-model="timeInput1"
+          input-id="timeInput1"
+          name="timeInput1"
+          label="Pilih waktu"
+          class="w-[190px]"
+          invalid
+        />
+        <i-input-time
+          v-model="timeInput2"
+          input-id="timeInput2"
+          name="timeInput2"
+          label="Pilih waktu"
+          class="w-[190px]"
+          size="sm"
+        />
+      </div>
+
+      <div class="py-5 flex gap-2">
+        <i-dual-input :filled="!!searchString">
+          <template #first-input>
+            <i-select
+              v-model="searchType"
+              input-id="searchType"
+              name="searchType"
+              label="Search by"
+              class="w-[190px] relative"
+              :options="searchTypeOptions"
+              option-value="label"
+              borderless
+            />
+          </template>
+          <template #second-input>
+            <i-input
+              v-model="searchString"
+              input-id="searchString"
+              name="searchString"
+              :label="searchTypeOptions.find((v) => v.id === searchType).label"
+              placeholder="Input Country"
+              class="flex-1"
+              borderless
+            >
+              <template #prepend>
+                <IcMagnifyingGlass class="text-gray-400" />
+              </template>
+            </i-input>
+          </template>
+        </i-dual-input>
+
+        <i-dual-input
+          :filled="!!origin || !!destination"
+          class="w-[539px]"
+        >
+          <template #first-input>
+            <i-select
+              v-model="origin"
+              input-id="origin"
+              name="origin"
+              label="Origin"
+              placeholder-value="All origin ports"
+              :options="searchTypeOptions"
+              option-value="label"
+              borderless
+              clearable
+              class="flex-1"
+            >
+              <template #prepend>
+                <ic-location />
+              </template>
+            </i-select>
+          </template>
+          <template #icon>
+            <ic-arrow-circle />
+          </template>
+          <template #second-input>
+            <i-select
+              v-model="destination"
+              input-id="destination"
+              name="destination"
+              label="Destination"
+              placeholder-value="All destination ports"
+              :options="searchTypeOptions"
+              option-value="label"
+              borderless
+              clearable
+              class="flex-1"
+            >
+              <template #prepend>
+                <ic-location />
+              </template>
+            </i-select>
+          </template>
+        </i-dual-input>
+      </div>
+
+      <div class="py-5 flex gap-2">
+        <i-button
+          class="w-[200px]"
+          @click="showDialog = true"
+        >
+          Open Dialog
+        </i-button>
+        <i-button
+          plain
+          class="w-[200px]"
+          @click="showDialogHeader = true"
+        >
+          Open Dialog Header
+        </i-button>
+
+        <i-dialog
+          :show.sync="showDialog"
+          show-close
+        >
+          Test
+        </i-dialog>
+        <i-dialog
+          :show.sync="showDialogHeader"
+          show-close
+          show-header
+          append-to-body
+          destroy-on-close
+        >
+          Test Header
+        </i-dialog>
+      </div>
+      <div class="py-5 w-[400px]">
+        <i-button
+          size="sm"
+          class="w-[200px] mb-5"
+          @click="changeTab"
+        >
+          Change Tab
+        </i-button>
+        <i-tabs
+          v-model="activeTab"
+          header-align="left"
+        >
+          <i-tab-pane
+            v-for="tab in tabs"
+            :key="`tab-${tab.name}`"
+            :label="tab.label"
+            :name="tab.name"
+          >
+            {{ tab.label }}
+          </i-tab-pane>
+        </i-tabs>
+      </div>
+      <div class="flex">
+        <div class="py-5 flex w-[315px]">
+          <i-datepicker v-model="date" />
+        </div>
+        <div class="py-5 flex w-[315px]">
+          <i-datepicker
+            v-model="dateMultiple"
+            :disabled-date="disabledDate"
+            :pick-limit="3"
           />
         </div>
-        <i-file-list :files.sync="files" />
-        <div class="flex-1">
-          <i-upload
-            v-slot="{ onClick }"
-            v-model="files2"
-            :accept="acceptableFiles"
-            required
-            name="upload2"
-            @invalidSize="invalidSizeHandler"
-          >
-            <i-button
-              text
-              class="text-gray-900"
-              @click="onClick"
-            >
-              <ic-paper-clip />
-            </i-button>
-          </i-upload>
-          <i-file-list :files.sync="files2" />
+        <div class="py-5 flex w-[315px]">
+          <i-datepicker
+            v-model="dateMultiple"
+            :disabled-date="disabledDateNext"
+            :pick-limit="3"
+          />
         </div>
       </div>
-    </div>
-    <div class="py-5">
-      <div class="font-bold text-center mb-2">Calendar without disable date</div>
       <div>
-        <strong class="text-red-400">with calendarContent props and (default) limitDisplay props 3</strong>
+        <h2 class="text-xl bg-gray-50 text-center">radio</h2>
+        <div class="flex gap-5">
+          <i-radio
+            v-for="(type, index) in bookingTypeList"
+            :key="`booking-type-${index}`"
+            v-model="bookingType"
+            name="bookingType"
+            :label="type.id"
+          >
+            <span class="ml-[8.5px] capitalize">
+              {{ type.name }}
+            </span>
+          </i-radio>
+        </div>
+        <h2 class="text-xl bg-gray-50 text-center mt-3">disabled radio</h2>
+        <div class="flex gap-5">
+          <i-radio
+            v-for="(type, index) in bookingTypeList"
+            :key="`booking-type-dis-${index}`"
+            :value="1"
+            name="bookingType"
+            :label="type.id"
+            disabled
+          >
+            <span class="ml-[8.5px] capitalize">
+              {{ type.name }}
+            </span>
+          </i-radio>
+        </div>
       </div>
-      <i-calendar
-        v-model="calendarDate"
-        :calendar-content="shipData"
-        :month-indicator-list="[true, false, true, false, true, false, true, false, true, false, true, false]"
-        @onChangeCalendar="changeCalendarHandler"
-        @onChangeYear="changeYearHandler"
-        @onSelectDate="selectDate"
-      >
-        <template #indicator>
-          <div class="flex items-center">Slot Header</div>
-        </template>
+      <div class="py-5">
+        <h2 class="text-xl bg-gray-50 text-center">Input Tag</h2>
+        <i-input-tag
+          v-model="inputTag"
+          label="(Optional) Send to following emails:"
+          button-text="+ Email"
+          name="inputTag"
+          input-type="email"
+          class="border-gray-400"
+        />
+      </div>
+      <div class="py-5">
+        <h2 class="text-xl bg-gray-50 text-center">Text Area</h2>
+        <i-text-area
+          v-model="textArea"
+          input-id="textarea"
+          name="message"
+          placeholder="Type Message Here.."
+          class="chat-textarea"
+        />
 
-        <template #content="{ isSelected, content }">
-          <div class="new-update-indicator" />
-          <div
-            v-if="content"
-            class="list-ports-wrapper"
-          >
-            <div
-              v-for="(port, key) in content.displayContent"
-              :key="key"
-              class="list-ports"
-              :class="port.isRatesAvailable ? 'bg-green-400' : 'bg-red-400'"
-            >
-              {{ port.shippingRoute }}
-            </div>
-            <div
-              v-if="content.allContent.length - content.displayContent.length > 0"
-              class="more-list-ports"
-            >
-              +{{ content.allContent.length - content.displayContent.length }}
-            </div>
+        <h2 class="text-xl bg-gray-50 text-center">Text Area Prevent enter</h2>
+        <i-text-area
+          v-model="textArea"
+          :prevent-enter-key="true"
+          input-id="textarea"
+          name="message"
+          placeholder="Type Message Here.."
+          class="chat-textarea"
+          @pressEnter="submitChat"
+          @pressEnterShift="enterShiftHandler"
+        />
+      </div>
+      <div class="py-5">
+        <h2 class="text-xl bg-gray-50 text-center">Upload</h2>
+        <div class="flex gap-5">
+          <div class="flex-1">
+            <i-upload
+              v-model="files"
+              :accept="acceptableFiles"
+              required
+              name="upload"
+              @invalidSize="invalidSizeHandler"
+            />
           </div>
-          <i-button
-            v-if="isSelected"
-            text
-            size="xs"
-            class="btn-plan"
-          >
-            <template #prepend>
-              <ic-plus-circle class="icon-plus-circle" />
-            </template>
-            Plan
-          </i-button>
-        </template>
-      </i-calendar>
+          <i-file-list :files.sync="files" />
+          <div class="flex-1">
+            <i-upload
+              v-slot="{ onClick }"
+              v-model="files2"
+              :accept="acceptableFiles"
+              required
+              name="upload2"
+              @invalidSize="invalidSizeHandler"
+            >
+              <i-button
+                text
+                class="text-gray-900"
+                @click="onClick"
+              >
+                <ic-paper-clip />
+              </i-button>
+            </i-upload>
+            <i-file-list :files.sync="files2" />
+          </div>
+        </div>
+      </div>
+      <div class="py-5">
+        <div class="font-bold text-center mb-2">Calendar without disable date</div>
+        <div>
+          <strong class="text-red-400">with calendarContent props and (default) limitDisplay props 3</strong>
+        </div>
+        <i-calendar
+          v-model="calendarDate"
+          :calendar-content="shipData"
+          :month-indicator-list="[true, false, true, false, true, false, true, false, true, false, true, false]"
+          @onChangeCalendar="changeCalendarHandler"
+          @onChangeYear="changeYearHandler"
+          @onSelectDate="selectDate"
+        >
+          <template #indicator>
+            <div class="flex items-center">Slot Header</div>
+          </template>
+
+          <template #content="{ isSelected, content }">
+            <div class="new-update-indicator" />
+            <div
+              v-if="content"
+              class="list-ports-wrapper"
+            >
+              <div
+                v-for="(port, key) in content.displayContent"
+                :key="key"
+                class="list-ports"
+                :class="port.isRatesAvailable ? 'bg-green-400' : 'bg-red-400'"
+              >
+                {{ port.shippingRoute }}
+              </div>
+              <div
+                v-if="content.allContent.length - content.displayContent.length > 0"
+                class="more-list-ports"
+              >
+                +{{ content.allContent.length - content.displayContent.length }}
+              </div>
+            </div>
+            <i-button
+              v-if="isSelected"
+              text
+              size="xs"
+              class="btn-plan"
+            >
+              <template #prepend>
+                <ic-plus-circle class="icon-plus-circle" />
+              </template>
+              Plan
+            </i-button>
+          </template>
+        </i-calendar>
+      </div>
+      <div class="py-5">
+        <div class="font-bold text-center mb-2">Calendar with disable date</div>
+        <i-calendar
+          v-model="calendarDate"
+          :disabled-date="disabledDateCalendar"
+          @onChangeCalendar="changeCalendarHandler"
+        >
+          <template #indicator>
+            <div class="flex items-center">Slot Header</div>
+          </template>
+
+          <template #content="{ isSelected, date }">
+            <div class="new-update-indicator" />
+            <div
+              v-if="listDateData(date)"
+              class="list-ports-wrapper"
+            >
+              <div
+                v-for="(port, key) in listDateData(date).detail"
+                :key="key"
+                class="list-ports"
+                :class="port.isRatesAvailable ? 'bg-green-400' : 'bg-red-400'"
+              >
+                {{ port.origin }}-{{ port.destination }}
+              </div>
+              <div class="more-list-ports">+2</div>
+            </div>
+            <i-button
+              v-if="isSelected"
+              text
+              size="xs"
+              class="btn-plan"
+            >
+              <template #prepend>
+                <ic-plus-circle class="icon-plus-circle" />
+              </template>
+              Plan
+            </i-button>
+          </template>
+        </i-calendar>
+      </div>
     </div>
-    <div class="py-5">
-      <div class="font-bold text-center mb-2">Calendar with disable date</div>
-      <i-calendar
-        v-model="calendarDate"
-        :disabled-date="disabledDateCalendar"
-        @onChangeCalendar="changeCalendarHandler"
-      >
-        <template #indicator>
-          <div class="flex items-center">Slot Header</div>
-        </template>
-
-        <template #content="{ isSelected, date }">
-          <div class="new-update-indicator" />
-          <div
-            v-if="listDateData(date)"
-            class="list-ports-wrapper"
-          >
-            <div
-              v-for="(port, key) in listDateData(date).detail"
-              :key="key"
-              class="list-ports"
-              :class="port.isRatesAvailable ? 'bg-green-400' : 'bg-red-400'"
+    <div
+      class="sync-component"
+      style="padding-bottom: 50px"
+    >
+      <div>
+        <h4>dual input example</h4>
+        <i-dual-input
+          :filled="isDangerousGoods"
+          :disabled="!isDangerousGoods"
+          :invalid="false"
+          first-input-width="fit-content"
+          first-input-class="dual-first-class"
+          second-input-width="100%"
+          second-input-class="dual-second-class"
+        >
+          <template #first-input>
+            <i-checkbox
+              v-model="isDangerousGoods"
+              input-checkbox-classes="mr-0"
+            />
+          </template>
+          <template #second-input>
+            <i-select
+              v-model="imoClass"
+              name="imoClass"
+              label="Dangerous Goods"
+              placeholder="Select IMO Number"
+              :disabled="!isDangerousGoods"
+              :options="imoClassList"
+              :value-option.sync="selectedImoClass"
+              borderless
+              input-id="ImoClass"
             >
-              {{ port.origin }}-{{ port.destination }}
-            </div>
-            <div class="more-list-ports">+2</div>
-          </div>
-          <i-button
-            v-if="isSelected"
-            text
-            size="xs"
-            class="btn-plan"
-          >
-            <template #prepend>
-              <ic-plus-circle class="icon-plus-circle" />
-            </template>
-            Plan
-          </i-button>
-        </template>
-      </i-calendar>
+              <template #prepend>
+                <ic-info-circle
+                  class="-ml-4"
+                  :class="isDangerousGoods ? 'text-gray-900' : 'text-gray-400'"
+                />
+              </template>
+            </i-select>
+          </template>
+        </i-dual-input>
+      </div>
+      <div style="margin-top: 20px">
+        <h4>pill example</h4>
+        <i-pill
+          v-model="activePill"
+          :menu="[
+            {
+              key: 'ftl',
+              label: 'Trucking (FTL)',
+              primary: true,
+            },
+            {
+              key: 'fcl',
+              label: 'FCL',
+              primary: true,
+            },
+          ]"
+        />
+      </div>
+      <div style="margin-top: 20px">
+        <h4>multi input</h4>
+        <i-multi-input
+          :invalid="false"
+          :filled="true"
+          style="width: fit-content"
+        >
+          <i-input
+            v-model="height"
+            input-id="heightCm"
+            name="heightCm"
+            label="Height"
+            borderless
+            mask="decimal"
+            :invalid="false"
+          />
+          <i-input
+            v-model="width"
+            input-id="widthCm"
+            name="widthCm"
+            label="Width"
+            borderless
+            mask="decimal"
+            :invalid="false"
+          />
+          <i-input
+            v-model="length"
+            input-id="lengthCm"
+            name="lengthCm"
+            label="Length"
+            borderless
+            mask="decimal"
+            :invalid="false"
+          />
+        </i-multi-input>
+      </div>
+      <div style="margin-top: 20px">
+        <h4>input suggestion</h4>
+        <i-input-suggestion
+          v-model="suggestion"
+          name="packageType"
+          label="Package Type"
+          placeholder="Box, Drum, etc"
+          size="sm"
+          :options="packageTypeList"
+          :invalid="false"
+          input-id="Suggestion"
+          class="package-input-suggestion"
+          dropdown-max-height="290px"
+        >
+          <template #dropdownHeader>
+            <div class="text-xs text-gray-400 text-right">common used</div>
+          </template>
+        </i-input-suggestion>
+      </div>
+      <div style="margin-top: 20px">
+        <h4>select country port</h4>
+        <i-select-country-port
+          v-model="countryPort"
+          label="Country Port Example"
+          placeholder="Type "
+          remote-text="Input port name or country to search."
+          name="countryPort"
+          :invalid="false"
+          :remote-method="remoteCountryPort"
+          :value-option.sync="selectedCountryPort"
+          input-id="SelectCountryPort"
+        >
+          <template #prepend>
+            <ic-location />
+          </template>
+        </i-select-country-port>
+
+        <h4 class="mt-5">using dual input (borderless)</h4>
+        <i-dual-input>
+          <template #first-input>
+            <i-select-country-port
+              v-model="countryPort1"
+              label="Country Port Example"
+              placeholder="Type "
+              remote-text="Input port name or country to search."
+              name="countryPort"
+              :invalid="false"
+              :remote-method="remoteCountryPort"
+              :value-option.sync="selectedCountryPort1"
+              input-id="SelectCountryPort1"
+              borderless
+            >
+              <template #prepend>
+                <ic-location />
+              </template>
+            </i-select-country-port>
+          </template>
+          <template #icon>
+            <ic-arrow-circle />
+          </template>
+          <template #second-input>
+            <i-select-country-port
+              v-model="countryPort2"
+              label="Country Port Example"
+              placeholder="Type "
+              remote-text="Input port name or country to search."
+              name="countryPort"
+              :invalid="false"
+              :remote-method="remoteCountryPort"
+              :value-option.sync="selectedCountryPort2"
+              input-id="SelectCountryPort2"
+              borderless
+            >
+              <template #prepend>
+                <ic-location />
+              </template>
+            </i-select-country-port>
+          </template>
+        </i-dual-input>
+      </div>
     </div>
   </div>
 </template>
@@ -637,6 +817,10 @@ import IFileList from './components/i-file-list.vue';
 import IUpload from './components/i-upload.vue';
 import IRadio from './components/i-radio.vue';
 import IInputTag from './components/i-input-tag.vue';
+import IPill from './components/i-pill.vue';
+import IMultiInput from './components/i-multi-input.vue';
+import IInputSuggestion from './components/i-input-suggestion.vue';
+import ISelectCountryPort from './components/i-select-country-port.vue';
 
 import IcArrowCircle from './icons/ic-arrow-circle.vue';
 import IcFilter from './icons/ic-filter.vue';
@@ -678,6 +862,10 @@ export default {
     IUpload,
     IRadio,
     IInputTag,
+    IPill,
+    IMultiInput,
+    IInputSuggestion,
+    ISelectCountryPort,
   },
   data() {
     return {
@@ -823,6 +1011,20 @@ export default {
         },
       ],
       shipData: [],
+      imoClass: null,
+      isDangerousGoods: false,
+      selectedImoClass: undefined,
+      activePill: 'ftl',
+      height: null,
+      width: null,
+      length: null,
+      suggestion: null,
+      countryPort: null,
+      selectedCountryPort: null,
+      countryPort1: null,
+      selectedCountryPort1: null,
+      countryPort2: null,
+      selectedCountryPort2: null,
     };
   },
   computed: {
@@ -840,6 +1042,58 @@ export default {
           name: 'import',
         },
       ];
+    },
+    imoClassList() {
+      return [
+        {
+          id: 1,
+          description: 'Explosives',
+          name: 'IMO Class 1',
+        },
+        {
+          id: 2,
+          description: 'Gases:Compressed, Liquefied, ord Dissolved under Pressure',
+          name: 'IMO Class 2',
+        },
+        {
+          id: 3,
+          description: 'Flammable Liquids',
+          name: 'IMO Class 3',
+        },
+        {
+          id: 4,
+          description: 'Flammable Solids or Substances',
+          name: 'IMO Class 4',
+        },
+        {
+          id: 5,
+          description: 'Oxidizing Substances and Organic Peroxides',
+          name: 'IMO Class 5',
+        },
+        {
+          id: 6,
+          description: 'Toxic and Infectious Substances',
+          name: 'IMO Class 6',
+        },
+        {
+          id: 7,
+          description: 'Radioactive Substances',
+          name: 'IMO Class 7',
+        },
+        {
+          id: 8,
+          description: 'Corrosives Substances',
+          name: 'IMO Class 8',
+        },
+        {
+          id: 9,
+          description: 'Miscellaneous Dangerous Substances and Articles',
+          name: 'IMO Class 9',
+        },
+      ];
+    },
+    packageTypeList() {
+      return ['Box(es)', 'Pallet(s)', 'Drum(s)', 'Crate(s)', 'Carton(s)', 'Case(s)'];
     },
   },
   mounted() {
@@ -1201,6 +1455,80 @@ export default {
     selectDate(date) {
       console.log('select date', date);
     },
+    remoteCountryPort() {
+      return [
+        {
+          portId: 27,
+          portCode: 'JUR',
+          portName: 'Jurong/Singapore',
+          portAddress: null,
+          portLocation: 'Jurong/Singapore, Singapore (SGJUR)',
+          countryId: 7,
+          countryCode: 'SG',
+          countryName: 'Singapore',
+        },
+        {
+          portId: 24,
+          portCode: 'KEP',
+          portName: 'Keppel Wharves',
+          portAddress: null,
+          portLocation: 'Keppel Wharves, Singapore (SGKEP)',
+          countryId: 7,
+          countryCode: 'SG',
+          countryName: 'Singapore',
+        },
+        {
+          portId: 25,
+          portCode: 'PAP',
+          portName: 'Pasir Panjang Wharves',
+          portAddress: null,
+          portLocation: 'Pasir Panjang Wharves, Singapore (SGPAP)',
+          countryId: 7,
+          countryCode: 'SG',
+          countryName: 'Singapore',
+        },
+        {
+          portId: 26,
+          portCode: 'SEM',
+          portName: 'Sembawang Port',
+          portAddress: null,
+          portLocation: 'Sembawang Port, Singapore (SGSEM)',
+          countryId: 7,
+          countryCode: 'SG',
+          countryName: 'Singapore',
+        },
+        {
+          portId: 28,
+          portCode: 'SIN',
+          portName: 'Singapore',
+          portAddress: null,
+          portLocation: 'Singapore, Singapore (SGSIN)',
+          countryId: 7,
+          countryCode: 'SG',
+          countryName: 'Singapore',
+        },
+        {
+          portId: 29,
+          portCode: 'SCT',
+          portName: 'Singapore Container Terminal',
+          portAddress: null,
+          portLocation: 'Singapore Container Terminal, Singapore (SGSCT)',
+          countryId: 7,
+          countryCode: 'SG',
+          countryName: 'Singapore',
+        },
+        {
+          portId: 23,
+          portCode: 'TPG',
+          portName: 'Tanjong Pagar',
+          portAddress: null,
+          portLocation: 'Tanjong Pagar, Singapore (SGTPG)',
+          countryId: 7,
+          countryCode: 'SG',
+          countryName: 'Singapore',
+        },
+      ];
+    },
   },
 };
 </script>
@@ -1256,5 +1584,9 @@ export default {
     height: 11px;
     margin-right: 6px;
   }
+}
+
+.dual-first-class {
+  padding-left: 20px;
 }
 </style>

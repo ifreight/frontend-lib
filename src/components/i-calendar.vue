@@ -318,12 +318,6 @@ export default {
     document.removeEventListener('click', this.onClickOutside);
   },
   methods: {
-    checkSame(array1, array2) {
-      const isSame =
-        array1.length === array2.length &&
-        array1.every((element, index) => dayjs(element).isSame(array2[index], 'day'));
-      return isSame;
-    },
     checkDateDisabled(date) {
       if (this.disabledDate) {
         return this.disabledDate(date);
