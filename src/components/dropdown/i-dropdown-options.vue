@@ -231,7 +231,6 @@ export default {
   }
 
   .i-dropdown-options-placeholder {
-    padding: 20px;
     font-size: 16px;
     line-height: 16px;
     color: var(--gray-400);
