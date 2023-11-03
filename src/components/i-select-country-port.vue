@@ -50,7 +50,7 @@
       </template>
 
       <template #options="{ option, makeBold }">
-        <div class="w-full">
+        <div class="i-select-country-port-options">
           <template v-if="option.portId">
             <ic-ship class="icon-ship" />
             <span
@@ -377,6 +377,10 @@ export default {
   .i-select-country-port-container,
   .i-select-country-port-input {
     cursor: pointer;
+  }
+
+  .i-select-country-port-options {
+    width: 100%;
   }
 
   .icon-ship {
