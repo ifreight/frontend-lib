@@ -788,6 +788,13 @@
           </template>
         </i-dual-input>
       </div>
+      <div style="margin-top: 40px">
+        <h4>Input Number</h4>
+        <i-input-number
+          v-model="inputNumber"
+          :min="0"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -821,6 +828,7 @@ import IPill from './components/i-pill.vue';
 import IMultiInput from './components/i-multi-input.vue';
 import IInputSuggestion from './components/i-input-suggestion.vue';
 import ISelectCountryPort from './components/i-select-country-port.vue';
+import IInputNumber from './components/i-input-number.vue';
 
 import IcArrowCircle from './icons/ic-arrow-circle.vue';
 import IcFilter from './icons/ic-filter.vue';
@@ -866,6 +874,7 @@ export default {
     IMultiInput,
     IInputSuggestion,
     ISelectCountryPort,
+    IInputNumber,
   },
   data() {
     return {
@@ -1025,6 +1034,7 @@ export default {
       selectedCountryPort1: null,
       countryPort2: null,
       selectedCountryPort2: null,
+      inputNumber: 0,
     };
   },
   computed: {
