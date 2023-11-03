@@ -31,3 +31,4 @@ export { default as IUpload } from './i-upload.vue';
 export { default as IRadio } from './i-radio.vue';
 export { default as ITag } from './i-tag.vue';
 export { default as IInputTag } from './i-input-tag.vue';
+export { default as IInputNumber } from './i-input-number.vue';
