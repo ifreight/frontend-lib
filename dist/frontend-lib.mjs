@@ -3694,7 +3694,7 @@ const Er = {
   emits: ["input"],
   watch: {
     value(t) {
-      t ? document.addEventListener("click", this.handleClickOutside) : document.removeEventListener("click", this.handleClickOutside);
+      t ? document.addEventListener("click", this.handleClickOutside, !0) : document.removeEventListener("click", this.handleClickOutside);
     }
   },
   beforeDestroy() {
