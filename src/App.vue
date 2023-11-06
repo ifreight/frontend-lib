@@ -795,6 +795,36 @@
           :min="0"
         />
       </div>
+      <div style="margin-top: 40px">
+        <h4>Top Drawer (i-drawer)</h4>
+        <div class="flex">
+          drawer position:
+          <i-radio
+            v-model="drawerMode"
+            label="absolute"
+            value="absolute"
+            name="drawer"
+          >
+            absolute
+          </i-radio>
+          <i-radio
+            v-model="drawerMode"
+            label="fixed"
+            value="fixed"
+            name="drawer"
+          >
+            fixed
+          </i-radio>
+        </div>
+        <i-button @click="drawer = true"> Toogle Drawer </i-button>
+        <i-drawer
+          v-model="drawer"
+          :min="0"
+          :position="drawerMode"
+        >
+          Hello Drawer
+        </i-drawer>
+      </div>
     </div>
   </div>
 </template>
@@ -829,6 +859,7 @@ import IMultiInput from './components/i-multi-input.vue';
 import IInputSuggestion from './components/i-input-suggestion.vue';
 import ISelectCountryPort from './components/i-select-country-port.vue';
 import IInputNumber from './components/i-input-number.vue';
+import IDrawer from './components/i-drawer.vue';
 
 import IcArrowCircle from './icons/ic-arrow-circle.vue';
 import IcFilter from './icons/ic-filter.vue';
@@ -875,6 +906,7 @@ export default {
     IInputSuggestion,
     ISelectCountryPort,
     IInputNumber,
+    IDrawer,
   },
   data() {
     return {
@@ -1035,6 +1067,8 @@ export default {
       countryPort2: null,
       selectedCountryPort2: null,
       inputNumber: 0,
+      drawer: false,
+      drawerMode: 'fixed',
     };
   },
   computed: {
