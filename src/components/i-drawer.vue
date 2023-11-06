@@ -35,7 +35,7 @@ export default {
   watch: {
     value(val) {
       if (val) {
-        document.addEventListener('click', this.handleClickOutside);
+        document.addEventListener('click', this.handleClickOutside, true);
       } else {
         document.removeEventListener('click', this.handleClickOutside);
       }
@@ -72,7 +72,7 @@ export default {
   background-color: var(--white);
   border: 2px solid var(--white);
   border-radius: 0 0 20px 20px;
-  box-shadow: 0 0 20px rgb(0 0 0 / 25%);
+  box-shadow: 0 10px 20px 0 rgb(0 0 0 / 10%);
 }
 
 .slide-fade-enter-active {
