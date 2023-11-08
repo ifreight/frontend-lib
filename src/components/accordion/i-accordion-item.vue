@@ -50,6 +50,11 @@ export default {
     },
   },
   emits: ['click'],
+  data() {
+    return {
+      itemIndex: -1,
+    };
+  },
   computed: {
     isActive() {
       return this.provideData.activeName.includes(this.name);
@@ -61,9 +66,6 @@ export default {
         activeIndex.push(i);
       });
       return activeIndex;
-    },
-    itemIndex() {
-      return Number(this.itemList.indexOf(this.name));
     },
     beforeActiveItem() {
       return this.currentActiveIndex.includes(this.itemIndex + 1);
@@ -79,6 +81,11 @@ export default {
   },
   beforeUnmount() {
     this.itemList.splice(this.itemIndex, 1);
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.itemIndex = Number(this.itemList.indexOf(this.name));
+    });
   },
   updated() {
     if (this.itemIndex === -1 && this.itemList !== undefined) {
