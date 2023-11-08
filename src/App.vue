@@ -825,6 +825,29 @@
           Hello Drawer
         </i-drawer>
       </div>
+      <div style="margin-top: 40px">
+        <h4>Top Drawer (i-drawer)</h4>
+        <div>
+          <i-accordion>
+            <i-accordion-item
+              v-for="(vendor, key) in listVendor"
+              :key="key"
+              :index="key"
+              :name="vendor.vendorCompany.id"
+            >
+              <template #header>
+                {{ vendor.vendorCompany.name }}
+              </template>
+              <div class="flex">
+                <div class="py-2 px-3 mr-5 bg-gray-120 rounded-[10px] min-w-[164px] self-start">
+                  <p class="font-semibold text-sm">Rates Detail</p>
+                </div>
+                detail
+              </div>
+            </i-accordion-item>
+          </i-accordion>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -860,6 +883,8 @@ import IInputSuggestion from './components/i-input-suggestion.vue';
 import ISelectCountryPort from './components/i-select-country-port.vue';
 import IInputNumber from './components/i-input-number.vue';
 import IDrawer from './components/i-drawer.vue';
+import IAccordion from './components/accordion/i-accordion.vue';
+import IAccordionItem from './components/accordion/i-accordion-item.vue';
 
 import IcArrowCircle from './icons/ic-arrow-circle.vue';
 import IcFilter from './icons/ic-filter.vue';
@@ -907,6 +932,8 @@ export default {
     ISelectCountryPort,
     IInputNumber,
     IDrawer,
+    IAccordion,
+    IAccordionItem,
   },
   data() {
     return {
@@ -1138,6 +1165,239 @@ export default {
     },
     packageTypeList() {
       return ['Box(es)', 'Pallet(s)', 'Drum(s)', 'Crate(s)', 'Carton(s)', 'Case(s)'];
+    },
+    listVendor() {
+      return [
+        {
+          vendorCompany: {
+            id: 107,
+            name: 'B thoven Cr.',
+            displayName: 'PT Bethoven NEWEST',
+            logoPath:
+              'https://ifreight-upload.s3.ap-southeast-1.amazonaws.com/images/jpg/2021/8/23/c4715850-4e36-4ca3-8571-fa1eb6e306fb.jpg',
+          },
+          pricings: [
+            {
+              fclPricingId: 456,
+              validFrom: '2025-12-31T17:00:00Z',
+              validTo: '2026-12-02T17:00:00Z',
+              grandTotal: {
+                currency: 'IDR',
+                value: '1291727.3',
+              },
+              grandTotalPerCurrency: {
+                grandTotalUSD: {
+                  currency: 'USD',
+                  value: '73',
+                },
+                grandTotalIDR: {
+                  currency: 'IDR',
+                  value: '150000',
+                },
+              },
+            },
+          ],
+        },
+        {
+          vendorCompany: {
+            id: 86,
+            name: 'Pom Vendor Land EDI EMKL',
+            displayName: 'PVL-EDI-EMKL Display',
+            logoPath:
+              'https://ifreight-upload.s3.ap-southeast-1.amazonaws.com/images/png/2020/6/3/d0790acc-f4bd-4831-9178-19a509dcce7c.png',
+          },
+          pricings: [
+            {
+              fclPricingId: 535,
+              validFrom: '2022-12-23T17:00:00Z',
+              validTo: '2023-12-30T16:59:59.999Z',
+              grandTotal: {
+                currency: 'IDR',
+                value: '1716000',
+              },
+              grandTotalPerCurrency: {
+                grandTotalUSD: {
+                  currency: 'USD',
+                  value: '130.5',
+                },
+                grandTotalIDR: {
+                  currency: 'IDR',
+                  value: '150000',
+                },
+              },
+            },
+          ],
+        },
+        {
+          vendorCompany: {
+            id: 92,
+            name: 'FCL and Land 01',
+            displayName: null,
+            logoPath:
+              'https://ifreight-upload.s3.ap-southeast-1.amazonaws.com/images/png/2021/1/25/20f44a24-3cf4-47b8-910c-cc27f2da00a4.png',
+          },
+          pricings: [
+            {
+              fclPricingId: 631,
+              validFrom: '2023-08-07T17:00:00Z',
+              validTo: '2024-08-10T16:59:59.999Z',
+              grandTotal: {
+                currency: 'IDR',
+                value: '2140000',
+              },
+              grandTotalPerCurrency: {
+                grandTotalUSD: {
+                  currency: 'USD',
+                  value: '121',
+                },
+                grandTotalIDR: {
+                  currency: 'IDR',
+                  value: '325000',
+                },
+              },
+            },
+          ],
+        },
+        {
+          vendorCompany: {
+            id: 1,
+            name: 'QUANTERM',
+            displayName: 'Quanterm',
+            logoPath:
+              'https://ifreight-upload.s3.ap-southeast-1.amazonaws.com/images/png/2020/2/3/4ee60f08-76d5-4f0a-a9f8-ea1d0a07a0af.png',
+          },
+          pricings: [
+            {
+              fclPricingId: 628,
+              validFrom: '2023-08-07T17:00:00Z',
+              validTo: '2024-08-03T16:59:59.999Z',
+              grandTotal: {
+                currency: 'IDR',
+                value: '2261413.5',
+              },
+              grandTotalPerCurrency: {
+                grandTotalUSD: {
+                  currency: 'USD',
+                  value: '135',
+                },
+                grandTotalIDR: {
+                  currency: 'IDR',
+                  value: '150000',
+                },
+              },
+            },
+          ],
+        },
+        {
+          vendorCompany: {
+            id: 70,
+            name: 'vendor ngetest doang',
+            displayName: 'VND Display',
+            logoPath:
+              'https://ifreight-upload.s3.ap-southeast-1.amazonaws.com/images/png/2020/2/12/66314eba-3c14-42a4-b4fc-bb3050bf5b0f.png',
+          },
+          pricings: [
+            {
+              fclPricingId: 580,
+              validFrom: '2023-03-08T17:00:00Z',
+              validTo: '2024-03-31T16:59:59.999Z',
+              grandTotal: {
+                currency: 'IDR',
+                value: '2646015',
+              },
+              grandTotalPerCurrency: {
+                grandTotalUSD: {
+                  currency: 'USD',
+                  value: '150',
+                },
+                grandTotalIDR: {
+                  currency: 'IDR',
+                  value: '300000',
+                },
+              },
+            },
+          ],
+        },
+        {
+          vendorCompany: {
+            id: 2,
+            name: 'MENTARI',
+            displayName: 'Mentari Display',
+            logoPath:
+              'https://ifreight-upload.s3.ap-southeast-1.amazonaws.com/images/png/2020/2/3/4ee60f08-76d5-4f0a-a9f8-ea1d0a07a0af.png',
+          },
+          pricings: [
+            {
+              fclPricingId: 458,
+              validFrom: '2026-03-19T17:00:00Z',
+              validTo: '2026-03-30T17:00:00Z',
+              grandTotal: {
+                currency: 'IDR',
+                value: '5010000',
+              },
+              grandTotalPerCurrency: {
+                grandTotalUSD: {
+                  currency: 'USD',
+                  value: '460',
+                },
+                grandTotalIDR: {
+                  currency: 'IDR',
+                  value: '410000',
+                },
+              },
+            },
+            {
+              fclPricingId: 648,
+              validFrom: '2027-07-31T17:00:00Z',
+              validTo: '2027-08-31T16:59:59.999Z',
+              grandTotal: {
+                currency: 'IDR',
+                value: '1510000',
+              },
+              grandTotalPerCurrency: {
+                grandTotalUSD: {
+                  currency: 'USD',
+                  value: '110',
+                },
+                grandTotalIDR: {
+                  currency: 'IDR',
+                  value: '410000',
+                },
+              },
+            },
+          ],
+        },
+        {
+          vendorCompany: {
+            id: 68,
+            name: 'Bro Inc.',
+            displayName: null,
+            logoPath:
+              'https://ifreight-upload.s3.ap-southeast-1.amazonaws.com/images/jpg/2020/2/7/84c8e732-c088-453b-a846-6c8ff625fb04.jpg',
+          },
+          pricings: [
+            {
+              fclPricingId: 630,
+              validFrom: '2023-08-07T17:00:00Z',
+              validTo: '2024-08-01T16:59:59.999Z',
+              grandTotal: {
+                currency: 'IDR',
+                value: '73267467.5',
+              },
+              grandTotalPerCurrency: {
+                grandTotalUSD: {
+                  currency: 'USD',
+                  value: '4675',
+                },
+                grandTotalIDR: {
+                  currency: 'IDR',
+                  value: '150000',
+                },
+              },
+            },
+          ],
+        },
+      ];
     },
   },
   mounted() {

@@ -1,20 +1,19 @@
 <template>
-  <transition
-    ref="drawerRef"
-    name="slide-fade"
-  >
-    <div
-      v-if="value"
-      class="i-drawer-container"
-      v-bind="$attrs"
-      :style="{
-        top: top,
-        position: position,
-      }"
-    >
-      <slot />
-    </div>
-  </transition>
+  <div ref="drawerRef">
+    <transition name="slide-fade">
+      <div
+        v-if="value"
+        class="i-drawer-container"
+        v-bind="$attrs"
+        :style="{
+          top: top,
+          position: position,
+        }"
+      >
+        <slot />
+      </div>
+    </transition>
+  </div>
 </template>
 
 <script>
