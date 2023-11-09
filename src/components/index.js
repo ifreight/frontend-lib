@@ -33,3 +33,5 @@ export { default as ITag } from './i-tag.vue';
 export { default as IInputTag } from './i-input-tag.vue';
 export { default as IInputNumber } from './i-input-number.vue';
 export { default as IDrawer } from './i-drawer.vue';
+export { default as IAccordion } from './accordion/i-accordion.vue';
+export { default as IAccordionItem } from './accordion/i-accordion-item.vue';
