@@ -16,8 +16,12 @@ export default {
       get: () => this.activeName,
     });
 
+    Object.defineProperty(provideData, 'itemList', {
+      enumerable: true,
+      get: () => this.itemList,
+    });
+
     return {
-      itemList: this.itemList,
       handleClickEvent: this.handleClickEvent,
       provideData,
     };
