@@ -38,7 +38,7 @@ export default {
   components: {
     IcAngle,
   },
-  inject: ['itemList', 'provideData', 'handleClickEvent'],
+  inject: ['provideData', 'handleClickEvent'],
   props: {
     name: {
       type: [String, Number],
@@ -50,11 +50,6 @@ export default {
     },
   },
   emits: ['click'],
-  data() {
-    return {
-      itemIndex: -1,
-    };
-  },
   computed: {
     isActive() {
       return this.provideData.activeName.includes(this.name);
@@ -62,7 +57,7 @@ export default {
     currentActiveIndex() {
       const activeIndex = [];
       this.provideData.activeName.forEach((item) => {
-        const i = this.itemList.indexOf(item);
+        const i = this.provideData.itemList.indexOf(item);
         activeIndex.push(i);
       });
       return activeIndex;
@@ -73,24 +68,19 @@ export default {
     afterActiveItem() {
       return this.currentActiveIndex.includes(this.itemIndex - 1);
     },
-  },
-  beforeMount() {
-    if (!this.itemList) {
-      this.itemList[this.index] = this.name;
-    }
+    itemIndex() {
+      return Number(this.provideData.itemList.indexOf(this.name));
+    },
   },
   beforeUnmount() {
-    this.itemList.splice(this.itemIndex, 1);
+    this.provideData.itemList.splice(this.itemIndex, 1);
   },
   mounted() {
     this.$nextTick(() => {
-      this.itemIndex = Number(this.itemList.indexOf(this.name));
+      if (this.itemIndex === -1 && this.provideData.itemList !== undefined) {
+        this.$set(this.provideData.itemList, this.index, this.name);
+      }
     });
-  },
-  updated() {
-    if (this.itemIndex === -1 && this.itemList !== undefined) {
-      this.itemList[this.index] = this.name;
-    }
   },
   methods: {
     handleClick() {

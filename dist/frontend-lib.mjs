@@ -3732,8 +3732,10 @@ const Hn = Ur.exports, Gr = {
     return Object.defineProperty(t, "activeName", {
       enumerable: !0,
       get: () => this.activeName
+    }), Object.defineProperty(t, "itemList", {
+      enumerable: !0,
+      get: () => this.itemList
     }), {
-      itemList: this.itemList,
       handleClickEvent: this.handleClickEvent,
       provideData: t
     };
@@ -3808,7 +3810,7 @@ const es = {
   components: {
     IcAngle: L
   },
-  inject: ["itemList", "provideData", "handleClickEvent"],
+  inject: ["provideData", "handleClickEvent"],
   props: {
     name: {
       type: [String, Number],
@@ -3820,11 +3822,6 @@ const es = {
     }
   },
   emits: ["click"],
-  data() {
-    return {
-      itemIndex: -1
-    };
-  },
   computed: {
     isActive() {
       return this.provideData.activeName.includes(this.name);
@@ -3832,7 +3829,7 @@ const es = {
     currentActiveIndex() {
       const t = [];
       return this.provideData.activeName.forEach((e) => {
-        const i = this.itemList.indexOf(e);
+        const i = this.provideData.itemList.indexOf(e);
         t.push(i);
       }), t;
     },
@@ -3841,21 +3838,18 @@ const es = {
     },
     afterActiveItem() {
       return this.currentActiveIndex.includes(this.itemIndex - 1);
+    },
+    itemIndex() {
+      return Number(this.provideData.itemList.indexOf(this.name));
     }
   },
-  beforeMount() {
-    this.itemList || (this.itemList[this.index] = this.name);
-  },
   beforeUnmount() {
-    this.itemList.splice(this.itemIndex, 1);
+    this.provideData.itemList.splice(this.itemIndex, 1);
   },
   mounted() {
     this.$nextTick(() => {
-      this.itemIndex = Number(this.itemList.indexOf(this.name));
+      this.itemIndex === -1 && this.provideData.itemList !== void 0 && this.$set(this.provideData.itemList, this.index, this.name);
     });
-  },
-  updated() {
-    this.itemIndex === -1 && this.itemList !== void 0 && (this.itemList[this.index] = this.name);
   },
   methods: {
     handleClick() {
