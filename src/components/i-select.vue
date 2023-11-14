@@ -103,8 +103,10 @@
 
 <script>
 import debounce from 'lodash/debounce';
-
-import { IcAngle, IDropdownOptions, IInputLabel, IInput } from 'frontend-lib';
+import IcAngle from '@/icons/ic-angle.vue';
+import IDropdownOptions from './dropdown/i-dropdown-options.vue';
+import IInputLabel from './i-input-label.vue';
+import IInput from './i-input.vue';
 
 export default {
   name: 'ISelect',
