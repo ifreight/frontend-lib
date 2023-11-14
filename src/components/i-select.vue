@@ -7,6 +7,7 @@
     <div
       class="i-select-container"
       :class="isVisible ? 'visible' : ''"
+      @click="toggleDropdown"
     >
       <template v-if="$scopedSlots.selected && Object.keys(selectedOption).length > 0">
         <i-input-label
@@ -44,7 +45,6 @@
         :size="size"
         :clearable="clearable"
         @keyup="onInputKeyup"
-        @focus="showDropdown"
         @clear="onClear"
       >
         <template #prepend>
@@ -63,34 +63,34 @@
           </slot>
         </template>
       </i-input>
-
-      <i-dropdown-options
-        :visible="isVisible"
-        :width="dropdownWidth"
-        :options="dropdownOptions"
-        :option-key="optionKey"
-        :option-value="optionValue"
-        :current-value="selectedOptionValue"
-        :query="query"
-        :filterable="filterable"
-        :remote="remote"
-        :remote-text="remoteText"
-        :no-data-text="noDataText"
-        :loading="isLoading"
-        @selectedValue="handleSelected"
-      >
-        <template #header>
-          <slot name="dropdownHeader" />
-        </template>
-
-        <template #optionsPrepend="{ option }">
-          <slot
-            name="dropdownOptionsPrepend"
-            :option="option"
-          />
-        </template>
-      </i-dropdown-options>
     </div>
+
+    <i-dropdown-options
+      :visible="isVisible"
+      :width="dropdownWidth"
+      :options="dropdownOptions"
+      :option-key="optionKey"
+      :option-value="optionValue"
+      :current-value="selectedOptionValue"
+      :query="query"
+      :filterable="filterable"
+      :remote="remote"
+      :remote-text="remoteText"
+      :no-data-text="noDataText"
+      :loading="isLoading"
+      @selectedValue="handleSelected"
+    >
+      <template #header>
+        <slot name="dropdownHeader" />
+      </template>
+
+      <template #optionsPrepend="{ option }">
+        <slot
+          name="dropdownOptionsPrepend"
+          :option="option"
+        />
+      </template>
+    </i-dropdown-options>
 
     <div
       v-if="!!errorMessage"
@@ -103,9 +103,7 @@
 
 <script>
 import debounce from 'lodash/debounce';
-
 import IcAngle from '@/icons/ic-angle.vue';
-
 import IDropdownOptions from './dropdown/i-dropdown-options.vue';
 import IInputLabel from './i-input-label.vue';
 import IInput from './i-input.vue';
@@ -385,19 +383,27 @@ export default {
       if (!this.disabled && !this.readOnly && !this.isVisible) {
         this.isVisible = true;
         this.$emit('focus');
+
+        if (this.$refs.inputRef) {
+          this.$refs.inputRef.$el.querySelector('input').focus();
+        }
       }
     },
     hideDropdown() {
       if (this.isVisible) {
         this.isVisible = false;
         this.$emit('blur');
+
+        if (this.$refs.inputRef) {
+          this.$refs.inputRef.$el.querySelector('input').blur();
+        }
       }
     },
     toggleDropdown() {
       if (this.isVisible) {
         this.hideDropdown();
       } else {
-        this.$refs.inputRef.$el.querySelector('input').focus();
+        this.showDropdown();
       }
     },
     handleSelected(option) {
@@ -406,6 +412,7 @@ export default {
     },
     handleClickOutside(event) {
       const isClickInside = event.composedPath().includes(this.$refs.selectRef);
+
       if (!isClickInside) {
         this.hideDropdown();
       }
