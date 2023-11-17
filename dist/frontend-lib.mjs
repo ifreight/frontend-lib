@@ -1210,7 +1210,11 @@ const St = {
     disabled: Boolean,
     readOnly: Boolean,
     dark: Boolean,
-    borderless: Boolean
+    borderless: Boolean,
+    optionWidth: {
+      type: String,
+      default: "115px"
+    }
   },
   emits: ["input", "update:valid"],
   data() {
@@ -1261,10 +1265,10 @@ const St = {
 };
 var Dt = function() {
   var e = this, i = e._self._c;
-  return i("i-dual-input", { staticClass: "i-input-tel", attrs: { invalid: e.invalid, filled: !!e.value, disabled: e.disabled, dark: e.dark, "hide-divider": "" }, scopedSlots: e._u([{ key: "first-input", fn: function() {
-    return [i("div", { ref: "selectCountry", staticClass: "i-input-tel-country", attrs: { tabindex: "0" }, on: { blur: e.closeCountryDropdown } }, [i("div", { staticClass: "i-input-tel-country-select", class: e.countryDropdownOpen && "open", on: { click: e.toggleCountryDropdown } }, [i("div", { staticClass: "i-input-tel-country-flag" }, [i("span", { class: e.activeCountryFlagClass })]), i("div", [i("ic-angle", { attrs: { direction: e.countryDropdownOpen ? "up" : "down" } })], 1)]), i("i-dropdown-options", { attrs: { visible: e.countryDropdownOpen, options: e.countryList, "option-key": "countryCode", "option-value": "name", "current-value": e.activeCountry && e.activeCountry.countryCode }, on: { selectedValue: e.onSelectCountry } })], 1)];
+  return i("i-dual-input", { staticClass: "i-input-tel", attrs: { invalid: e.invalid, filled: !!e.value, disabled: e.disabled, dark: e.dark, "hide-divider": "", "first-input-width": e.optionWidth }, scopedSlots: e._u([{ key: "first-input", fn: function() {
+    return [i("div", { ref: "selectCountry", staticClass: "i-input-tel-country", attrs: { tabindex: "0" }, on: { blur: e.closeCountryDropdown } }, [i("div", { staticClass: "i-input-tel-country-select", class: e.countryDropdownOpen && "open", on: { click: e.toggleCountryDropdown } }, [i("div", { staticClass: "i-input-tel-country-flag" }, [i("span", { class: e.activeCountryFlagClass })]), i("div", [i("ic-angle", { attrs: { direction: e.countryDropdownOpen ? "up" : "down" } })], 1), i("div", { staticClass: "i-input-tel-country-code" }, [e._v(" " + e._s(e.activeCountry && e.activeCountry.phoneCode) + " ")])]), i("i-dropdown-options", { attrs: { visible: e.countryDropdownOpen, options: e.countryList, "option-key": "countryCode", "option-value": "name", "current-value": e.activeCountry && e.activeCountry.countryCode }, on: { selectedValue: e.onSelectCountry } })], 1)];
   }, proxy: !0 }, { key: "second-input", fn: function() {
-    return [i("div", { staticClass: "i-input-tel-country-code" }, [e._v(" " + e._s(e.activeCountry && e.activeCountry.phoneCode) + " ")]), i("input-tel", { attrs: { country: e.countryCode, name: e.name, placeholder: e.placeholder, "auto-complete": e.autoComplete, disabled: e.disabled, "read-only": e.readOnly }, on: { "update:country": function(a) {
+    return [i("input-tel", { attrs: { country: e.countryCode, name: e.name, placeholder: e.placeholder, "auto-complete": e.autoComplete, disabled: e.disabled, "read-only": e.readOnly }, on: { "update:country": function(a) {
       e.countryCode = a;
     }, validate: e.onValidate }, model: { value: e.phone, callback: function(a) {
       e.phone = a;
@@ -2691,7 +2695,7 @@ var ja = function() {
     return [e._t("prepend")];
   }, proxy: !0 }, { key: "append", fn: function() {
     return [e._t("append", function() {
-      return [!e.filterable && !e.remote ? [i("div", { staticClass: "i-select-arrow-container", on: { click: e.toggleDropdown } }, [i("ic-angle", { attrs: { direction: e.isVisible ? "up" : "down" } })], 1)] : e._e()];
+      return [!e.filterable && !e.remote ? [i("div", { staticClass: "i-select-arrow-container" }, [i("ic-angle", { attrs: { direction: e.isVisible ? "up" : "down" } })], 1)] : e._e()];
     })];
   }, proxy: !0 }], null, !0) })], 2), i("i-dropdown-options", { attrs: { visible: e.isVisible, width: e.dropdownWidth, options: e.dropdownOptions, "option-key": e.optionKey, "option-value": e.optionValue, "current-value": e.selectedOptionValue, query: e.query, filterable: e.filterable, remote: e.remote, "remote-text": e.remoteText, "no-data-text": e.noDataText, loading: e.isLoading }, on: { selectedValue: e.handleSelected }, scopedSlots: e._u([{ key: "header", fn: function() {
     return [e._t("dropdownHeader")];
