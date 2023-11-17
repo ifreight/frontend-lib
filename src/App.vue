@@ -74,8 +74,10 @@
       </div>
 
       <i-sort-caret v-model="sortCaretValue" />
-
-      <i-input-tel v-model="phone" />
+      <h1>INPUT TEL</h1>
+      <div class="w-[300px]">
+        <i-input-tel v-model="phone" />
+      </div>
 
       <div class="w-[200px] py-5 flex justify-around">
         <i-popover
