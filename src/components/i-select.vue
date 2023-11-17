@@ -53,10 +53,7 @@
         <template #append>
           <slot name="append">
             <template v-if="!filterable && !remote">
-              <div
-                class="i-select-arrow-container"
-                @click="toggleDropdown"
-              >
+              <div class="i-select-arrow-container">
                 <ic-angle :direction="isVisible ? 'up' : 'down'" />
               </div>
             </template>

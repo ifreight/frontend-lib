@@ -6,6 +6,7 @@
     :disabled="disabled"
     :dark="dark"
     hide-divider
+    :first-input-width="optionWidth"
   >
     <template #first-input>
       <div
@@ -25,6 +26,10 @@
           <div>
             <ic-angle :direction="countryDropdownOpen ? 'up' : 'down'" />
           </div>
+
+          <div class="i-input-tel-country-code">
+            {{ activeCountry && activeCountry.phoneCode }}
+          </div>
         </div>
 
         <i-dropdown-options
@@ -38,10 +43,6 @@
       </div>
     </template>
     <template #second-input>
-      <div class="i-input-tel-country-code">
-        {{ activeCountry && activeCountry.phoneCode }}
-      </div>
-
       <input-tel
         v-model="phone"
         :country.sync="countryCode"
@@ -99,6 +100,10 @@ export default {
     readOnly: Boolean,
     dark: Boolean,
     borderless: Boolean,
+    optionWidth: {
+      type: String,
+      default: '115px',
+    },
   },
   emits: ['input', 'update:valid'],
   data() {
