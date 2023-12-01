@@ -394,7 +394,7 @@
           show-header
           append-to-body
           destroy-on-close
-          :stay-on-click-outside="true"
+          :ignore-click-outside="true"
         >
           can't close when click outside
         </i-dialog>

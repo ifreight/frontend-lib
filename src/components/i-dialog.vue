@@ -79,7 +79,7 @@ export default {
     },
     appendToBody: Boolean,
     destroyOnClose: Boolean,
-    stayOnClickOutside: {
+    ignoreClickOutside: {
       type: Boolean,
       default: false,
     },
@@ -154,7 +154,7 @@ export default {
       this.$emit('closed');
     },
     handleClickSelf() {
-      if (!this.stayOnClickOutside) {
+      if (!this.ignoreClickOutside) {
         this.handleClose();
       }
     },

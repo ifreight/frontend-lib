@@ -844,7 +844,7 @@ const et = {
     },
     appendToBody: Boolean,
     destroyOnClose: Boolean,
-    stayOnClickOutside: {
+    ignoreClickOutside: {
       type: Boolean,
       default: !1
     }
@@ -894,7 +894,7 @@ const et = {
       }), this.$emit("closed");
     },
     handleClickSelf() {
-      this.stayOnClickOutside || this.handleClose();
+      this.ignoreClickOutside || this.handleClose();
     }
   }
 };
