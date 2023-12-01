@@ -843,7 +843,11 @@ const et = {
       default: "50%"
     },
     appendToBody: Boolean,
-    destroyOnClose: Boolean
+    destroyOnClose: Boolean,
+    stayOnClickOutside: {
+      type: Boolean,
+      default: !1
+    }
   },
   data() {
     return {
@@ -888,13 +892,16 @@ const et = {
       document.body.style.overflow = "auto", this.destroyOnClose && this.$nextTick(() => {
         this.key += 1;
       }), this.$emit("closed");
+    },
+    handleClickSelf() {
+      this.stayOnClickOutside || this.handleClose();
     }
   }
 };
 var tt = function() {
   var e = this, i = e._self._c;
   return i("transition", { attrs: { name: "i-dialog-fade" } }, [i("div", { directives: [{ name: "show", rawName: "v-show", value: e.show, expression: "show" }], staticClass: "i-dialog-wrapper", on: { click: function(s) {
-    return s.target !== s.currentTarget ? null : e.handleClose.apply(null, arguments);
+    return s.target !== s.currentTarget ? null : e.handleClickSelf.apply(null, arguments);
   } } }, [i("transition", { attrs: { name: "i-dialog-slide" }, on: { "after-enter": e.afterEnter, "after-leave": e.afterLeave } }, [i("div", { directives: [{ name: "show", rawName: "v-show", value: e.show, expression: "show" }], key: e.key, class: ["i-dialog", { "show-header": e.showHeader }], style: e.style, attrs: { role: "dialog", "aria-modal": "true", "aria-labelledby": "dialog" } }, [e.showHeader ? i("div", { staticClass: "i-dialog-header" }, [i("ic-logo", { staticClass: "i-dialog-header-logo", attrs: { width: "104", height: "28" } }), e._t("header")], 2) : e._e(), e.showClose ? i("button", { staticClass: "i-dialog-close", on: { click: e.handleClose } }, [i("ic-times")], 1) : e._e(), i("div", { staticClass: "i-dialog-body", class: e.bodyClasses }, [e._t("default")], 2)])])], 1)]);
 }, it = [], st = /* @__PURE__ */ r(
   et,

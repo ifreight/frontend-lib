@@ -3,7 +3,7 @@
     <div
       v-show="show"
       class="i-dialog-wrapper"
-      @click.self="handleClose"
+      @click.self="handleClickSelf"
     >
       <transition
         name="i-dialog-slide"
@@ -79,6 +79,10 @@ export default {
     },
     appendToBody: Boolean,
     destroyOnClose: Boolean,
+    stayOnClickOutside: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -148,6 +152,11 @@ export default {
         });
       }
       this.$emit('closed');
+    },
+    handleClickSelf() {
+      if (!this.stayOnClickOutside) {
+        this.handleClose();
+      }
     },
   },
 };
