@@ -364,6 +364,14 @@
           Open Dialog Header
         </i-button>
 
+        <i-button
+          plain
+          class="w-[200px]"
+          @click="showDialogNoOut = true"
+        >
+          Open Dialog no outside handler
+        </i-button>
+
         <i-dialog
           :show.sync="showDialog"
           show-close
@@ -378,6 +386,17 @@
           destroy-on-close
         >
           Test Header
+        </i-dialog>
+
+        <i-dialog
+          :show.sync="showDialogNoOut"
+          show-close
+          show-header
+          append-to-body
+          destroy-on-close
+          :ignore-click-outside="true"
+        >
+          can't close when click outside
         </i-dialog>
       </div>
       <div class="py-5 w-[400px]">
@@ -985,6 +1004,7 @@ export default {
       destination: null,
       showDialog: false,
       showDialogHeader: false,
+      showDialogNoOut: false,
       date: undefined,
       dateMultiple: [],
       currentPage: 1,
