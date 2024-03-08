@@ -15,7 +15,7 @@
       <div class="header-icon">
         <ic-angle
           class="icon"
-          :class="isActive ? '-rotate-90' : 'rotate-90'"
+          :class="isActive ? 'rotate-min' : 'rotate-normal'"
         />
       </div>
     </div>
@@ -112,6 +112,14 @@ export default {
       .icon {
         height: 100%;
         margin: 0 auto;
+      }
+
+      .rotate-min {
+        @apply -rotate-90;
+      }
+
+      .rotate-normal {
+        @apply rotate-90;
       }
     }
   }
