@@ -3876,7 +3876,7 @@ var ia = function() {
     after: e.afterActiveItem
   } }, [i("div", { staticClass: "accordion-item-header", on: { click: function(s) {
     return s.stopPropagation(), e.handleClick.apply(null, arguments);
-  } } }, [e._t("header"), i("div", { staticClass: "header-icon" }, [i("ic-angle", { staticClass: "icon", class: e.isActive ? "open" : "close" })], 1)], 2), i("transition", { attrs: { name: "slide" } }, [e.isActive ? i("div", { staticClass: "accordion-item-content" }, [e._t("default")], 2) : e._e()])], 1);
+  } } }, [e._t("header"), i("div", { staticClass: "header-icon" }, [i("ic-angle", { staticClass: "icon", class: e.isActive ? "accordion-open" : "accordion-close" })], 1)], 2), i("transition", { attrs: { name: "slide" } }, [e.isActive ? i("div", { staticClass: "accordion-item-content" }, [e._t("default")], 2) : e._e()])], 1);
 }, sa = [], na = /* @__PURE__ */ r(
   ta,
   ia,
