@@ -15,7 +15,7 @@
       <div class="header-icon">
         <ic-angle
           class="icon"
-          :class="isActive ? 'open' : 'close'"
+          :class="isActive ? 'accordion-open' : 'accordion-close'"
         />
       </div>
     </div>
@@ -115,11 +115,11 @@ export default {
         margin: 0 auto;
       }
 
-      .open {
+      .accordion-open {
         @apply -rotate-90;
       }
 
-      .close {
+      .accordion-close {
         @apply rotate-90;
       }
     }
