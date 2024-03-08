@@ -104,6 +104,7 @@ export default {
     cursor: pointer;
 
     .header-icon {
+      display: flex;
       width: 32px;
       height: 32px;
       text-align: center;
