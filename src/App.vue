@@ -514,6 +514,7 @@
               required
               name="upload"
               @invalidSize="invalidSizeHandler"
+              @inputFiles="changeFileHandler"
             />
           </div>
           <i-file-list :files.sync="files" />
@@ -1715,6 +1716,9 @@ export default {
     },
     invalidSizeHandler() {
       window.alert('Each maximum file size should not exceed 5 MB.');
+    },
+    changeFileHandler(file) {
+      console.log(file, 'file');
     },
     disabledDate(date) {
       return new Date() < date;
