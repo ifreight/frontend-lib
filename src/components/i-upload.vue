@@ -120,12 +120,14 @@ export default {
 
     async inputFile(data) {
       const invalidFileSize = [];
-      Array.from(data.target.files).forEach(async (file, index) => {
+      const newFiles = [];
+      const promiseArray = Array.from(data.target.files).map(async (file, index) => {
         if (this.limit) {
           if (index + this.selectedFile.length <= this.limit - 1) {
             const isValidSize = file.size <= this.maxSize * 1024;
             if (isValidSize) {
               const result = await this.processingFile(file);
+              newFiles.push(result);
               this.$emit('input', this.value.concat(result));
             } else {
               invalidFileSize.push(file);
@@ -137,15 +139,18 @@ export default {
           const isValidSize = file.size <= this.maxSize * 1024;
           if (isValidSize) {
             const result = await this.processingFile(file);
+            newFiles.push(result);
             this.$emit('input', this.value.concat(result));
           } else {
             invalidFileSize.push(file);
           }
         }
       });
+
       if (invalidFileSize.length > 0) {
         this.$emit('invalidSize', invalidFileSize);
       }
+      await Promise.all(promiseArray).then(() => this.$emit('inputFiles', newFiles));
 
       this.$refs.input.value = null;
     },
