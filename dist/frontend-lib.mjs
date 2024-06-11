@@ -803,14 +803,14 @@ var ze = function() {
   null,
   null
 );
-const Ge = We.exports, Ue = {
+const Ue = We.exports, Ge = {
   name: "IcTimes"
 };
 var Je = function() {
   var e = this, i = e._self._c;
   return i("svg", { attrs: { width: "17", height: "17", viewBox: "0 0 17 17", fill: "none", xmlns: "http://www.w3.org/2000/svg" } }, [i("path", { attrs: { d: "M1.42383 1.43896L16.423 16.439", stroke: "currentColor", "stroke-linecap": "round" } }), i("path", { attrs: { d: "M16.4238 1.43896L1.42468 16.439", stroke: "currentColor", "stroke-linecap": "round" } })]);
 }, Qe = [], Xe = /* @__PURE__ */ r(
-  Ue,
+  Ge,
   Je,
   Qe,
   !1,
@@ -823,7 +823,7 @@ const $ = Xe.exports;
 const et = {
   name: "IDialog",
   components: {
-    IcLogo: Ge,
+    IcLogo: Ue,
     IcTimes: $
   },
   props: {
@@ -1722,7 +1722,7 @@ var zt = function() {
   null
 );
 const V = Wt.exports;
-const Gt = {
+const Ut = {
   name: "IInputSuggestion",
   components: {
     IInput: V,
@@ -1860,7 +1860,7 @@ const Gt = {
     }
   }
 };
-var Ut = function() {
+var Gt = function() {
   var e = this, i = e._self._c;
   return i("div", { ref: "suggestion", staticClass: "suggestion-wrapper" }, [i("div", { staticClass: "suggestion-container", class: e.isVisible ? "visible" : "", attrs: { tabindex: "0" }, on: { click: e.toggleDropdown } }, [i("i-input", { ref: "inputRef", staticClass: "suggestion-input", attrs: { type: "text", value: e.value, "input-id": e.inputId, name: e.name, label: e.label, placeholder: e.placeholder, disabled: e.disabled, "read-only": e.readOnly, invalid: e.invalid, "dark-mode": e.darkMode, borderless: e.borderless, size: e.size }, on: { keyup: e.onInputKeyup }, scopedSlots: e._u([{ key: "prepend", fn: function() {
     return [e._t("prepend")];
@@ -1868,8 +1868,8 @@ var Ut = function() {
     return [e._t("dropdownHeader")];
   }, proxy: !0 }], null, !0) })], 1);
 }, Jt = [], Qt = /* @__PURE__ */ r(
-  Gt,
   Ut,
+  Gt,
   Jt,
   !1,
   null,
@@ -2376,9 +2376,9 @@ function Zi(t) {
   var e = typeof t;
   return t != null && (e == "object" || e == "function");
 }
-var q = Zi, qi = typeof b == "object" && b && b.Object === Object && b, Ei = qi, zi = Ei, Ki = typeof self == "object" && self && self.Object === Object && self, Wi = zi || Ki || Function("return this")(), E = Wi, Gi = E, Ui = function() {
-  return Gi.Date.now();
-}, Ji = Ui, Qi = /\s/;
+var q = Zi, qi = typeof b == "object" && b && b.Object === Object && b, Ei = qi, zi = Ei, Ki = typeof self == "object" && self && self.Object === Object && self, Wi = zi || Ki || Function("return this")(), E = Wi, Ui = E, Gi = function() {
+  return Ui.Date.now();
+}, Ji = Gi, Qi = /\s/;
 function Xi(t) {
   for (var e = t.length; e-- && Qi.test(t.charAt(e)); )
     ;
@@ -2444,7 +2444,7 @@ function Rs(t, e, i) {
   function k(d) {
     return h = d, o = setTimeout(w, e), _ ? C(d) : c;
   }
-  function G(d) {
+  function U(d) {
     var v = d - u, g = d - h, T = e - v;
     return p ? Fs(T, l - g) : T;
   }
@@ -2456,12 +2456,12 @@ function Rs(t, e, i) {
     var d = I();
     if (O(d))
       return P(d);
-    o = setTimeout(w, G(d));
+    o = setTimeout(w, U(d));
   }
   function P(d) {
     return o = void 0, f && s ? C(d) : (s = n = void 0, c);
   }
-  function U() {
+  function G() {
     o !== void 0 && clearTimeout(o), h = 0, s = u = n = o = void 0;
   }
   function J() {
@@ -2477,7 +2477,7 @@ function Rs(t, e, i) {
     }
     return o === void 0 && (o = setTimeout(w, e)), c;
   }
-  return D.cancel = U, D.flush = J, D;
+  return D.cancel = G, D.flush = J, D;
 }
 var W = Rs;
 const js = {
@@ -2733,10 +2733,10 @@ var zs = function() {
   null,
   null
 );
-const Gs = Ws.exports;
-const Us = {
+const Us = Ws.exports;
+const Gs = {
   components: {
-    IcShip: Gs,
+    IcShip: Us,
     IDropdownOptions: x,
     IInput: V
   },
@@ -2908,7 +2908,7 @@ var Js = function() {
     return [i("div", { staticClass: "i-select-country-port-options" }, [s.portId ? [i("ic-ship", { staticClass: "icon-ship" }), e.inputValue === s.code ? i("span", { staticClass: "align-middle" }, [e._v(" " + e._s(`${s.portName}, ${s.countryName}`) + " ")]) : i("span", { staticClass: "align-middle", domProps: { innerHTML: e._s(n(`${s.portName}, ${s.countryName}`)) } })] : [i("span", { staticClass: "mr-2", class: `fi fi-${s.countryCode.toLowerCase()}` }), e.inputValue === s.code ? i("span", [e._v(" " + e._s(s.countryName) + " ")]) : i("span", { domProps: { innerHTML: e._s(n(s.countryName)) } })], i("div", { staticClass: "badge-code" }, [e._v(" " + e._s(s.code) + " ")])], 2)];
   } }], null, !0) })], 1);
 }, Qs = [], Xs = /* @__PURE__ */ r(
-  Us,
+  Gs,
   Js,
   Qs,
   !1,
@@ -3386,7 +3386,8 @@ const Sn = {
             data: o,
             name: t.name,
             fileExt: n,
-            url: `data:${t.type};base64,${o}`
+            url: `data:${t.type};base64,${o}`,
+            path: URL.createObjectURL(t)
           });
         }, l.onerror = i, l.readAsDataURL(t);
       });
@@ -3726,17 +3727,17 @@ var Wn = function() {
     top: e.top,
     position: e.position
   } }, "div", e.$attrs, !1), [e._t("default")], 2) : e._e()])], 1);
-}, Gn = [], Un = /* @__PURE__ */ r(
+}, Un = [], Gn = /* @__PURE__ */ r(
   Kn,
   Wn,
-  Gn,
+  Un,
   !1,
   null,
   null,
   null,
   null
 );
-const Hr = Un.exports, Jn = {
+const Hr = Gn.exports, Jn = {
   name: "IAccordion",
   provide() {
     const t = {};
@@ -4067,13 +4068,13 @@ var za = function() {
   null,
   null
 );
-const Gr = Wa.exports, Ga = {};
-var Ua = function() {
+const Ur = Wa.exports, Ua = {};
+var Ga = function() {
   var e = this, i = e._self._c;
   return i("svg", { attrs: { width: "19", height: "20", viewBox: "0 0 19 20", fill: "none", xmlns: "http://www.w3.org/2000/svg" } }, [i("path", { attrs: { d: "M17.5103 7.2798L8.12354 17.3289C6.56813 18.9934 4.04813 18.9934 2.49272 17.3289C0.937312 15.6644 0.937312 12.9653 2.49272 11.2975L10.939 2.25362C11.9759 1.14394 13.6549 1.14394 14.6948 2.25362C15.7318 3.3633 15.7318 5.16489 14.6948 6.27456L6.2456 15.3184C5.72713 15.8733 4.88612 15.8733 4.36765 15.3184C3.84918 14.7636 3.84918 13.8628 4.36765 13.3079L11.8764 5.26933L10.939 4.26409L3.43019 12.306C2.39325 13.4156 2.39325 15.2172 3.43019 16.3269C4.46713 17.4366 6.14914 17.4366 7.18608 16.3269L15.6323 7.2798C17.1877 5.61528 17.1877 2.91616 15.6323 1.24838C14.0769 -0.416128 11.5569 -0.416128 10.0015 1.24838L1.082 10.7981L1.11516 10.834C-0.503551 13.0632 -0.361876 16.2878 1.55224 18.3374C3.46636 20.387 6.4777 20.5404 8.56062 18.8041L8.59378 18.84L18.4477 8.28503L17.5103 7.2798Z", fill: "currentColor" } })]);
 }, Ja = [], Qa = /* @__PURE__ */ r(
-  Ga,
   Ua,
+  Ga,
   Ja,
   !1,
   null,
@@ -4081,7 +4082,7 @@ var Ua = function() {
   null,
   null
 );
-const Ur = Qa.exports, Xa = {};
+const Gr = Qa.exports, Xa = {};
 var er = function() {
   var e = this, i = e._self._c;
   return i("svg", { attrs: { width: "22", height: "20", viewBox: "0 0 22 20", fill: "none", xmlns: "http://www.w3.org/2000/svg" } }, [i("path", { attrs: { d: "M19.9036 7.93271L3.2569 0.172732C2.5556 -0.154218 1.76331 -0.0103904 1.18927 0.547897C0.615228 1.10627 0.375135 1.96661 0.56276 2.79313L2.04446 9.32091H9.29909C9.63291 9.32091 9.90359 9.62495 9.90359 10C9.90359 10.3751 9.63295 10.6791 9.29909 10.6791H2.04446L0.56276 17.2069C0.375135 18.0334 0.615188 18.8938 1.18927 19.4521C1.76448 20.0115 2.55685 20.1536 3.25694 19.8273L19.9037 12.0673C20.6616 11.714 21.1324 10.9219 21.1324 10C21.1324 9.07816 20.6616 8.28596 19.9036 7.93271Z", fill: "currentColor" } })]);
@@ -4159,14 +4160,14 @@ export {
   zr as IcFilter,
   Kr as IcGlobe,
   qr as IcInfoCircle,
-  Gr as IcLightbulbOn,
+  Ur as IcLightbulbOn,
   Er as IcLocation,
-  Ge as IcLogo,
+  Ue as IcLogo,
   Wr as IcMagnifyingGlass,
-  Ur as IcPaperClip,
+  Gr as IcPaperClip,
   Jr as IcPaperPlane,
   xn as IcPlusCircle,
-  Gs as IcShip,
+  Us as IcShip,
   $ as IcTimes,
   qt as IcTimesCircle,
   H as InputTel
