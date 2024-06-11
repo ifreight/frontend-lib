@@ -111,6 +111,7 @@ export default {
             name: file.name,
             fileExt: ext,
             url: `data:${file.type};base64,${dataURL}`,
+            path: URL.createObjectURL(file),
           });
         };
         fr.onerror = reject;
