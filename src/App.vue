@@ -508,21 +508,28 @@
         <h2 class="text-xl bg-gray-50 text-center">Upload</h2>
         <div class="flex gap-5">
           <div class="flex-1">
+            <div>replace able true limit 2</div>
+            <small class="text-red-400">replace able can't run without limit</small>
             <i-upload
               v-model="files"
               :accept="acceptableFiles"
               required
               name="upload"
+              :limit="2"
+              :is-replaceable="true"
               @invalidSize="invalidSizeHandler"
               @inputFiles="changeFileHandler"
             />
+            <i-file-list :files.sync="files" />
           </div>
-          <i-file-list :files.sync="files" />
           <div class="flex-1">
+            <div>replace able true limit 1</div>
             <i-upload
               v-slot="{ onClick }"
               v-model="files2"
               :accept="acceptableFiles"
+              :limit="1"
+              :is-replaceable="true"
               required
               name="upload2"
               @invalidSize="invalidSizeHandler"
@@ -536,6 +543,31 @@
               </i-button>
             </i-upload>
             <i-file-list :files.sync="files2" />
+          </div>
+          <div class="flex-1">
+            <div>replace able false limit 1</div>
+            <i-upload
+              v-model="files3"
+              :accept="acceptableFiles"
+              required
+              name="upload"
+              :limit="1"
+              @invalidSize="invalidSizeHandler"
+              @inputFiles="changeFileHandler"
+            />
+            <i-file-list :files.sync="files3" />
+          </div>
+          <div class="flex-1">
+            <div>replace able false no limit</div>
+            <i-upload
+              v-model="files4"
+              :accept="acceptableFiles"
+              required
+              name="upload"
+              @invalidSize="invalidSizeHandler"
+              @inputFiles="changeFileHandler"
+            />
+            <i-file-list :files.sync="files4" />
           </div>
         </div>
       </div>
@@ -1032,6 +1064,8 @@ export default {
       textArea: '',
       files: [],
       files2: [],
+      files3: [],
+      files4: [],
       calendarDate: null,
       shipmentPlanData: [
         {
