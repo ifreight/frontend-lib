@@ -68,6 +68,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    isReplaceable: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -90,7 +94,9 @@ export default {
     value: {
       deep: true,
       handler(val) {
-        this.isDisabled = this.limit ? val.length >= this.limit : false;
+        if (!this.isReplaceable) {
+          this.isDisabled = this.limit ? val.length >= this.limit : false;
+        }
         this.selectedFile = val;
       },
     },
@@ -122,9 +128,19 @@ export default {
     async inputFile(data) {
       const invalidFileSize = [];
       const newFiles = [];
-      const promiseArray = Array.from(data.target.files).map(async (file, index) => {
+
+      for await (const [index, file] of Array.from(data.target.files).entries()) {
         if (this.limit) {
-          if (index + this.selectedFile.length <= this.limit - 1) {
+          if (this.isReplaceable) {
+            // replace able will collect all selected & valid file first
+            const isValidSize = file.size <= this.maxSize * 1024;
+            if (isValidSize) {
+              const result = await this.processingFile(file);
+              newFiles.push(result);
+            } else {
+              invalidFileSize.push(file);
+            }
+          } else if (index + this.selectedFile.length <= this.limit - 1) {
             const isValidSize = file.size <= this.maxSize * 1024;
             if (isValidSize) {
               const result = await this.processingFile(file);
@@ -146,12 +162,25 @@ export default {
             invalidFileSize.push(file);
           }
         }
-      });
-
-      if (invalidFileSize.length > 0) {
-        this.$emit('invalidSize', invalidFileSize);
       }
-      await Promise.all(promiseArray).then(() => this.$emit('inputFiles', newFiles));
+      await Promise.all(newFiles).then(() => {
+        if (invalidFileSize.length > 0) {
+          this.$emit('invalidSize', invalidFileSize);
+        }
+        if (this.isReplaceable) {
+          const current = this.selectedFile.concat(newFiles);
+          if (current.length > this.limit) {
+            const sliceResult = current.slice(Math.max(current.length - this.limit, 1));
+            this.$emit('input', sliceResult);
+            this.$emit('inputFiles', sliceResult);
+          } else {
+            this.$emit('input', current);
+            this.$emit('inputFiles', newFiles);
+          }
+        } else {
+          this.$emit('inputFiles', newFiles);
+        }
+      });
 
       this.$refs.input.value = null;
     },
