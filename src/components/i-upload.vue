@@ -172,8 +172,10 @@ export default {
           if (current.length > this.limit) {
             const sliceResult = current.slice(Math.max(current.length - this.limit, 1));
             this.$emit('input', sliceResult);
+            this.$emit('inputFiles', sliceResult);
           } else {
             this.$emit('input', current);
+            this.$emit('inputFiles', current);
           }
         } else {
           this.$emit('inputFiles', newFiles);
