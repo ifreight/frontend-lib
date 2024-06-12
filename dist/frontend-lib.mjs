@@ -18,13 +18,13 @@ const m = {
     return Array.isArray(m.countryList) || await Promise.resolve(m.countryList), m.countryList;
   }
 };
-function r(t, e, i, s, n, l, c, o) {
+function r(t, e, i, s, n, l, o, c) {
   var u = typeof t == "function" ? t.options : t;
   e && (u.render = e, u.staticRenderFns = i, u._compiled = !0), s && (u.functional = !0), l && (u._scopeId = "data-v-" + l);
   var h;
-  if (c ? (h = function(f) {
-    f = f || this.$vnode && this.$vnode.ssrContext || this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext, !f && typeof __VUE_SSR_CONTEXT__ < "u" && (f = __VUE_SSR_CONTEXT__), n && n.call(this, f), f && f._registeredComponents && f._registeredComponents.add(c);
-  }, u._ssrRegister = h) : n && (h = o ? function() {
+  if (o ? (h = function(f) {
+    f = f || this.$vnode && this.$vnode.ssrContext || this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext, !f && typeof __VUE_SSR_CONTEXT__ < "u" && (f = __VUE_SSR_CONTEXT__), n && n.call(this, f), f && f._registeredComponents && f._registeredComponents.add(o);
+  }, u._ssrRegister = h) : n && (h = c ? function() {
     n.call(
       this,
       (u.functional ? this.parent : this).$root.$options.shadowRoot
@@ -374,10 +374,10 @@ const Ce = {
         const i = a(this.activeDateString).date(++e), s = this.checkDateDisabled(a(i).toDate());
         let n = null;
         if (this.calendarContent.length > 0) {
-          const l = this.calendarContent.filter((o) => a(o.date).isSame(i, "day")), c = l.slice(0, this.limitDisplayContent);
+          const l = this.calendarContent.filter((c) => a(c.date).isSame(i, "day")), o = l.slice(0, this.limitDisplayContent);
           n = {
             allContent: l,
-            displayContent: c
+            displayContent: o
           };
         }
         return { date: i, isDisabled: s, dateContent: n };
@@ -1022,11 +1022,11 @@ const ct = {
         return t;
       let i = e;
       i == null && ({ query: i } = this);
-      const s = t.replace(/\w/g, "#"), n = i.toLowerCase().replace(/\W/g, ""), l = t.replace(/\W/g, ""), c = l.toLowerCase().indexOf(n);
-      if (c > -1 && n.length) {
-        const o = c + n.length - 1, u = (_) => {
+      const s = t.replace(/\w/g, "#"), n = i.toLowerCase().replace(/\W/g, ""), l = t.replace(/\W/g, ""), o = l.toLowerCase().indexOf(n);
+      if (o > -1 && n.length) {
+        const c = o + n.length - 1, u = (_) => {
           let p = l[_];
-          return _ === c && (p = `<b>${p}`), _ === o && (p += "</b>"), p;
+          return _ === o && (p = `<b>${p}`), _ === c && (p += "</b>"), p;
         };
         let h = -1;
         return s.replace(/#/g, () => (h += 1, u(h)));
@@ -1487,11 +1487,11 @@ var b = typeof globalThis < "u" ? globalThis : typeof window < "u" ? window : ty
   (function(i, s) {
     t.exports = s(a);
   })(b, function(i) {
-    function s(c) {
-      return c && typeof c == "object" && "default" in c ? c : { default: c };
+    function s(o) {
+      return o && typeof o == "object" && "default" in o ? o : { default: o };
     }
-    var n = s(i), l = { name: "id", weekdays: "Minggu_Senin_Selasa_Rabu_Kamis_Jumat_Sabtu".split("_"), months: "Januari_Februari_Maret_April_Mei_Juni_Juli_Agustus_September_Oktober_November_Desember".split("_"), weekdaysShort: "Min_Sen_Sel_Rab_Kam_Jum_Sab".split("_"), monthsShort: "Jan_Feb_Mar_Apr_Mei_Jun_Jul_Agt_Sep_Okt_Nov_Des".split("_"), weekdaysMin: "Mg_Sn_Sl_Rb_Km_Jm_Sb".split("_"), weekStart: 1, formats: { LT: "HH.mm", LTS: "HH.mm.ss", L: "DD/MM/YYYY", LL: "D MMMM YYYY", LLL: "D MMMM YYYY [pukul] HH.mm", LLLL: "dddd, D MMMM YYYY [pukul] HH.mm" }, relativeTime: { future: "dalam %s", past: "%s yang lalu", s: "beberapa detik", m: "semenit", mm: "%d menit", h: "sejam", hh: "%d jam", d: "sehari", dd: "%d hari", M: "sebulan", MM: "%d bulan", y: "setahun", yy: "%d tahun" }, ordinal: function(c) {
-      return c + ".";
+    var n = s(i), l = { name: "id", weekdays: "Minggu_Senin_Selasa_Rabu_Kamis_Jumat_Sabtu".split("_"), months: "Januari_Februari_Maret_April_Mei_Juni_Juli_Agustus_September_Oktober_November_Desember".split("_"), weekdaysShort: "Min_Sen_Sel_Rab_Kam_Jum_Sab".split("_"), monthsShort: "Jan_Feb_Mar_Apr_Mei_Jun_Jul_Agt_Sep_Okt_Nov_Des".split("_"), weekdaysMin: "Mg_Sn_Sl_Rb_Km_Jm_Sb".split("_"), weekStart: 1, formats: { LT: "HH.mm", LTS: "HH.mm.ss", L: "DD/MM/YYYY", LL: "D MMMM YYYY", LLL: "D MMMM YYYY [pukul] HH.mm", LLLL: "dddd, D MMMM YYYY [pukul] HH.mm" }, relativeTime: { future: "dalam %s", past: "%s yang lalu", s: "beberapa detik", m: "semenit", mm: "%d menit", h: "sejam", hh: "%d jam", d: "sehari", dd: "%d hari", M: "sebulan", MM: "%d bulan", y: "setahun", yy: "%d tahun" }, ordinal: function(o) {
+      return o + ".";
     } };
     return n.default.locale(l, null, !0), l;
   });
@@ -2433,16 +2433,16 @@ function Ts(t) {
 }
 var Bs = Ts, Hs = q, I = Ji, Y = Bs, As = "Expected a function", Ns = Math.max, Fs = Math.min;
 function Rs(t, e, i) {
-  var s, n, l, c, o, u, h = 0, _ = !1, p = !1, f = !0;
+  var s, n, l, o, c, u, h = 0, _ = !1, p = !1, f = !0;
   if (typeof t != "function")
     throw new TypeError(As);
   e = Y(e) || 0, Hs(i) && (_ = !!i.leading, p = "maxWait" in i, l = p ? Ns(Y(i.maxWait) || 0, e) : l, f = "trailing" in i ? !!i.trailing : f);
   function C(d) {
     var v = s, g = n;
-    return s = n = void 0, h = d, c = t.apply(g, v), c;
+    return s = n = void 0, h = d, o = t.apply(g, v), o;
   }
   function k(d) {
-    return h = d, o = setTimeout(w, e), _ ? C(d) : c;
+    return h = d, c = setTimeout(w, e), _ ? C(d) : o;
   }
   function U(d) {
     var v = d - u, g = d - h, T = e - v;
@@ -2456,26 +2456,26 @@ function Rs(t, e, i) {
     var d = I();
     if (O(d))
       return P(d);
-    o = setTimeout(w, U(d));
+    c = setTimeout(w, U(d));
   }
   function P(d) {
-    return o = void 0, f && s ? C(d) : (s = n = void 0, c);
+    return c = void 0, f && s ? C(d) : (s = n = void 0, o);
   }
   function G() {
-    o !== void 0 && clearTimeout(o), h = 0, s = u = n = o = void 0;
+    c !== void 0 && clearTimeout(c), h = 0, s = u = n = c = void 0;
   }
   function J() {
-    return o === void 0 ? c : P(I());
+    return c === void 0 ? o : P(I());
   }
   function D() {
     var d = I(), v = O(d);
     if (s = arguments, n = this, u = d, v) {
-      if (o === void 0)
+      if (c === void 0)
         return k(u);
       if (p)
-        return clearTimeout(o), o = setTimeout(w, e), C(u);
+        return clearTimeout(c), c = setTimeout(w, e), C(u);
     }
-    return o === void 0 && (o = setTimeout(w, e)), c;
+    return c === void 0 && (c = setTimeout(w, e)), o;
   }
   return D.cancel = G, D.flush = J, D;
 }
@@ -2828,8 +2828,8 @@ const Gs = {
           countryName: s.countryName
         });
       }), t.reduce((s, n) => {
-        const { ports: l, ...c } = n;
-        return s.push(c), l.forEach((o) => s.push(o)), s;
+        const { ports: l, ...o } = n;
+        return s.push(o), l.forEach((c) => s.push(c)), s;
       }, []);
     },
     inputTextValue() {
@@ -3059,9 +3059,9 @@ const an = {
     loadPaneInstances(t = !1) {
       if (this.$slots.default) {
         const l = this.$slots.default.filter(
-          (o) => o.tag && o.componentOptions && o.componentOptions.Ctor.options.name === "ITabPane"
-        ).map(({ componentInstance: o }) => o), c = !(l.length === this.panes.length && l.every((o, u) => o === this.panes[u]));
-        (t || c) && (this.panes = l);
+          (c) => c.tag && c.componentOptions && c.componentOptions.Ctor.options.name === "ITabPane"
+        ).map(({ componentInstance: c }) => c), o = !(l.length === this.panes.length && l.every((c, u) => c === this.panes[u]));
+        (t || o) && (this.panes = l);
       } else
         this.panes.length !== 0 && (this.panes = []);
       const e = this.$refs.tabHeaderWrapper, i = e ? e.scrollWidth : 0, s = e ? e.clientWidth : 0;
@@ -3349,6 +3349,10 @@ const Sn = {
     invalid: {
       type: Boolean,
       default: !1
+    },
+    isReplaceable: {
+      type: Boolean,
+      default: !1
     }
   },
   data() {
@@ -3369,7 +3373,7 @@ const Sn = {
     value: {
       deep: !0,
       handler(t) {
-        this.isDisabled = this.limit ? t.length >= this.limit : !1, this.selectedFile = t;
+        this.isReplaceable || (this.isDisabled = this.limit ? t.length >= this.limit : !1), this.selectedFile = t;
       }
     }
   },
@@ -3380,22 +3384,29 @@ const Sn = {
     processingFile(t) {
       return new Promise((e, i) => {
         const s = t.name.split("."), n = s[s.length - 1], l = new FileReader();
-        l.onload = (c) => {
-          const o = /,(.+)/.exec(c.target.result)[1];
+        l.onload = (o) => {
+          const c = /,(.+)/.exec(o.target.result)[1];
           e({
-            data: o,
+            data: c,
             name: t.name,
             fileExt: n,
-            url: `data:${t.type};base64,${o}`,
+            url: `data:${t.type};base64,${c}`,
             path: URL.createObjectURL(t)
           });
         }, l.onerror = i, l.readAsDataURL(t);
       });
     },
     async inputFile(t) {
-      const e = [], i = [], s = Array.from(t.target.files).map(async (n, l) => {
+      const e = [], i = [];
+      for await (const [s, n] of Array.from(t.target.files).entries())
         if (this.limit)
-          if (l + this.selectedFile.length <= this.limit - 1)
+          if (this.isReplaceable)
+            if (n.size <= this.maxSize * 1024) {
+              const o = await this.processingFile(n);
+              i.push(o);
+            } else
+              e.push(n);
+          else if (s + this.selectedFile.length <= this.limit - 1)
             if (n.size <= this.maxSize * 1024) {
               const o = await this.processingFile(n);
               i.push(o), this.$emit("input", this.value.concat(o));
@@ -3408,8 +3419,17 @@ const Sn = {
           i.push(o), this.$emit("input", this.value.concat(o));
         } else
           e.push(n);
-      });
-      e.length > 0 && this.$emit("invalidSize", e), await Promise.all(s).then(() => this.$emit("inputFiles", i)), this.$refs.input.value = null;
+      await Promise.all(i).then(() => {
+        if (e.length > 0 && this.$emit("invalidSize", e), this.isReplaceable) {
+          const s = this.selectedFile.concat(i);
+          if (s.length > this.limit) {
+            const n = s.slice(Math.max(s.length - this.limit, 1));
+            this.$emit("input", n), this.$emit("inputFiles", n);
+          } else
+            this.$emit("input", s), this.$emit("inputFiles", i);
+        } else
+          this.$emit("inputFiles", i);
+      }), this.$refs.input.value = null;
     }
   }
 };
@@ -3610,12 +3630,12 @@ var Rn = function() {
   }), i("div", { directives: [{ name: "show", rawName: "v-show", value: e.inputVisible, expression: "inputVisible" }], staticClass: "i-input-tag-input" }, [e.inputType === "checkbox" ? i("input", { directives: [{ name: "model", rawName: "v-model", value: e.inputValue, expression: "inputValue" }], ref: "input", class: e.inputValueError && "invalid", attrs: { name: "inputValue", type: "checkbox" }, domProps: { checked: Array.isArray(e.inputValue) ? e._i(e.inputValue, null) > -1 : e.inputValue }, on: { keyup: function(s) {
     return !s.type.indexOf("key") && e._k(s.keyCode, "enter", 13, s.key, "Enter") ? null : e.onSubmit.apply(null, arguments);
   }, blur: e.hideInput, change: function(s) {
-    var n = e.inputValue, l = s.target, c = !!l.checked;
+    var n = e.inputValue, l = s.target, o = !!l.checked;
     if (Array.isArray(n)) {
-      var o = null, u = e._i(n, o);
-      l.checked ? u < 0 && (e.inputValue = n.concat([o])) : u > -1 && (e.inputValue = n.slice(0, u).concat(n.slice(u + 1)));
+      var c = null, u = e._i(n, c);
+      l.checked ? u < 0 && (e.inputValue = n.concat([c])) : u > -1 && (e.inputValue = n.slice(0, u).concat(n.slice(u + 1)));
     } else
-      e.inputValue = c;
+      e.inputValue = o;
   } } }) : e.inputType === "radio" ? i("input", { directives: [{ name: "model", rawName: "v-model", value: e.inputValue, expression: "inputValue" }], ref: "input", class: e.inputValueError && "invalid", attrs: { name: "inputValue", type: "radio" }, domProps: { checked: e._q(e.inputValue, null) }, on: { keyup: function(s) {
     return !s.type.indexOf("key") && e._k(s.keyCode, "enter", 13, s.key, "Enter") ? null : e.onSubmit.apply(null, arguments);
   }, blur: e.hideInput, change: function(s) {
