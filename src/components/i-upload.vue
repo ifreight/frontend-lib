@@ -175,7 +175,7 @@ export default {
             this.$emit('inputFiles', sliceResult);
           } else {
             this.$emit('input', current);
-            this.$emit('inputFiles', current);
+            this.$emit('inputFiles', newFiles);
           }
         } else {
           this.$emit('inputFiles', newFiles);
