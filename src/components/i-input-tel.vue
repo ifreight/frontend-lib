@@ -134,7 +134,7 @@ export default {
       },
     },
   },
-  mounted() {
+  created() {
     this.countryCode = this.defaultCountryCode;
 
     this.getCountryList();
