@@ -120,7 +120,7 @@ const ee = {
       t !== this.phoneObject.number && (this.phone = t);
     }
   },
-  async mounted() {
+  mounted() {
     this.value && (this.phone = this.value), this.country && (this.activeCountryCode = this.country);
   },
   methods: {
@@ -1247,7 +1247,7 @@ const St = {
       }
     }
   },
-  mounted() {
+  created() {
     this.countryCode = this.defaultCountryCode, this.getCountryList(), this.value && (this.phone = this.value);
   },
   methods: {

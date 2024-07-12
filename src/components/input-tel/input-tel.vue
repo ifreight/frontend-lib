@@ -109,7 +109,7 @@ export default {
       }
     },
   },
-  async mounted() {
+  mounted() {
     if (this.value) {
       this.phone = this.value;
     }
