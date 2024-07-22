@@ -25,5 +25,5 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### Current Active Version:
 ```
-Version: 0.0.46
+Version: 0.0.47
 ```
