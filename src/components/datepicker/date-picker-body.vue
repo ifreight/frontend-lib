@@ -225,6 +225,9 @@ export default {
     dateRangeSelectedMarker(date) {
       if (this.isDateRange && this.selectedDate.length > 0) {
         const [first, second] = this.selectedDate;
+        if (dayjs(first).isSame(second, 'day')) {
+          return;
+        }
         if (dayjs(first).isSame(date, 'day')) {
           if (this.hoverTemporaryDate || !!second) {
             return dayjs(date).isBefore(this.hoverTemporaryDate || second, 'day') ? 'is-less' : 'is-more';

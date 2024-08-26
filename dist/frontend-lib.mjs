@@ -796,6 +796,8 @@ const Ue = {
     dateRangeSelectedMarker(t) {
       if (this.isDateRange && this.selectedDate.length > 0) {
         const [e, i] = this.selectedDate;
+        if (n(e).isSame(i, "day"))
+          return;
         if (n(e).isSame(t, "day") && (this.hoverTemporaryDate || !!i))
           return n(t).isBefore(this.hoverTemporaryDate || i, "day") ? "is-less" : "is-more";
         if (i && n(i).isSame(t, "day"))
@@ -1029,7 +1031,7 @@ const st = {
       this.activeDateNext = t, this.activeDate = n(t.toString()).subtract(1, "month").toDate();
     },
     clickDate(t) {
-      this.selectedDate.length === 2 ? this.selectedDate = [] : (n(t).isBefore(this.selectedDate[0], "day") ? this.selectedDate.unshift(n(t).second(0).toDate()) : this.selectedDate.push(n(t).second(0).toDate()), this.$emit("selectDate", t.toDate()));
+      this.selectedDate.length === 2 ? (this.selectedDate = [], this.selectedDate.push(n(t).second(0).toDate())) : (n(t).isBefore(this.selectedDate[0], "day") ? this.selectedDate.unshift(n(t).second(0).toDate()) : this.selectedDate.push(n(t).second(0).toDate()), this.$emit("selectDate", t.toDate()));
     }
   }
 };
