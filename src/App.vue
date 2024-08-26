@@ -461,7 +461,7 @@
             <div class="flex">
               <i-date-range-picker
                 v-model="dateRange3"
-                :disabled-date="disabledDate"
+                :disabled-date="disabledDateRange"
               />
             </div>
           </div>
@@ -1794,6 +1794,9 @@ export default {
     },
     disabledDateCalendar(date) {
       return new Date() >= date;
+    },
+    disabledDateRange(date) {
+      return dayjs().add(1, 'month') <= date;
     },
     selectRemoteMethod() {
       return new Promise((resolve) => {
