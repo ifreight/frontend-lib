@@ -129,6 +129,7 @@ export default {
     clickDate(date) {
       if (this.selectedDate.length === 2) {
         this.selectedDate = [];
+        this.selectedDate.push(dayjs(date).second(0).toDate());
       } else {
         if (dayjs(date).isBefore(this.selectedDate[0], 'day')) {
           this.selectedDate.unshift(dayjs(date).second(0).toDate());
