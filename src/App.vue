@@ -441,6 +441,33 @@
         </div>
       </div>
       <div>
+        <div>date range</div>
+        <div class="flex flex-wrap">
+          <div class="py-5 w-[500px]">
+            <div class="text-xs">1: {{ dateRange }}</div>
+            <div class="flex">
+              <i-date-range-picker v-model="dateRange" />
+            </div>
+          </div>
+          <div class="py-5 w-[500px]">
+            <div class="text-xs">2: {{ dateRange2 }}</div>
+            <div class="flex">
+              <i-date-range-picker v-model="dateRange2" />
+            </div>
+          </div>
+          <div class="py-5 w-[500px]">
+            <div class="text-xs">[disabled]: {{ dateRange3 }}</div>
+            <span class="text-2xs text-red-400">can only disable for one condition</span>
+            <div class="flex">
+              <i-date-range-picker
+                v-model="dateRange3"
+                :disabled-date="disabledDate"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
         <h2 class="text-xl bg-gray-50 text-center">radio</h2>
         <div class="flex gap-5">
           <i-radio
@@ -913,7 +940,8 @@ import IBox from './components/i-box.vue';
 import IButton from './components/i-button.vue';
 import ICalendar from './components/i-calendar.vue';
 import ICheckbox from './components/i-checkbox.vue';
-import IDatepicker from './components/i-datepicker.vue';
+import IDatepicker from './components/datepicker/i-datepicker.vue';
+import IDateRangePicker from './components/datepicker/i-date-range-picker.vue';
 import IDialog from './components/i-dialog.vue';
 import IDualInput from './components/i-dual-input.vue';
 import ISortCaret from './components/i-sort-caret.vue';
@@ -963,6 +991,7 @@ export default {
     ICalendar,
     ICheckbox,
     IDatepicker,
+    IDateRangePicker,
     IDialog,
     IDualInput,
     ISortCaret,
@@ -1039,6 +1068,9 @@ export default {
       showDialogHeader: false,
       showDialogNoOut: false,
       date: undefined,
+      dateRange: undefined,
+      dateRange2: ['2024-05-26', '2024-07-13'],
+      dateRange3: undefined,
       dateMultiple: [],
       currentPage: 1,
       pagination: {
