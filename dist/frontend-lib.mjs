@@ -576,7 +576,7 @@ const Te = {
 var Be = function() {
   var e = this, i = e._self._c;
   return i("svg", { class: `ic-angles-circle-${e.direction}`, attrs: { width: "21", height: "21", viewBox: "0 0 21 21", fill: "none", xmlns: "http://www.w3.org/2000/svg" } }, [i("circle", { attrs: { cx: "10.334", cy: "10.1494", r: "10", fill: "currentColor" } }), i("path", { attrs: { d: "M6.23926 5.64941L11.0393 10.4494L6.23926 15.2494", stroke: "white" } }), i("path", { attrs: { d: "M9.73926 5.64941L14.5393 10.4494L9.73926 15.2494", stroke: "white" } })]);
-}, Re = [], He = /* @__PURE__ */ r(
+}, Re = [], Ae = /* @__PURE__ */ r(
   Te,
   Be,
   Re,
@@ -586,10 +586,10 @@ var Be = function() {
   null,
   null
 );
-const Ae = He.exports, Ne = {
+const He = Ae.exports, Ne = {
   components: {
     IcAngleCircle: M,
-    IcAnglesCircle: Ae
+    IcAnglesCircle: He
   },
   props: {
     activeDate: {
@@ -992,6 +992,12 @@ const st = {
     };
   },
   watch: {
+    value: {
+      handler(t) {
+        const e = Array.isArray(t) ? t : [t];
+        this.checkSame(e, this.selectedDate) || (this.selectedDate = e.filter((s) => !!s).map((s) => n(s.toString()).toDate()));
+      }
+    },
     selectedDate: {
       deep: !0,
       handler(t) {
@@ -1032,6 +1038,9 @@ const st = {
     },
     clickDate(t) {
       this.selectedDate.length === 2 ? (this.selectedDate = [], this.selectedDate.push(n(t).second(0).toDate())) : (n(t).isBefore(this.selectedDate[0], "day") ? this.selectedDate.unshift(n(t).second(0).toDate()) : this.selectedDate.push(n(t).second(0).toDate()), this.$emit("selectDate", t.toDate()));
+    },
+    checkSame(t, e) {
+      return t.length === e.length && t.every((s, a) => n(s).isSame(e[a], "day"));
     }
   }
 };
@@ -1413,7 +1422,7 @@ var Bt = function() {
   return i("div", { staticClass: "i-input-label", class: e.top && "label-top" }, [i("label", { staticClass: "i-input-label-text", class: e.classes, attrs: { for: e.inputId } }, [e._t("label", function() {
     return [e._v(e._s(e.label))];
   })], 2), e._t("default")], 2);
-}, Rt = [], Ht = /* @__PURE__ */ r(
+}, Rt = [], At = /* @__PURE__ */ r(
   Tt,
   Bt,
   Rt,
@@ -1423,8 +1432,8 @@ var Bt = function() {
   null,
   null
 );
-const x = Ht.exports;
-const At = {
+const x = At.exports;
+const Ht = {
   name: "IcAngle",
   props: {
     direction: {
@@ -1440,7 +1449,7 @@ var Nt = function() {
   var e = this, i = e._self._c;
   return i("svg", { class: `ic-angle-${e.direction}`, attrs: { width: "9", height: "15", viewBox: "0 0 9 15", fill: "none", xmlns: "http://www.w3.org/2000/svg" } }, [i("path", { attrs: { d: "M1 0.498047L8 7.49805L1 14.498", stroke: "currentColor", "stroke-width": "1.2", "stroke-linejoin": "round" } })]);
 }, Ft = [], jt = /* @__PURE__ */ r(
-  At,
+  Ht,
   Nt,
   Ft,
   !1,
@@ -2231,7 +2240,7 @@ const Pi = Oi.exports, Ti = {};
 var Bi = function() {
   var e = this, i = e._self._c;
   return i("svg", { attrs: { width: "13", height: "14", viewBox: "0 0 13 14", fill: "none", xmlns: "http://www.w3.org/2000/svg" } }, [i("path", { attrs: { d: "M1.75 12.2998L6.75 7.2998L1.75 2.2998", stroke: "currentColor", "stroke-width": "2", "stroke-linecap": "square", "stroke-linejoin": "round" } }), i("path", { attrs: { d: "M6.75 12.2998L11.75 7.2998L6.75 2.2998", stroke: "currentColor", "stroke-width": "2", "stroke-linecap": "square", "stroke-linejoin": "round" } })]);
-}, Ri = [], Hi = /* @__PURE__ */ r(
+}, Ri = [], Ai = /* @__PURE__ */ r(
   Ti,
   Bi,
   Ri,
@@ -2241,14 +2250,14 @@ var Bi = function() {
   null,
   null
 );
-const Ai = Hi.exports;
+const Hi = Ai.exports;
 const Ni = {
   name: "IPagination",
   components: {
     IcAngleLeft: wi,
     IcAngleRight: Ii,
     IcAnglesLeft: Pi,
-    IcAnglesRight: Ai
+    IcAnglesRight: Hi
   },
   props: {
     total: {
@@ -2400,7 +2409,7 @@ var Fi = function() {
   null,
   null
 );
-const Hr = Yi.exports;
+const Ar = Yi.exports;
 const Zi = {
   name: "IPill",
   props: {
@@ -2463,7 +2472,7 @@ var qi = function() {
   null,
   null
 );
-const Ar = zi.exports;
+const Hr = zi.exports;
 const Ki = {
   name: "IPopover",
   components: {
@@ -2655,7 +2664,7 @@ var vs = _s, ms = vs, Cs = /^\s+/;
 function gs(t) {
   return t && t.slice(0, ms(t) + 1).replace(Cs, "");
 }
-var ys = gs, bs = W, ks = bs.Symbol, U = ks, H = U, G = Object.prototype, ws = G.hasOwnProperty, $s = G.toString, b = H ? H.toStringTag : void 0;
+var ys = gs, bs = W, ks = bs.Symbol, U = ks, A = U, G = Object.prototype, ws = G.hasOwnProperty, $s = G.toString, b = A ? A.toStringTag : void 0;
 function Ds(t) {
   var e = ws.call(t, b), i = t[b];
   try {
@@ -2670,15 +2679,15 @@ var xs = Ds, Ss = Object.prototype, Is = Ss.toString;
 function Ms(t) {
   return Is.call(t);
 }
-var Ls = Ms, A = U, Vs = xs, Os = Ls, Ps = "[object Null]", Ts = "[object Undefined]", N = A ? A.toStringTag : void 0;
+var Ls = Ms, H = U, Vs = xs, Os = Ls, Ps = "[object Null]", Ts = "[object Undefined]", N = H ? H.toStringTag : void 0;
 function Bs(t) {
   return t == null ? t === void 0 ? Ts : Ps : N && N in Object(t) ? Vs(t) : Os(t);
 }
 var Rs = Bs;
-function Hs(t) {
+function As(t) {
   return t != null && typeof t == "object";
 }
-var As = Hs, Ns = Rs, Fs = As, js = "[object Symbol]";
+var Hs = As, Ns = Rs, Fs = Hs, js = "[object Symbol]";
 function Ys(t) {
   return typeof t == "symbol" || Fs(t) && Ns(t) == js;
 }
@@ -3569,15 +3578,15 @@ var Tn = function() {
   null,
   null
 );
-const Wr = Rn.exports, Hn = {
+const Wr = Rn.exports, An = {
   name: "IcPlusCircle"
 };
-var An = function() {
+var Hn = function() {
   var e = this, i = e._self._c;
   return i("svg", { attrs: { width: "17", height: "17", viewBox: "0 0 17 17", fill: "none", xmlns: "http://www.w3.org/2000/svg" } }, [i("path", { attrs: { d: "M7.7747 4.90918H9.2224V7.7762H12.0752V9.2239H9.2224V12.0909H7.7747V9.2239H4.92188V7.7762H7.7747V4.90918Z", fill: "currentColor" } }), i("circle", { attrs: { cx: "8.5", cy: "8.5", r: "7.5", stroke: "currentColor" } })]);
 }, Nn = [], Fn = /* @__PURE__ */ r(
-  Hn,
   An,
+  Hn,
   Nn,
   !1,
   null,
@@ -4247,15 +4256,15 @@ var Ta = function() {
   null,
   null
 );
-const al = Ra.exports, Ha = {
+const al = Ra.exports, Aa = {
   name: "IcFilePicture"
 };
-var Aa = function() {
+var Ha = function() {
   var e = this, i = e._self._c;
   return i("svg", { attrs: { width: "12", height: "12", viewBox: "0 0 12 12", fill: "none", xmlns: "http://www.w3.org/2000/svg" } }, [i("path", { attrs: { "fill-rule": "evenodd", "clip-rule": "evenodd", d: "M1.8 1.2C1.46863 1.2 1.2 1.46863 1.2 1.8V10.2C1.2 10.5314 1.46863 10.8 1.8 10.8H10.2C10.5314 10.8 10.8 10.5314 10.8 10.2V1.8C10.8 1.46863 10.5314 1.2 10.2 1.2H1.8ZM0 1.8C0 0.805887 0.805887 0 1.8 0H10.2C11.1941 0 12 0.805887 12 1.8V10.2C12 11.1941 11.1941 12 10.2 12H1.8C0.805887 12 0 11.1941 0 10.2V1.8Z", fill: "black" } }), i("path", { attrs: { "fill-rule": "evenodd", "clip-rule": "evenodd", d: "M3.5 3.2C3.33431 3.2 3.2 3.33431 3.2 3.5C3.2 3.66569 3.33431 3.8 3.5 3.8C3.66569 3.8 3.8 3.66569 3.8 3.5C3.8 3.33431 3.66569 3.2 3.5 3.2ZM2 3.5C2 2.67157 2.67157 2 3.5 2C4.32843 2 5 2.67157 5 3.5C5 4.32843 4.32843 5 3.5 5C2.67157 5 2 4.32843 2 3.5Z", fill: "black" } }), i("path", { attrs: { "fill-rule": "evenodd", "clip-rule": "evenodd", d: "M7.90121 4.18024C8.13987 3.93992 8.5268 3.93992 8.76545 4.18024L11.821 7.25717C12.0597 7.49749 12.0597 7.88713 11.821 8.12745C11.5824 8.36777 11.1954 8.36777 10.9568 8.12745L8.33333 5.48567L2.04323 11.8198C1.80458 12.0601 1.41764 12.0601 1.17899 11.8198C0.940337 11.5794 0.940337 11.1898 1.17899 10.9495L7.90121 4.18024Z", fill: "black" } })]);
 }, Na = [], Fa = /* @__PURE__ */ r(
-  Ha,
   Aa,
+  Ha,
   Na,
   !1,
   null,
@@ -4421,8 +4430,8 @@ export {
   Pr as IInputTel,
   Tr as IInputTime,
   Rr as IMultiInput,
-  Hr as IPagination,
-  Ar as IPill,
+  Ar as IPagination,
+  Hr as IPill,
   Nr as IPopover,
   Fr as IProgress,
   Gr as IRadio,

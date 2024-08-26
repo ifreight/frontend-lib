@@ -77,6 +77,16 @@ export default {
     };
   },
   watch: {
+    value: {
+      handler(val) {
+        const valueArray = Array.isArray(val) ? val : [val];
+
+        const isValueSame = this.checkSame(valueArray, this.selectedDate);
+        if (!isValueSame) {
+          this.selectedDate = valueArray.filter((date) => !!date).map((date) => dayjs(date.toString()).toDate());
+        }
+      },
+    },
     selectedDate: {
       deep: true,
       handler(val) {
@@ -139,6 +149,12 @@ export default {
 
         this.$emit('selectDate', date.toDate());
       }
+    },
+    checkSame(array1, array2) {
+      const isSame =
+        array1.length === array2.length &&
+        array1.every((element, index) => dayjs(element).isSame(array2[index], 'day'));
+      return isSame;
     },
   },
 };

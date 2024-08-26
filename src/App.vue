@@ -444,13 +444,31 @@
         <div>date range</div>
         <div class="flex flex-wrap">
           <div class="py-5 w-[500px]">
-            <div class="text-xs">1: {{ dateRange }}</div>
+            <div class="text-xs flex">
+              1: {{ dateRange }}
+              <i-button
+                v-if="dateRange && dateRange.length > 0"
+                text
+                @click="dateRange = null"
+              >
+                clear
+              </i-button>
+            </div>
             <div class="flex">
               <i-date-range-picker v-model="dateRange" />
             </div>
           </div>
           <div class="py-5 w-[500px]">
-            <div class="text-xs">2: {{ dateRange2 }}</div>
+            <div class="text-xs flex">
+              2: {{ dateRange2 }}
+              <i-button
+                v-if="dateRange2 && dateRange2.length > 0"
+                text
+                @click="dateRange2 = null"
+              >
+                clear
+              </i-button>
+            </div>
             <div class="flex">
               <i-date-range-picker v-model="dateRange2" />
             </div>
