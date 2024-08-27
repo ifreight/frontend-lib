@@ -16,14 +16,10 @@
       <div
         v-for="date in previousPicker"
         :key="`${date.date.date()}${date.date.month()}${date.date.year()}-previous`"
-        class="each-date previous-date"
-        :class="{
-          disabled: isDateRange,
-        }"
+        class="each-date"
       >
         <button
-          v-if="!isDateRange"
-          class="i-datepicker-pick"
+          class="i-datepicker-pick previous-date"
           :class="{
             selected: isSelectedDate(date.date),
             multiple: pickLimit > 1 || pickLimit === 'any',
@@ -31,6 +27,8 @@
           }"
           :disabled="date.isDisabled"
           @click="clickDate(date.date, 'prev')"
+          @mouseover="hoverDate(date.date)"
+          @mouseleave="leaveDate"
         >
           <span>{{ date.date.date() }}</span>
           <div
@@ -40,7 +38,6 @@
             <ic-check-circle />
           </div>
         </button>
-        <span v-else>{{ date.date.date() }}</span>
       </div>
       <div
         v-for="date in currentPicker"
@@ -76,14 +73,10 @@
       <div
         v-for="date in nextPicker"
         :key="`${date.date.date()}${date.date.month()}${date.date.year()}-next`"
-        class="each-date next-date"
-        :class="{
-          disabled: isDateRange,
-        }"
+        class="each-date"
       >
         <button
-          v-if="!isDateRange"
-          class="i-datepicker-pick"
+          class="i-datepicker-pick next-date"
           :class="{
             selected: isSelectedDate(date.date),
             multiple: pickLimit > 1 || pickLimit === 'any',
@@ -91,6 +84,8 @@
           }"
           :disabled="date.isDisabled"
           @click="clickDate(date.date, 'next')"
+          @mouseover="hoverDate(date.date)"
+          @mouseleave="leaveDate"
         >
           <span>{{ date.date.date() }}</span>
           <div
@@ -100,7 +95,6 @@
             <ic-check-circle />
           </div>
         </button>
-        <span v-else>{{ date.date.date() }}</span>
       </div>
     </div>
   </div>

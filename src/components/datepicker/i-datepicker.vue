@@ -83,25 +83,17 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-      if (this.initialDate) {
-        this.activeDate = dayjs(this.initialDate).toDate();
+      const isArr = Array.isArray(this.value);
+      this.activeDate = dayjs(this.initialDate).toDate();
+
+      if (isArr && this.value.length > 0) {
+        const [first] = this.value;
+        this.activeDate = dayjs(first.toString()).toDate();
+        this.selectedDate = this.value.map((date) => dayjs(date.toString()).toDate());
       }
-      if (this.value) {
-        if (Array.isArray(this.value)) {
-          if (this.value.length > 0) {
-            const [first] = this.value;
-            this.activeDate = dayjs(first.toString()).toDate();
-            const results = this.value.map((date) => dayjs(date.toString()).toDate());
-            this.selectedDate = results;
-          } else {
-            this.activeDate = dayjs().toDate();
-          }
-        } else {
-          this.activeDate = dayjs(this.value ? this.value.toString() : null).toDate();
-          this.selectedDate.push(this.activeDate);
-        }
-      } else if (!this.activeDate) {
-        this.activeDate = dayjs().toDate();
+      if (!isArr && this.value) {
+        this.activeDate = dayjs(this.value ? this.value.toString() : null).toDate();
+        this.selectedDate.push(this.activeDate);
       }
     });
   },
@@ -167,13 +159,6 @@ export default {
 
     &.disabled {
       cursor: not-allowed;
-    }
-
-    &.next-date,
-    &.previous-date {
-      font-weight: 500;
-      color: var(--gray-400);
-      opacity: 0.75;
     }
   }
 
@@ -245,6 +230,14 @@ export default {
       color: var(--gray-900);
     }
 
+    &:not(.disabled) {
+      &.next-date,
+      &.previous-date {
+        font-weight: 500;
+        color: var(--gray-400);
+      }
+    }
+
     &.selected {
       font-weight: 600;
       background-color: var(--yellow-300);
@@ -254,6 +247,7 @@ export default {
     &.disabled {
       color: var(--gray-400);
       cursor: not-allowed;
+      opacity: 0.75;
     }
   }
 

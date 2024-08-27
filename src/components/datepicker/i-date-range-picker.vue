@@ -101,23 +101,14 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-      if (this.initialDate) {
-        this.activeDate = dayjs(this.initialDate).toDate();
-        this.activeDateNext = dayjs(this.initialDate).add(1, 'month').toDate();
-      }
-      if (this.value) {
-        if (this.value.length > 0) {
-          const [first] = this.value;
-          const results = this.value.map((date) => dayjs(date.toString()).toDate());
-          this.activeDate = dayjs(first.toString()).toDate();
-          this.selectedDate = results;
-        } else {
-          this.activeDate = dayjs().toDate();
-        }
-        this.activeDateNext = dayjs(this.activeDate.toString()).add(1, 'month').toDate();
-      } else if (!this.activeDate) {
-        this.activeDate = dayjs().toDate();
-        this.activeDateNext = dayjs(this.activeDate.toString()).add(1, 'month').toDate();
+      this.activeDate = dayjs(this.initialDate).toDate();
+      this.activeDateNext = dayjs(this.initialDate).add(1, 'month').toDate();
+
+      if (this.value && this.value.length > 0) {
+        const [first] = this.value;
+        this.activeDate = dayjs(first.toString()).toDate();
+        this.activeDateNext = dayjs(this.activeDate).add(1, 'month').toDate();
+        this.selectedDate = this.value.map((date) => dayjs(date.toString()).toDate());
       }
     });
   },
@@ -180,17 +171,6 @@ export default {
     font-size: 12px;
     font-weight: 500;
     cursor: pointer;
-
-    &.disabled {
-      cursor: not-allowed;
-    }
-
-    &.next-date,
-    &.previous-date {
-      font-weight: 500;
-      color: var(--gray-400);
-      opacity: 0.75;
-    }
   }
 
   &--header {
@@ -261,7 +241,15 @@ export default {
       color: var(--gray-900);
     }
 
-    &.selected {
+    &:not(.disabled) {
+      &.next-date,
+      &.previous-date {
+        font-weight: 500;
+        color: var(--gray-400);
+      }
+    }
+
+    &.selected:not(.next-date, .previous-date) {
       font-weight: 600;
       background-color: var(--yellow-300);
       border-radius: 4px;
@@ -275,7 +263,7 @@ export default {
       }
     }
 
-    &.hovered {
+    &.hovered:not(.disabled) {
       font-weight: 600;
       background-color: var(--indigo-100);
       border-radius: 0;
@@ -288,6 +276,7 @@ export default {
     &.disabled {
       color: var(--gray-400);
       cursor: not-allowed;
+      opacity: 0.75;
     }
   }
 
