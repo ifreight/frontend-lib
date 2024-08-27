@@ -873,7 +873,7 @@ const Xe = {
       default: 1
     },
     initialDate: {
-      type: Date,
+      type: [Date, String],
       default: void 0
     },
     disabledDate: {
@@ -911,23 +911,22 @@ const Xe = {
       }
     }
   },
-  created() {
-    this.activeDate = this.initialDate;
-  },
   mounted() {
-    if (this.value)
-      if (Array.isArray(this.value))
-        if (this.value.length > 0) {
-          const [t] = this.value;
-          this.activeDate = n(t.toString()).toDate();
-          const e = this.value.map((i) => n(i.toString()).toDate());
-          this.selectedDate = e;
-        } else
-          this.activeDate = n().toDate();
+    this.$nextTick(() => {
+      if (this.initialDate && (this.activeDate = n(this.initialDate).toDate()), this.value)
+        if (Array.isArray(this.value))
+          if (this.value.length > 0) {
+            const [t] = this.value;
+            this.activeDate = n(t.toString()).toDate();
+            const e = this.value.map((i) => n(i.toString()).toDate());
+            this.selectedDate = e;
+          } else
+            this.activeDate = n().toDate();
+        else
+          this.activeDate = n(this.value ? this.value.toString() : null).toDate(), this.selectedDate.push(this.activeDate);
       else
-        this.activeDate = n(this.value ? this.value.toString() : null).toDate(), this.selectedDate.push(this.activeDate);
-    else
-      this.activeDate || (this.activeDate = n().toDate());
+        this.activeDate || (this.activeDate = n().toDate());
+    });
   },
   methods: {
     checkSame(t, e) {
@@ -975,7 +974,7 @@ const st = {
       default: 1
     },
     initialDate: {
-      type: Date,
+      type: [Date, String],
       default: void 0
     },
     disabledDate: {
@@ -1010,21 +1009,18 @@ const st = {
       }
     }
   },
-  created() {
-    this.initialDate && (this.activeDate = this.initialDate, this.activeDateNext = n(this.initialDate.toString()).add(1, "month").toDate());
-  },
   mounted() {
-    if (this.value) {
-      if (this.value.length > 0) {
-        const [t] = this.value;
-        this.activeDate = n(t.toString()).toDate();
-        const e = this.value.map((i) => n(i.toString()).toDate());
-        this.selectedDate = e;
+    this.$nextTick(() => {
+      if (this.initialDate && (this.activeDate = n(this.initialDate).toDate(), this.activeDateNext = n(this.initialDate).add(1, "month").toDate()), this.value) {
+        if (this.value.length > 0) {
+          const [t] = this.value, e = this.value.map((i) => n(i.toString()).toDate());
+          this.activeDate = n(t.toString()).toDate(), this.selectedDate = e;
+        } else
+          this.activeDate = n().toDate();
+        this.activeDateNext = n(this.activeDate.toString()).add(1, "month").toDate();
       } else
-        this.activeDate = n().toDate();
-      this.activeDateNext = n(this.activeDate.toString()).add(1, "month").toDate();
-    } else
-      this.activeDate || (this.activeDate = n().toDate(), this.activeDateNext = n(this.activeDate.toString()).add(1, "month").toDate());
+        this.activeDate || (this.activeDate = n().toDate(), this.activeDateNext = n(this.activeDate.toString()).add(1, "month").toDate());
+    });
   },
   methods: {
     checkDateDisabled(t) {

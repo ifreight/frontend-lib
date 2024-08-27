@@ -38,7 +38,7 @@ export default {
       default: 1,
     },
     initialDate: {
-      type: Date,
+      type: [Date, String],
       default: undefined,
     },
     disabledDate: {
@@ -81,27 +81,29 @@ export default {
       },
     },
   },
-  created() {
-    this.activeDate = this.initialDate;
-  },
   mounted() {
-    if (this.value) {
-      if (Array.isArray(this.value)) {
-        if (this.value.length > 0) {
-          const [first] = this.value;
-          this.activeDate = dayjs(first.toString()).toDate();
-          const results = this.value.map((date) => dayjs(date.toString()).toDate());
-          this.selectedDate = results;
-        } else {
-          this.activeDate = dayjs().toDate();
-        }
-      } else {
-        this.activeDate = dayjs(this.value ? this.value.toString() : null).toDate();
-        this.selectedDate.push(this.activeDate);
+    this.$nextTick(() => {
+      if (this.initialDate) {
+        this.activeDate = dayjs(this.initialDate).toDate();
       }
-    } else if (!this.activeDate) {
-      this.activeDate = dayjs().toDate();
-    }
+      if (this.value) {
+        if (Array.isArray(this.value)) {
+          if (this.value.length > 0) {
+            const [first] = this.value;
+            this.activeDate = dayjs(first.toString()).toDate();
+            const results = this.value.map((date) => dayjs(date.toString()).toDate());
+            this.selectedDate = results;
+          } else {
+            this.activeDate = dayjs().toDate();
+          }
+        } else {
+          this.activeDate = dayjs(this.value ? this.value.toString() : null).toDate();
+          this.selectedDate.push(this.activeDate);
+        }
+      } else if (!this.activeDate) {
+        this.activeDate = dayjs().toDate();
+      }
+    });
   },
   methods: {
     checkSame(array1, array2) {

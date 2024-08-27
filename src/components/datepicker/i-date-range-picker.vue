@@ -60,7 +60,7 @@ export default {
       default: 1,
     },
     initialDate: {
-      type: Date,
+      type: [Date, String],
       default: undefined,
     },
     disabledDate: {
@@ -99,27 +99,27 @@ export default {
       },
     },
   },
-  created() {
-    if (this.initialDate) {
-      this.activeDate = this.initialDate;
-      this.activeDateNext = dayjs(this.initialDate.toString()).add(1, 'month').toDate();
-    }
-  },
   mounted() {
-    if (this.value) {
-      if (this.value.length > 0) {
-        const [first] = this.value;
-        this.activeDate = dayjs(first.toString()).toDate();
-        const results = this.value.map((date) => dayjs(date.toString()).toDate());
-        this.selectedDate = results;
-      } else {
-        this.activeDate = dayjs().toDate();
+    this.$nextTick(() => {
+      if (this.initialDate) {
+        this.activeDate = dayjs(this.initialDate).toDate();
+        this.activeDateNext = dayjs(this.initialDate).add(1, 'month').toDate();
       }
-      this.activeDateNext = dayjs(this.activeDate.toString()).add(1, 'month').toDate();
-    } else if (!this.activeDate) {
-      this.activeDate = dayjs().toDate();
-      this.activeDateNext = dayjs(this.activeDate.toString()).add(1, 'month').toDate();
-    }
+      if (this.value) {
+        if (this.value.length > 0) {
+          const [first] = this.value;
+          const results = this.value.map((date) => dayjs(date.toString()).toDate());
+          this.activeDate = dayjs(first.toString()).toDate();
+          this.selectedDate = results;
+        } else {
+          this.activeDate = dayjs().toDate();
+        }
+        this.activeDateNext = dayjs(this.activeDate.toString()).add(1, 'month').toDate();
+      } else if (!this.activeDate) {
+        this.activeDate = dayjs().toDate();
+        this.activeDateNext = dayjs(this.activeDate.toString()).add(1, 'month').toDate();
+      }
+    });
   },
   methods: {
     checkDateDisabled(date) {

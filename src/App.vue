@@ -421,7 +421,7 @@
           </i-tab-pane>
         </i-tabs>
       </div>
-      <div class="flex">
+      <div class="flex flex-wrap">
         <div class="py-5 flex w-[315px]">
           <i-datepicker v-model="date" />
         </div>
@@ -438,6 +438,42 @@
             :disabled-date="disabledDateNext"
             :pick-limit="3"
           />
+        </div>
+        <div class="py-5 w-[315px]">
+          <div>
+            using initial date:
+            <input
+              v-model="initialDate1"
+              type="date"
+              class="border border-solid border-gray-400"
+              @change="showDatepicker1 = false"
+            />
+            <div class="flex">
+              <i-radio
+                v-model="showDatepicker1"
+                name="triggerDate"
+                :label="true"
+                :disabled="!initialDate1"
+              >
+                <span class="ml-[8.5px] capitalize"> show </span>
+              </i-radio>
+              <i-radio
+                v-model="showDatepicker1"
+                name="triggerDate"
+                :label="false"
+                :disabled="!initialDate1"
+              >
+                <span class="ml-[8.5px] capitalize"> hide </span>
+              </i-radio>
+            </div>
+          </div>
+          <div class="flex">
+            <i-datepicker
+              v-if="showDatepicker1 && initialDate1"
+              v-model="date2"
+              :initial-date="initialDate1"
+            />
+          </div>
         </div>
       </div>
       <div>
@@ -480,6 +516,16 @@
               <i-date-range-picker
                 v-model="dateRange3"
                 :disabled-date="disabledDateRange"
+              />
+            </div>
+          </div>
+          <div class="py-5 w-[500px]">
+            <div class="text-xs">[initialDate]: {{ dateRange4Initial }}</div>
+            <span class="text-2xs text-red-400">if v-model isn't empty initialDate won't work</span>
+            <div class="flex">
+              <i-date-range-picker
+                v-model="dateRange4"
+                :initial-date="dateRange4Initial"
               />
             </div>
           </div>
@@ -1086,9 +1132,14 @@ export default {
       showDialogHeader: false,
       showDialogNoOut: false,
       date: undefined,
+      date2: undefined,
       dateRange: undefined,
-      dateRange2: ['2024-05-26', '2024-07-13'],
+      dateRange2: [],
       dateRange3: undefined,
+      dateRange4: undefined,
+      dateRange4Initial: undefined,
+      showDatepicker1: false,
+      initialDate1: undefined,
       dateMultiple: [],
       currentPage: 1,
       pagination: {
@@ -1792,8 +1843,13 @@ export default {
         date: dat.stuffingDateTime,
       };
     });
+    this.addData();
   },
   methods: {
+    addData() {
+      this.dateRange2 = ['2023-01-02', '2023-02-03'];
+      this.dateRange4Initial = '2021-03-12';
+    },
     listDateData(date) {
       const find = this.shipmentPlanData.find((x) => dayjs(x.shipmentDate).isSame(dayjs(date), 'day'));
       return find;
