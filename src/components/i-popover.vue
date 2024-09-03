@@ -3,7 +3,7 @@
     ref="popper"
     :trigger="popperTrigger"
     :options="popperOptions"
-    append-to-body
+    :append-to-body="appendToBody"
     root-class="i-popover"
     @show="onShow"
     @hide="onHide"
@@ -47,6 +47,10 @@ export default {
   props: {
     dark: Boolean,
     tooltip: Boolean,
+    appendToBody: {
+      type: Boolean,
+      default: true,
+    },
     placement: {
       type: String,
       default: 'bottom',

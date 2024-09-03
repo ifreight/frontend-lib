@@ -2466,6 +2466,10 @@ const Ki = {
   props: {
     dark: Boolean,
     tooltip: Boolean,
+    appendToBody: {
+      type: Boolean,
+      default: !0
+    },
     placement: {
       type: String,
       default: "bottom"
@@ -2524,7 +2528,7 @@ const Ki = {
 };
 var Wi = function() {
   var e = this, i = e._self._c;
-  return i("popper", { ref: "popper", attrs: { trigger: e.popperTrigger, options: e.popperOptions, "append-to-body": "", "root-class": "i-popover" }, on: { show: e.onShow, hide: e.onHide } }, [i("template", { slot: "reference" }, [i("span", { ref: "popperReference", staticClass: "i-popover-reference" }, [e._t("reference")], 2)]), i("div", { staticClass: "i-popover-content", class: e.contentClass }, [e._t("default"), e.showClose ? i("div", { staticClass: "i-popover-close", on: { click: e.closePopover } }, [i("ic-times")], 1) : e._e()], 2)], 2);
+  return i("popper", { ref: "popper", attrs: { trigger: e.popperTrigger, options: e.popperOptions, "append-to-body": e.appendToBody, "root-class": "i-popover" }, on: { show: e.onShow, hide: e.onHide } }, [i("template", { slot: "reference" }, [i("span", { ref: "popperReference", staticClass: "i-popover-reference" }, [e._t("reference")], 2)]), i("div", { staticClass: "i-popover-content", class: e.contentClass }, [e._t("default"), e.showClose ? i("div", { staticClass: "i-popover-close", on: { click: e.closePopover } }, [i("ic-times")], 1) : e._e()], 2)], 2);
 }, Ui = [], Gi = /* @__PURE__ */ r(
   Ki,
   Wi,
