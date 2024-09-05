@@ -423,7 +423,10 @@
       </div>
       <div class="flex flex-wrap">
         <div class="py-5 flex w-[315px]">
-          <i-datepicker v-model="date" />
+          <i-datepicker
+            v-model="date"
+            @input="inputDateHandler"
+          />
         </div>
         <div class="py-5 flex w-[315px]">
           <i-datepicker
@@ -506,7 +509,10 @@
               </i-button>
             </div>
             <div class="flex">
-              <i-date-range-picker v-model="dateRange2" />
+              <i-date-range-picker
+                v-model="dateRange2"
+                @input="inputDateRange2Handler"
+              />
             </div>
           </div>
           <div class="py-5 w-[500px]">
@@ -1131,7 +1137,7 @@ export default {
       showDialog: false,
       showDialogHeader: false,
       showDialogNoOut: false,
-      date: ['2023-01-03'],
+      date: [],
       date2: undefined,
       dateMultiple: [],
       dateRange: undefined,
@@ -1847,8 +1853,15 @@ export default {
   },
   methods: {
     addData() {
+      this.date = ['2023-01-03'];
       this.dateRange2 = ['2023-01-02', '2023-02-03'];
       this.dateRange4Initial = '2021-03-12';
+    },
+    inputDateHandler() {
+      console.log('terjadi input di date');
+    },
+    inputDateRange2Handler() {
+      console.log('terjadi input di date range');
     },
     listDateData(date) {
       const find = this.shipmentPlanData.find((x) => dayjs(x.shipmentDate).isSame(dayjs(date), 'day'));

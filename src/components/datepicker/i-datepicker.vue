@@ -50,33 +50,38 @@ export default {
     return {
       activeDate: undefined,
       selectedDate: [],
+      isLoaded: false,
     };
   },
   watch: {
     value: {
       handler(val) {
-        const valueArray = Array.isArray(val) ? val : [val];
+        if (this.isLoaded) {
+          const valueArray = Array.isArray(val) ? val : [val];
 
-        const isValueSame = this.checkSame(valueArray, this.selectedDate);
-        if (!isValueSame) {
-          this.selectedDate = valueArray.filter((date) => !!date).map((date) => dayjs(date.toString()).toDate());
+          const isValueSame = this.checkSame(valueArray, this.selectedDate);
+          if (!isValueSame) {
+            this.selectedDate = valueArray.filter((date) => !!date).map((date) => dayjs(date.toString()).toDate());
+          }
         }
       },
     },
     selectedDate: {
       deep: true,
       handler(val) {
-        if (val.length === 0) {
-          this.$emit('input', this.pickLimit > 1 ? [] : undefined);
-          return;
-        }
+        if (this.isLoaded) {
+          if (val.length === 0) {
+            this.$emit('input', this.pickLimit > 1 ? [] : undefined);
+            return;
+          }
 
-        if (this.pickLimit <= 1) {
-          const [first] = val;
-          this.$emit('input', dayjs(first.toString()).toDate());
-        } else {
-          const extractedDate = val.map((d) => dayjs(d).toDate());
-          this.$emit('input', extractedDate);
+          if (this.pickLimit <= 1) {
+            const [first] = val;
+            this.$emit('input', dayjs(first.toString()).toDate());
+          } else {
+            const extractedDate = val.map((d) => dayjs(d).toDate());
+            this.$emit('input', extractedDate);
+          }
         }
       },
     },
@@ -95,6 +100,11 @@ export default {
         this.activeDate = dayjs(this.value ? this.value.toString() : null).toDate();
         this.selectedDate.push(this.activeDate);
       }
+
+      // have to set this.isLoaded to true with extra nexttick to make the watcher work as expected
+      this.$nextTick(() => {
+        this.isLoaded = true;
+      });
     });
   },
   methods: {
