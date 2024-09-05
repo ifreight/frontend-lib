@@ -53,7 +53,7 @@ export default {
   props: {
     value: {
       type: Array,
-      default: () => null,
+      default: () => undefined,
     },
     pickLimit: {
       type: [Number, String],
@@ -74,33 +74,37 @@ export default {
       activeDateNext: undefined,
       hoverTemporaryDate: undefined,
       selectedDate: [],
+      isLoaded: false,
     };
   },
   watch: {
     value: {
       handler(val) {
-        const valueArray = Array.isArray(val) ? val : [val];
+        if (this.isLoaded) {
+          const valueArray = Array.isArray(val) ? val : [val];
 
-        const isValueSame = this.checkSame(valueArray, this.selectedDate);
-        if (!isValueSame) {
-          this.selectedDate = valueArray.filter((date) => !!date).map((date) => dayjs(date.toString()).toDate());
+          const isValueSame = this.checkSame(valueArray, this.selectedDate);
+          if (!isValueSame) {
+            this.selectedDate = valueArray.filter((date) => !!date).map((date) => dayjs(date.toString()).toDate());
+          }
         }
       },
     },
     selectedDate: {
-      deep: true,
       handler(val) {
-        if (val.length === 0) {
-          this.$emit('input', []);
-        } else if (val.length === 2) {
-          const extractedDate = val.map((d) => dayjs(d).toDate());
-          this.$emit('input', extractedDate);
+        if (this.isLoaded) {
+          if (val.length === 0) {
+            this.$emit('input', []);
+          } else if (val.length === 2) {
+            const extractedDate = val.map((d) => dayjs(d).toDate());
+            this.$emit('input', extractedDate);
+          }
         }
       },
     },
   },
   mounted() {
-    this.$nextTick(() => {
+    this.$nextTick(async () => {
       this.activeDate = dayjs(this.initialDate).toDate();
       this.activeDateNext = dayjs(this.initialDate).add(1, 'month').toDate();
 
@@ -110,6 +114,10 @@ export default {
         this.activeDateNext = dayjs(this.activeDate).add(1, 'month').toDate();
         this.selectedDate = this.value.map((date) => dayjs(date.toString()).toDate());
       }
+
+      // have to set this.isLoaded to true with extra nexttick to make the watcher work as expected
+      await this.$nextTick();
+      this.isLoaded = true;
     });
   },
   methods: {

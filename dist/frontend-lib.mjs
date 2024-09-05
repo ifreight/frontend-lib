@@ -293,11 +293,11 @@ var Ce = function() {
   null,
   null
 );
-const M = ye.exports;
+const L = ye.exports;
 const be = {
   name: "ICalendar",
   components: {
-    IcAngleCircle: M
+    IcAngleCircle: L
   },
   props: {
     value: {
@@ -511,11 +511,11 @@ var xe = function() {
   null,
   null
 );
-const Me = Ie.exports;
-const Le = {
+const Le = Ie.exports;
+const Me = {
   name: "ICheckbox",
   components: {
-    IcCheck: Me
+    IcCheck: Le
   },
   props: {
     value: Boolean,
@@ -551,7 +551,7 @@ var Ve = function() {
     return [i("span", [e._v(e._s(e.label))])];
   })], 2);
 }, Oe = [], Pe = /* @__PURE__ */ r(
-  Le,
+  Me,
   Ve,
   Oe,
   !1,
@@ -560,7 +560,7 @@ var Ve = function() {
   null,
   null
 );
-const Mr = Pe.exports;
+const Lr = Pe.exports;
 const Te = {
   name: "IcAnglesCircle",
   props: {
@@ -588,7 +588,7 @@ var Be = function() {
 );
 const Re = He.exports, Ne = {
   components: {
-    IcAngleCircle: M,
+    IcAngleCircle: L,
     IcAnglesCircle: Re
   },
   props: {
@@ -884,29 +884,34 @@ const Xe = {
   data() {
     return {
       activeDate: void 0,
-      selectedDate: []
+      selectedDate: [],
+      isLoaded: !1
     };
   },
   watch: {
     value: {
       handler(t) {
-        const e = Array.isArray(t) ? t : [t];
-        this.checkSame(e, this.selectedDate) || (this.selectedDate = e.filter((s) => !!s).map((s) => n(s.toString()).toDate()));
+        if (this.isLoaded) {
+          const e = Array.isArray(t) ? t : [t];
+          this.checkSame(e, this.selectedDate) || (this.selectedDate = e.filter((s) => !!s).map((s) => n(s.toString()).toDate()));
+        }
       }
     },
     selectedDate: {
       deep: !0,
       handler(t) {
-        if (t.length === 0) {
-          this.$emit("input", this.pickLimit > 1 ? [] : void 0);
-          return;
-        }
-        if (this.pickLimit <= 1) {
-          const [e] = t;
-          this.$emit("input", n(e.toString()).toDate());
-        } else {
-          const e = t.map((i) => n(i).toDate());
-          this.$emit("input", e);
+        if (this.isLoaded) {
+          if (t.length === 0) {
+            this.$emit("input", this.pickLimit > 1 ? [] : void 0);
+            return;
+          }
+          if (this.pickLimit <= 1) {
+            const [e] = t;
+            this.$emit("input", n(e.toString()).toDate());
+          } else {
+            const e = t.map((i) => n(i).toDate());
+            this.$emit("input", e);
+          }
         }
       }
     }
@@ -918,7 +923,9 @@ const Xe = {
         const [e] = this.value;
         this.activeDate = n(e.toString()).toDate(), this.selectedDate = this.value.map((i) => n(i.toString()).toDate());
       }
-      !t && this.value && (this.activeDate = n(this.value ? this.value.toString() : null).toDate(), this.selectedDate.push(this.activeDate));
+      !t && this.value && (this.activeDate = n(this.value ? this.value.toString() : null).toDate(), this.selectedDate.push(this.activeDate)), this.$nextTick(() => {
+        this.isLoaded = !0;
+      });
     });
   },
   methods: {
@@ -950,7 +957,7 @@ var et = function() {
   null,
   null
 );
-const Lr = it.exports;
+const Mr = it.exports;
 const st = {
   name: "IDateRangePicker",
   components: {
@@ -960,7 +967,8 @@ const st = {
   props: {
     value: {
       type: Array,
-      default: () => null
+      default: () => {
+      }
     },
     pickLimit: {
       type: [Number, String],
@@ -980,34 +988,39 @@ const st = {
       activeDate: void 0,
       activeDateNext: void 0,
       hoverTemporaryDate: void 0,
-      selectedDate: []
+      selectedDate: [],
+      isLoaded: !1
     };
   },
   watch: {
     value: {
       handler(t) {
-        const e = Array.isArray(t) ? t : [t];
-        this.checkSame(e, this.selectedDate) || (this.selectedDate = e.filter((s) => !!s).map((s) => n(s.toString()).toDate()));
+        if (this.isLoaded) {
+          const e = Array.isArray(t) ? t : [t];
+          this.checkSame(e, this.selectedDate) || (this.selectedDate = e.filter((s) => !!s).map((s) => n(s.toString()).toDate()));
+        }
       }
     },
     selectedDate: {
-      deep: !0,
       handler(t) {
-        if (t.length === 0)
-          this.$emit("input", []);
-        else if (t.length === 2) {
-          const e = t.map((i) => n(i).toDate());
-          this.$emit("input", e);
+        if (this.isLoaded) {
+          if (t.length === 0)
+            this.$emit("input", []);
+          else if (t.length === 2) {
+            const e = t.map((i) => n(i).toDate());
+            this.$emit("input", e);
+          }
         }
       }
     }
   },
   mounted() {
-    this.$nextTick(() => {
+    this.$nextTick(async () => {
       if (this.activeDate = n(this.initialDate).toDate(), this.activeDateNext = n(this.initialDate).add(1, "month").toDate(), this.value && this.value.length > 0) {
         const [t] = this.value;
         this.activeDate = n(t.toString()).toDate(), this.activeDateNext = n(this.activeDate).add(1, "month").toDate(), this.selectedDate = this.value.map((e) => n(e.toString()).toDate());
       }
+      await this.$nextTick(), this.isLoaded = !0;
     });
   },
   methods: {
@@ -1317,7 +1330,7 @@ var xt = function() {
   null
 );
 const D = It.exports;
-const Mt = {
+const Lt = {
   name: "IDualInput",
   props: {
     dark: Boolean,
@@ -1359,12 +1372,12 @@ const Mt = {
     }
   }
 };
-var Lt = function() {
+var Mt = function() {
   var e = this, i = e._self._c;
   return i("div", { staticClass: "i-dual-input", class: e.classes }, [i("div", { class: e.firstInputClass, style: e.firstInputStyle }, [e._t("first-input")], 2), i("div", { directives: [{ name: "show", rawName: "v-show", value: !e.hideDivider, expression: "!hideDivider" }], staticClass: "divider" }, [i("span", { staticClass: "vl" }), i("div", { staticClass: "icon" }, [e._t("icon")], 2)]), i("div", { class: e.secondInputClass, style: e.secondInputStyle }, [e._t("second-input")], 2)]);
 }, Vt = [], Ot = /* @__PURE__ */ r(
-  Mt,
   Lt,
+  Mt,
   Vt,
   !1,
   null,
@@ -1442,11 +1455,11 @@ var Nt = function() {
   null,
   null
 );
-const L = jt.exports;
+const M = jt.exports;
 const Yt = {
   name: "IInputTel",
   components: {
-    IcAngle: L,
+    IcAngle: M,
     InputTel: A.component,
     IDualInput: Pt,
     IDropdownOptions: D
@@ -2206,13 +2219,13 @@ var Di = function() {
   null,
   null
 );
-const Ii = Si.exports, Mi = {};
-var Li = function() {
+const Ii = Si.exports, Li = {};
+var Mi = function() {
   var e = this, i = e._self._c;
   return i("svg", { attrs: { width: "14", height: "14", viewBox: "0 0 14 14", fill: "none", xmlns: "http://www.w3.org/2000/svg" } }, [i("path", { attrs: { d: "M11.75 12.2998L6.75 7.2998L11.75 2.2998", stroke: "currentColor", "stroke-width": "2", "stroke-linecap": "square", "stroke-linejoin": "round" } }), i("path", { attrs: { d: "M6.75 12.2998L1.75 7.2998L6.75 2.2998", stroke: "currentColor", "stroke-width": "2", "stroke-linecap": "square", "stroke-linejoin": "round" } })]);
 }, Vi = [], Oi = /* @__PURE__ */ r(
-  Mi,
   Li,
+  Mi,
   Vi,
   !1,
   null,
@@ -2664,10 +2677,10 @@ function Ds(t) {
   return s && (e ? t[b] = i : delete t[b]), a;
 }
 var xs = Ds, Ss = Object.prototype, Is = Ss.toString;
-function Ms(t) {
+function Ls(t) {
   return Is.call(t);
 }
-var Ls = Ms, R = U, Vs = xs, Os = Ls, Ps = "[object Null]", Ts = "[object Undefined]", N = R ? R.toStringTag : void 0;
+var Ms = Ls, R = U, Vs = xs, Os = Ms, Ps = "[object Null]", Ts = "[object Undefined]", N = R ? R.toStringTag : void 0;
 function Bs(t) {
   return t == null ? t === void 0 ? Ts : Ps : N && N in Object(t) ? Vs(t) : Os(t);
 }
@@ -2750,7 +2763,7 @@ const nn = {
     IInputLabel: x,
     IInput: V,
     IDropdownOptions: D,
-    IcAngle: L
+    IcAngle: M
   },
   props: {
     value: {
@@ -3242,7 +3255,7 @@ const qr = yn.exports;
 const bn = {
   name: "ITabs",
   components: {
-    IcAngleCircle: M
+    IcAngleCircle: L
   },
   provide() {
     return {
@@ -3403,7 +3416,7 @@ var xn = function() {
   null
 );
 const zr = In.exports;
-const Mn = {
+const Ln = {
   name: "ITextArea",
   components: {
     IInputLabel: x
@@ -3505,7 +3518,7 @@ const Mn = {
     }
   }
 };
-var Ln = function() {
+var Mn = function() {
   var e = this, i = e._self._c;
   return i("div", { staticClass: "i-textarea", class: e.classes }, [i("i-input-label", { attrs: { label: e.label, "input-id": e.inputId, dark: e.dark, "force-active": e.isLabelActive, disabled: e.readOnly || e.disabled, invalid: e.invalid, top: "" } }, [e.preventEnterKey ? i("textarea", e._b({ ref: "textAreaRef", staticClass: "textarea", attrs: { id: e.inputId, name: e.name, disabled: e.disabled, placeholder: e.placeholder, readonly: e.readOnly, autocomplete: e.autoComplete }, domProps: { value: e.value || "" }, on: { blur: e.onBlur, focus: e.onFocus, input: e.onInput, keydown: [function(s) {
     return !s.type.indexOf("key") && e._k(s.keyCode, "enter", 13, s.key, "Enter") || s.ctrlKey || s.shiftKey || s.altKey || s.metaKey ? null : (s.preventDefault(), e.pressKeyEnter.apply(null, arguments));
@@ -3513,8 +3526,8 @@ var Ln = function() {
     return !s.type.indexOf("key") && e._k(s.keyCode, "enter", 13, s.key, "Enter") || !s.shiftKey || s.ctrlKey || s.altKey || s.metaKey ? null : (s.preventDefault(), e.pressKeyEnterShift.apply(null, arguments));
   }] } }, "textarea", e.$attrs, !1)) : i("textarea", e._b({ ref: "textAreaRef", staticClass: "textarea", attrs: { id: e.inputId, name: e.name, disabled: e.disabled, placeholder: e.placeholder, readonly: e.readOnly, autocomplete: e.autoComplete }, domProps: { value: e.value || "" }, on: { blur: e.onBlur, focus: e.onFocus, input: e.onInput } }, "textarea", e.$attrs, !1))]), e.isTextLimitVisible ? i("span", { staticClass: "i-textarea-limit" }, [e._v(" " + e._s(e.textLength) + "/" + e._s(e.maxTextLength) + " ")]) : e._e()], 1);
 }, Vn = [], On = /* @__PURE__ */ r(
-  Mn,
   Ln,
+  Mn,
   Vn,
   !1,
   null,
@@ -4104,7 +4117,7 @@ const el = va.exports;
 const ma = {
   name: "IAccordionItem",
   components: {
-    IcAngle: L
+    IcAngle: M
   },
   inject: ["provideData", "handleClickEvent"],
   props: {
@@ -4212,15 +4225,15 @@ var xa = function() {
   null,
   null
 );
-const sl = Ia.exports, Ma = {
+const sl = Ia.exports, La = {
   name: "IcFileDoc"
 };
-var La = function() {
+var Ma = function() {
   var e = this, i = e._self._c;
   return i("svg", { attrs: { width: "10", height: "12", viewBox: "0 0 10 12", fill: "none", xmlns: "http://www.w3.org/2000/svg" } }, [i("path", { attrs: { "fill-rule": "evenodd", "clip-rule": "evenodd", d: "M0.488155 0.47928C0.800716 0.172402 1.22464 0 1.66667 0H5.55556C5.7029 0 5.84421 0.0574674 5.94839 0.15976L9.83728 3.97794C9.94147 4.08023 10 4.21897 10 4.36364V10.3636C10 10.7976 9.82441 11.2138 9.51185 11.5207C9.19928 11.8276 8.77536 12 8.33333 12H1.66667C1.22464 12 0.800716 11.8276 0.488155 11.5207C0.175595 11.2138 0 10.7976 0 10.3636V1.63636C0 1.20237 0.175595 0.786158 0.488155 0.47928ZM1.66667 1.09091C1.51932 1.09091 1.37802 1.14838 1.27383 1.25067C1.16964 1.35296 1.11111 1.4917 1.11111 1.63636V10.3636C1.11111 10.5083 1.16964 10.647 1.27383 10.7493C1.37802 10.8516 1.51932 10.9091 1.66667 10.9091H8.33333C8.48068 10.9091 8.62198 10.8516 8.72617 10.7493C8.83036 10.647 8.88889 10.5083 8.88889 10.3636V4.58957L5.32544 1.09091H1.66667Z", fill: "black" } }), i("path", { attrs: { "fill-rule": "evenodd", "clip-rule": "evenodd", d: "M5.55556 0C5.86238 0 6.11111 0.248731 6.11111 0.555556V3.88889H9.44444C9.75127 3.88889 10 4.13762 10 4.44444C10 4.75127 9.75127 5 9.44444 5H5.55556C5.24873 5 5 4.75127 5 4.44444V0.555556C5 0.248731 5.24873 0 5.55556 0Z", fill: "black" } })]);
 }, Va = [], Oa = /* @__PURE__ */ r(
-  Ma,
   La,
+  Ma,
   Va,
   !1,
   null,
@@ -4401,9 +4414,9 @@ export {
   Sr as IBox,
   ve as IButton,
   Ir as ICalendar,
-  Mr as ICheckbox,
+  Lr as ICheckbox,
   Vr as IDateRangePicker,
-  Lr as IDatepicker,
+  Mr as IDatepicker,
   Or as IDialog,
   Xr as IDrawer,
   $t as IDropdown,
@@ -4432,10 +4445,10 @@ export {
   ea as ITag,
   Kr as ITextArea,
   Ur as IUpload,
-  L as IcAngle,
-  M as IcAngleCircle,
+  M as IcAngle,
+  L as IcAngleCircle,
   il as IcArrowCircle,
-  Me as IcCheck,
+  Le as IcCheck,
   Gt as IcClock,
   sl as IcDepot,
   _l as IcDoubleCheck,
