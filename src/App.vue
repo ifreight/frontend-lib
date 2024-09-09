@@ -1142,7 +1142,7 @@ export default {
       dateMultiple: [],
       dateRange: undefined,
       dateRange2: [],
-      dateRange3: [],
+      dateRange3: [undefined, undefined],
       dateRange4: undefined,
       dateRange4Initial: undefined,
       showDatepicker1: false,

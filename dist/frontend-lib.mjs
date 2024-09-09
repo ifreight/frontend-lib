@@ -901,16 +901,17 @@ const Xe = {
       deep: !0,
       handler(t) {
         if (this.isLoaded) {
-          if (t.length === 0) {
+          const e = t.filter((i) => !!i);
+          if (e.length === 0) {
             this.$emit("input", this.pickLimit > 1 ? [] : void 0);
             return;
           }
           if (this.pickLimit <= 1) {
-            const [e] = t;
-            this.$emit("input", n(e.toString()).toDate());
+            const [i] = e;
+            this.$emit("input", n(i.toString()).toDate());
           } else {
-            const e = t.map((i) => n(i).toDate());
-            this.$emit("input", e);
+            const i = e.map((s) => n(s).toDate());
+            this.$emit("input", i);
           }
         }
       }
@@ -921,7 +922,7 @@ const Xe = {
       const t = Array.isArray(this.value);
       if (this.activeDate = n(this.initialDate).toDate(), t && this.value.length > 0) {
         const [e] = this.value;
-        this.activeDate = n(e.toString()).toDate(), this.selectedDate = this.value.map((i) => n(i.toString()).toDate());
+        this.activeDate = n(e ? e.toString() : void 0).toDate(), this.selectedDate = this.value.map((i) => i ? n(i.toString()).toDate() : void 0);
       }
       !t && this.value && (this.activeDate = n(this.value ? this.value.toString() : null).toDate(), this.selectedDate.push(this.activeDate)), this.$nextTick(() => {
         this.isLoaded = !0;
@@ -1018,7 +1019,7 @@ const st = {
     this.$nextTick(async () => {
       if (this.activeDate = n(this.initialDate).toDate(), this.activeDateNext = n(this.initialDate).add(1, "month").toDate(), this.value && this.value.length > 0) {
         const [t] = this.value;
-        this.activeDate = n(t.toString()).toDate(), this.activeDateNext = n(this.activeDate).add(1, "month").toDate(), this.selectedDate = this.value.map((e) => n(e.toString()).toDate());
+        this.activeDate = n(t ? t.toString() : void 0).toDate(), this.activeDateNext = n(this.activeDate).add(1, "month").toDate(), this.selectedDate = this.value.map((e) => e ? n(e.toString()).toDate() : void 0);
       }
       await this.$nextTick(), this.isLoaded = !0;
     });
