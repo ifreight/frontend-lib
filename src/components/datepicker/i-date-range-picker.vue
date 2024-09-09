@@ -110,9 +110,9 @@ export default {
 
       if (this.value && this.value.length > 0) {
         const [first] = this.value;
-        this.activeDate = dayjs(first.toString()).toDate();
+        this.activeDate = dayjs(first ? first.toString() : undefined).toDate();
         this.activeDateNext = dayjs(this.activeDate).add(1, 'month').toDate();
-        this.selectedDate = this.value.map((date) => dayjs(date.toString()).toDate());
+        this.selectedDate = this.value.map((date) => (date ? dayjs(date.toString()).toDate() : undefined));
       }
 
       // have to set this.isLoaded to true with extra nexttick to make the watcher work as expected

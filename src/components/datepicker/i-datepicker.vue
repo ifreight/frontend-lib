@@ -70,16 +70,17 @@ export default {
       deep: true,
       handler(val) {
         if (this.isLoaded) {
-          if (val.length === 0) {
+          const filteredVal = val.filter((item) => !!item);
+          if (filteredVal.length === 0) {
             this.$emit('input', this.pickLimit > 1 ? [] : undefined);
             return;
           }
 
           if (this.pickLimit <= 1) {
-            const [first] = val;
+            const [first] = filteredVal;
             this.$emit('input', dayjs(first.toString()).toDate());
           } else {
-            const extractedDate = val.map((d) => dayjs(d).toDate());
+            const extractedDate = filteredVal.map((d) => dayjs(d).toDate());
             this.$emit('input', extractedDate);
           }
         }
@@ -93,8 +94,8 @@ export default {
 
       if (isArr && this.value.length > 0) {
         const [first] = this.value;
-        this.activeDate = dayjs(first.toString()).toDate();
-        this.selectedDate = this.value.map((date) => dayjs(date.toString()).toDate());
+        this.activeDate = dayjs(first ? first.toString() : undefined).toDate();
+        this.selectedDate = this.value.map((date) => (date ? dayjs(date.toString()).toDate() : undefined));
       }
       if (!isArr && this.value) {
         this.activeDate = dayjs(this.value ? this.value.toString() : null).toDate();
